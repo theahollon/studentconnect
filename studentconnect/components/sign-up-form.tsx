@@ -25,6 +25,11 @@ export function SignUpForm({
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // 🔴 AI generated
+  const [role, setRole] = useState<"user" | "admin">("user");
+  // 🔴 AI generated end
+
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -44,10 +49,17 @@ export function SignUpForm({
         email,
         password,
         options: {
+          // 🔴 AI generated
+          data: {
+            role,
+          },
+          // 🔴 AI generated end
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
+
       if (error) throw error;
+
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
@@ -77,10 +89,9 @@ export function SignUpForm({
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                </div>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -89,10 +100,9 @@ export function SignUpForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="repeat-password">Repeat Password</Label>
-                </div>
+                <Label htmlFor="repeat-password">Repeat Password</Label>
                 <Input
                   id="repeat-password"
                   type="password"
@@ -101,11 +111,36 @@ export function SignUpForm({
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
+
+              {/* 🔴 AI generated */}
+              <div className="grid gap-2">
+                <Label>Role</Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant={role === "user" ? "default" : "outline"}
+                    onClick={() => setRole("user")}
+                  >
+                    User
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={role === "admin" ? "default" : "outline"}
+                    onClick={() => setRole("admin")}
+                  >
+                    Admin
+                  </Button>
+                </div>
+              </div>
+              {/* 🔴 AI generated end */}
+
               {error && <p className="text-sm text-red-500">{error}</p>}
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
             </div>
+
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}
               <Link href="/auth/login" className="underline underline-offset-4">
