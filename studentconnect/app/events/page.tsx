@@ -1,40 +1,23 @@
-import { supabase } from "@/lib/supabase/client";
-import Link from "next/link";
+import { Suspense } from "react";
+import EventsList from "./eventsList";
 
-export default async function EventsPage() {
-    const { data: events, error } = await supabase
-    .from("events")
-    .select("*");
+/**
+ * Events route page component.
+ *
+ * Renders the page heading and defers the events list
+ * rendering to a Suspense boundary so data fetching can
+ * happen asynchronously without blocking the shell.
+ *
+ * @returns The JSX for the events page.
+ */
+export default function EventsPage() {
+  return (
+    <div>
+      <h1 className="text-6xl font-bold">Events</h1>
 
-    if (error) {
-        return <div>Error loading events: {error.message}</div>;
-    }
-
-if (error) {
-        return <div>Failed to load events.</div>;
-    }
-
-    return (
-        <div style={{ display: "grid", gap: 8 }}>
-            {events?.map((event: any) => {
-                const href = `/events/${event.slug ?? event.id}`;
-                return (
-                    <Link
-                        key={event.id}
-                        href={href}
-                        role="button"
-                        style={{
-                            display: "inline-block",
-                            padding: "8px 12px",
-                            borderRadius: 6,
-                            border: "1px solid #ccc",
-                            textDecoration: "none",
-                        }}
-                    >
-                        {event.title}
-                    </Link>
-                );
-            })}
-        </div>
-    );
+      <Suspense fallback={<p>Loading events…</p>}>
+        <EventsList />
+      </Suspense>
+    </div>
+  );
 }
