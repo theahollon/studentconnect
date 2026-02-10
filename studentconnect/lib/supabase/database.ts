@@ -1,27 +1,27 @@
 import { createClient } from './client';
-import {events, event_registration, job_posting, profiles} from './types';
+import { events, event_registration, job_posting, profiles, create_event_input, create_job_input } from './types';
 
-supabase = createClient();
-
-
-export const createEvent(data: create_event_input): Promise<events> {
-    throw new Error("Not implemented");
-};
+const supabase = createClient();
 
 
-export const getEvents(){
-    throw new Error("Not implemented");
-};
-export const registerForEvent(eventId, userId): Promise<event_registration> {
-    throw new Error("Not implemented");
-};
-export const createJobPosting(data: create_job_posting_input): Promise<job_posting> {
-    throw new Error("Not implemented");
-
-}
-export const getJobPosting(){
-    throw new Error("Not implemented");
+export async function createEvent(data: create_event_input): Promise<events> {
+  throw new Error("Not implemented");
 }
 
+export async function getEvents(): Promise<events[]> {
+  throw new Error("Not implemented");
+}
+
+export async function registerForEvent(eventId: string, userId: string): Promise<event_registration> {
+  throw new Error("Not implemented");
+}
+
+export async function createJobPosting(data: create_job_input): Promise<job_posting> {
+  throw new Error("Not implemented");
+}
+
+export async function getJobPostings(): Promise<job_posting[]> {
+  throw new Error("Not implemented");
+}
 
 
