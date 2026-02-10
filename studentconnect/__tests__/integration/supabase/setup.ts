@@ -9,7 +9,7 @@
  * Generert av KI, (ved hjelp av KI)
  */
 
-import { beforeAll, afterAll } from 'vitest';
+import { beforeAll, afterAll } from '@jest/globals';
 
 // Mock miljøvariabler for testing
 beforeAll(() => {

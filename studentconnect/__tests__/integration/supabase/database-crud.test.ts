@@ -10,7 +10,7 @@
  */
 
 
-import { describe, test, expect, beforeEach, afterEach } from 'vitest';
+import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
 import { createClient } from '@/lib/supabase/client';
 import { mockEvent, mockJobPosting, mockProfile, testConfig } from './setup';
 
