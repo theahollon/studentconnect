@@ -1,11 +1,11 @@
 /**
- * Integrasjonstester for Supabase tilkobling
+ * Integration tests for Supabase connection
  * 
- * Disse testene sjekker at Supabase-klientene kan opprettes riktig,
- * miljøvariabler er satt, og at tilkobling til alle database-tabeller
- * fungerer som forventet. Grunnleggende testing av database-tilgang.
+ * These tests verify that Supabase clients can be created correctly,
+ * environment variables are set, and that connections to all database tables
+ * work as expected. Basic testing of database access.
  * 
- * Generert av KI
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
  */
 
 

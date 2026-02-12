@@ -1,13 +1,13 @@
 /**
- * Relasjonelle tester for Supabase database
+ * Relational tests for Supabase database
  *
- * Tester relasjonene mellom tabeller:
- * - Cascading delete: sletting av event sletter også registreringer
- * - Cascading delete: sletting av profile sletter også registreringer
- * - Join queries: henting av event med tilknyttede registreringer
- * - Referanseintegritet: data som er koblet sammen forblir konsistent
+ * Tests the relationships between tables:
+ * - Cascading delete: deleting event also deletes registrations
+ * - Cascading delete: deleting profile also deletes registrations
+ * - Join queries: fetching event with associated registrations
+ * - Referential integrity: linked data remains consistent
  *
- * Generert av KI
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
  */
 
 import { describe, test, expect, afterEach } from "@jest/globals";

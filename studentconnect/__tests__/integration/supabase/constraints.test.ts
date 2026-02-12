@@ -1,13 +1,13 @@
 /**
- * Constraints og validering-tester for Supabase database
+ * Constraints and validation tests for Supabase database
  *
- * Tester at databasen håndterer constraints riktig:
- * - Events: title er påkrevd, resten kan komme senere
- * - Job Postings: title, company, application_url er påkrevd
- * - Profiles: id og role er påkrevd
- * - Event Registrations: event_id og user_id må eksistere, ingen duplisering
+ * Tests that the database handles constraints correctly:
+ * - Events: title is required, rest can be added later
+ * - Job Postings: title, company, application_url are required
+ * - Profiles: id and role are required
+ * - Event Registrations: event_id and user_id must exist, no duplicates
  *
- * Generert av KI
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
  */
 
 import { describe, test, expect, afterEach } from "@jest/globals";

@@ -1,12 +1,12 @@
 /**
- * Setup-fil for Supabase integrasjonstester
+ * Setup file for Supabase integration tests
  *
- * Denne filen setter opp felles konfigurasjon og mock-data som brukes
- * på tvers av alle Supabase-tester. Den sjekker miljøvariabler,
- * definerer timeout-innstillinger og gir testdata for events,
- * jobboppslag og brukerprofiler.
+ * This file sets up common configuration and mock data used
+ * across all Supabase tests. It checks environment variables,
+ * defines timeout settings and provides test data for events,
+ * job postings and user profiles.
  *
- * Generert av KI, (ved hjelp av KI)
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
  */
 
 import { beforeAll, afterAll } from "@jest/globals";

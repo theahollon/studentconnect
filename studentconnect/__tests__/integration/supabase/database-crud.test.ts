@@ -1,12 +1,12 @@
 /**
- * Integrasjonstester for Supabase database CRUD-operasjoner
+ * Integration tests for Supabase database CRUD operations
  *
- * Denne filen tester alle Create, Read, Update, Delete operasjoner
- * for tabellene: events, job_postings, profiles og event_registrations.
- * Testene sjekker at databasen fungerer riktig og håndterer relasjoner
- * mellom tabeller. Hver test rydder automatisk opp etter seg.
+ * This file tests all Create, Read, Update, Delete operations
+ * for the tables: events, job_postings, profiles and event_registrations.
+ * Tests verify that the database functions correctly and handles relations
+ * between tables. Each test automatically cleans up after itself.
  *
- * Generert av KI
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "@jest/globals";

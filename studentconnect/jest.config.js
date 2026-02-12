@@ -1,7 +1,13 @@
+/**
+ * Jest configuration for Next.js application
+ * 
+ * Acknowledgement: Generated with AI assistance from GitHub Copilot.
+ */
+
 const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
-  // Path til Next.js appen for å laste Next.js config og .env filer
+  // Path to the Next.js app to load Next.js config and .env files
   dir: './',
 });
 
