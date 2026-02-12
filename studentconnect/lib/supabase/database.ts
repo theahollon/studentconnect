@@ -37,4 +37,70 @@ export async function getJobPostings(): Promise<job_posting[]> {
     return jobs as job_posting[];
 }
 
+// User Profile Functions
+export async function getUserProfile(userId: string): Promise<profiles | null> {
+    const { data: profile, error } = await supabase
+        .from('profiles')
+        .select()
+        .eq('id', userId)
+        .single();
+    if (error && error.code !== 'PGRST116') throw error; // Ignore "not found" error
+    return profile as profiles | null;
+}
+
+export async function updateUserProfile(userId: string, data: Partial<profiles>): Promise<profiles> {
+    const { data: profile, error } = await supabase
+        .from('profiles')
+        .update(data)
+        .eq('id', userId)
+        .select()
+        .single();
+    if (error) throw error;
+    return profile as profiles;
+}
+
+// Event Registration Functions
+export async function getUserEventRegistrations(userId: string): Promise<event_registration[]> {
+    const { data: registrations, error } = await supabase
+        .from('event_registration')
+        .select(`
+            *,
+            events (*)
+        `)
+        .eq('user_id', userId);
+    if (error) throw error;
+    return registrations as event_registration[];
+}
+
+export async function isUserRegisteredForEvent(eventId: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from('event_registration')
+        .select('id')
+        .eq('event_id', eventId)
+        .eq('user_id', userId)
+        .single();
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+}
+
+export async function unregisterFromEvent(eventId: string, userId: string): Promise<void> {
+    const { error } = await supabase
+        .from('event_registration')
+        .delete()
+        .eq('event_id', eventId)
+        .eq('user_id', userId);
+    if (error) throw error;
+}
+
+// More detailed event queries
+export async function getEventById(eventId: string): Promise<events | null> {
+    const { data: event, error } = await supabase
+        .from('events')
+        .select()
+        .eq('id', eventId)
+        .single();
+    if (error && error.code !== 'PGRST116') throw error;
+    return event as events | null;
+}
+
 
