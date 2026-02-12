@@ -29,7 +29,7 @@ export default async function EventsPage() {
     return (
         <div style={{ display: "grid" }}>
             {events?.map((event: any) => {
-                const href = `/events/${event.slug ?? event.id}`;
+                const href = `/events/${event.id}`;
                 return (
                     <Link
                         key={event.id}
