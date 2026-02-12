@@ -1,23 +1,24 @@
 /**
  * Unit tests for event utility functions and validation
- * 
+ *
  * Acknowledgement: Created with AI assistance from GitHub Copilot.
- * 
+ *
  * Note: Database CRUD operations are tested in integration tests.
  * Unit tests focus on business logic, validation, and error handling.
  */
 
-import { describe, test, expect } from '@jest/globals';
+import { describe, test, expect } from "@jest/globals";
 
 describe("Event Business Logic Tests", () => {
   describe("Event ID validation", () => {
     test("should validate UUID format for event IDs", () => {
       const validUUID = "123e4567-e89b-12d3-a456-426614174000";
       const invalidUUID = "not-a-uuid";
-      
+
       // UUID validation pattern
-      const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-      
+      const uuidPattern =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
       expect(uuidPattern.test(validUUID)).toBe(true);
       expect(uuidPattern.test(invalidUUID)).toBe(false);
     });
@@ -26,7 +27,7 @@ describe("Event Business Logic Tests", () => {
       const emptyId = "";
       const nullId = null;
       const undefinedId = undefined;
-      
+
       expect(emptyId).toBeFalsy();
       expect(nullId).toBeFalsy();
       expect(undefinedId).toBeFalsy();
@@ -39,14 +40,14 @@ describe("Event Business Logic Tests", () => {
         title: "Test Event",
         description: "A valid event",
         date: new Date().toISOString(),
-        location: "Test Location"
+        location: "Test Location",
       };
 
       const invalidEvent = {
         title: "", // Empty title
         description: null, // Null description
         date: "invalid-date", // Invalid date
-        location: undefined // Undefined location
+        location: undefined, // Undefined location
       };
 
       expect(validEvent.title).toBeTruthy();
@@ -75,7 +76,10 @@ describe("Event Business Logic Tests", () => {
     test("should handle Supabase error codes correctly", () => {
       const notFoundError = { code: "PGRST116", message: "No rows found" };
       const permissionError = { code: "42501", message: "Permission denied" };
-      const connectionError = { code: "ECONNREFUSED", message: "Connection refused" };
+      const connectionError = {
+        code: "ECONNREFUSED",
+        message: "Connection refused",
+      };
 
       // Test error code identification
       expect(notFoundError.code).toBe("PGRST116");
@@ -107,9 +111,15 @@ describe("Event Business Logic Tests", () => {
         }
       };
 
-      expect(createUserFriendlyMessage({ code: "PGRST116" })).toBe("Event not found");
-      expect(createUserFriendlyMessage({ code: "42501" })).toBe("You don't have permission to perform this action");
-      expect(createUserFriendlyMessage({ code: "UNKNOWN" })).toBe("An unexpected error occurred");
+      expect(createUserFriendlyMessage({ code: "PGRST116" })).toBe(
+        "Event not found",
+      );
+      expect(createUserFriendlyMessage({ code: "42501" })).toBe(
+        "You don't have permission to perform this action",
+      );
+      expect(createUserFriendlyMessage({ code: "UNKNOWN" })).toBe(
+        "An unexpected error occurred",
+      );
     });
   });
 
@@ -120,19 +130,19 @@ describe("Event Business Logic Tests", () => {
         title: "  Test Event  ", // With whitespace
         description: "A test event description",
         date: "2026-12-25T10:00:00.000Z",
-        location: "  Test Location  " // With whitespace
+        location: "  Test Location  ", // With whitespace
       };
 
       const formatEventForDisplay = (event: typeof rawEvent) => ({
         ...event,
         title: event.title?.trim(),
         location: event.location?.trim(),
-        formattedDate: new Date(event.date).toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })
+        formattedDate: new Date(event.date).toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
       });
 
       const formattedEvent = formatEventForDisplay(rawEvent);
@@ -146,20 +156,20 @@ describe("Event Business Logic Tests", () => {
       const unsafeInput = {
         title: "<script>alert('xss')</script>Test Event",
         description: "Event with <img src='x' onerror='alert(1)'>",
-        location: "Test & Location"
+        location: "Test & Location",
       };
 
       const sanitizeInput = (input: string) => {
         return input
-          .replace(/<script.*?>.*?<\/script>/gi, '')
-          .replace(/<[^>]*>/g, '')
+          .replace(/<script.*?>.*?<\/script>/gi, "")
+          .replace(/<[^>]*>/g, "")
           .replace(/[<>&"']/g, (char) => {
             const entities: { [key: string]: string } = {
-              '<': '&lt;',
-              '>': '&gt;',
-              '&': '&amp;',
-              '"': '&quot;',
-              "'": '&#x27;'
+              "<": "&lt;",
+              ">": "&gt;",
+              "&": "&amp;",
+              '"': "&quot;",
+              "'": "&#x27;",
             };
             return entities[char] || char;
           });
