@@ -48,8 +48,8 @@ export default function RootLayout({
                     <Image
                       src="/images/StudentConnect2.png"
                       alt="StudentConnect logo"
-                      width={120}
-                      height={120}
+                      width={180}
+                      height={180}
                       className="object-contain"
                     />
                   </Link>

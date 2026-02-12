@@ -26,27 +26,68 @@ export default async function EventsPage() {
         return <div>Error loading events: {error}</div>;
     }
 
+    const now = Date.now();
+    const sortedEvents = [...(events ?? [])].sort((a: any, b: any) => {
+        const aTime = a.start_time ? new Date(a.start_time).getTime() : Number.MAX_SAFE_INTEGER;
+        const bTime = b.start_time ? new Date(b.start_time).getTime() : Number.MAX_SAFE_INTEGER;
+        const aIsFuture = aTime >= now;
+        const bIsFuture = bTime >= now;
+
+        if (aIsFuture && !bIsFuture) return -1;
+        if (!aIsFuture && bIsFuture) return 1;
+
+        return aTime - bTime;
+    });
+
     return (
-        <div style={{ display: "grid" }}>
-            {events?.map((event: any) => {
+        <div style={{ display: "grid", justifyItems: "center" }}>
+            {sortedEvents.map((event: any) => {
                 const href = `/events/${event.slug ?? event.id}`;
+                const startDate = event.start_time
+                    ? new Date(event.start_time).toLocaleDateString("nb-NO", {
+                          day: "numeric",
+                          month: "long",
+                      })
+                    : "";
                 return (
                     <Link
                         key={event.id}
                         href={href}
                         role="button"
                         style={{
-                            display: "inline-block",
-                            padding: "8px 8px 8px 30px",
+                            display: "block",
+                            width: "100%",
+                            maxWidth: 560,
+                            padding: "10px 16px",
                             borderRadius: 6,
                             border: "1px solid #ccc",
-                            margin: "10px",
+                            margin: "10px 0",
                             textDecoration: "none",
-                            fontSize: "32px",
+                            fontSize: "24px",
                             color: "#000",
+                            backgroundColor: "#fff",
                         }}
                     >
-                        {event.title}
+                        <span
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: "16px",
+                            }}
+                        >
+                            <span>{event.title}</span>
+                            {startDate && (
+                                <span
+                                    style={{
+                                        fontSize: "18px",
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    {startDate}
+                                </span>
+                            )}
+                        </span>
                     </Link>
                 );
             })}
