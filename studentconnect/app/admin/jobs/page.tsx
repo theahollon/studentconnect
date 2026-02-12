@@ -1,18 +1,21 @@
-"use client";
-// Sørger for at komponenten kjøres på klienten (trengs fordi vi bruker React hooks)
+// Denne komponenten er utviklet med støtte fra KI-verktøy.
+// Koden er gjennomgått, forstått og tilpasset prosjektets behov.
+
+"use client"; // Sørger for at komponenten kjøres på klienten
 
 import { useMemo, useState } from "react";
+import { createClient } from "@/lib/supabase/client"; // Database: importerer funksjon for å lage Supabase-klient
 
-// TypeScript-type som beskriver dataene i skjemaet (jobbannonse)
+// TypeScript-type som beskriver dataene i skjemaet
 type JobAdDraft = {
-  title: string; // stillingstittel
-  company: string; // arbeidsgiver/bedrift
-  location: string; // sted
-  deadline: string; // date (YYYY-MM-DD)
-  employmentType: string; // type stilling
-  applyUrl: string; // søknadslenke
-  contactEmail: string; // kontakt e-post
-  description: string; // beskrivelse
+  title: string;
+  company: string;
+  location: string;
+  deadline: string;
+  employmentType: string;
+  applyUrl: string;
+  contactEmail: string;
+  description: string;
 };
 
 // Startverdier for skjemaet
@@ -28,6 +31,8 @@ const initial: JobAdDraft = {
 };
 
 export default function NewJobAdPage() {
+  const supabase = createClient();  // Database: oppretter Supabase-klient for å kommunisere med databasen
+
   // State som holder verdiene i skjemaet
   const [draft, setDraft] = useState<JobAdDraft>(initial);
 
@@ -37,7 +42,9 @@ export default function NewJobAdPage() {
   // State for feilmelding ved validering
   const [error, setError] = useState<string | null>(null);
 
-  // Enkel validering: sjekker at tittel, bedrift og frist er fylt inn
+  const [loading, setLoading] = useState(false);
+
+  // Beregner om skjemaet er gyldig
   const isValid = useMemo(() => {
     return (
       draft.title.trim().length > 0 &&
@@ -46,42 +53,54 @@ export default function NewJobAdPage() {
     );
   }, [draft.title, draft.company, draft.deadline]);
 
-  // Oppdaterer en spesifikk verdi i skjema-state
+  // Oppdaterer en spesifikk verdi i state
   function onChange<K extends keyof JobAdDraft>(key: K, value: JobAdDraft[K]) {
     setDraft((p) => ({ ...p, [key]: value }));
   }
 
-  // Kjøres når skjemaet sendes inn
-  function onSubmit(e: React.FormEvent) {
-    e.preventDefault(); // Hindrer side-reload
+  // Håndterer innsending: validerer og lagrer til Supabase
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
     setError(null);
 
-    // Hvis validering feiler
     if (!isValid) {
       setError("Vennligst fyll inn stillingstittel, bedrift og søknadsfrist.");
       return;
     }
 
-    // Lagrer data lokalt (kun frontend)
-    setSubmitted(draft);
+    setLoading(true);
+    try {
+      const { error: insertError } = await supabase.from("job_postings").insert({
+        title: draft.title.trim(),
+        company: draft.company.trim(),
+        description: draft.description.trim() || null,
+        application_url: draft.applyUrl.trim() || null,
+      });
 
-    // Logger data til konsoll (senere kan dette sendes til database)
-    console.log("Jobbannonse-utkast:", draft);
+      if (insertError) throw insertError;
+
+      setSubmitted(draft);
+      console.log("Jobbannonse lagret i Supabase:", draft);
+    } catch (err: any) {
+      console.error(err);
+      setError(err?.message ?? "Kunne ikke lagre jobbannonse i databasen.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <main className="mx-auto max-w-2xl p-6">
+
+
+                                                  {/* UI (frontend) */}
       {/* Sideoverskrift */}
       <h1 className="text-2xl font-semibold">Opprett ny jobbannonse</h1>
 
-      {/* Kort forklaring av siden */}
-      <p className="mt-2 text-sm text-gray-600">
-        Administratorside (kun frontend). Data lagres ikke i databasen ennå.
-      </p>
-
       {/* Skjema for å opprette jobbannonse */}
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        {/* Viser feilmelding hvis noe mangler */}
+
+        {/* Viser feilmelding hvis validering feiler */}
         {error && (
           <div className="rounded border border-red-300 bg-red-50 p-3 text-sm text-red-700">
             {error}
@@ -118,6 +137,7 @@ export default function NewJobAdPage() {
 
         {/* Sted + Frist */}
         <div className="grid gap-4 sm:grid-cols-2">
+          {/* Sted */}
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="location">
               Sted
@@ -131,6 +151,7 @@ export default function NewJobAdPage() {
             />
           </div>
 
+          {/* Søknadsfrist */}
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="deadline">
               Søknadsfrist <span className="text-red-600">*</span>
@@ -165,6 +186,7 @@ export default function NewJobAdPage() {
 
         {/* Søknadslenke + Kontakt */}
         <div className="grid gap-4 sm:grid-cols-2">
+          {/* Søknadslenke */}
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="applyUrl">
               Søknadslenke
@@ -179,6 +201,7 @@ export default function NewJobAdPage() {
             />
           </div>
 
+          {/* Kontakt e-post */}
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="contactEmail">
               Kontakt e-post
@@ -214,7 +237,7 @@ export default function NewJobAdPage() {
           <button
             type="submit"
             className="rounded border px-4 py-2 disabled:opacity-50"
-            disabled={!isValid}
+            disabled={!isValid || loading}  
           >
             Opprett jobbannonse
           </button>
@@ -223,18 +246,20 @@ export default function NewJobAdPage() {
             type="button"
             className="rounded border px-4 py-2"
             onClick={() => {
-              // Nullstiller skjemaet
+              // Tilbakestiller skjemaet
+              // Fjerner preview og feilmelding
               setDraft(initial);
               setSubmitted(null);
               setError(null);
             }}
+            disabled={loading}
           >
             Nullstill
           </button>
         </div>
       </form>
 
-      {/* Viser forhåndsvisning av data etter innsending */}
+      {/* Viser JSON-forhåndsvisning av data etter innsending */}
       {submitted && (
         <section className="mt-8 rounded border p-4">
           <h2 className="text-lg font-medium">Forhåndsvisning</h2>
