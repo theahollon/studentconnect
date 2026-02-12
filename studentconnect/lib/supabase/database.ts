@@ -104,3 +104,15 @@ export async function getEventById(eventId: string): Promise<events | null> {
 }
 
 
+//AI generated code
+export async function deleteEvent(eventId: string): Promise<void> {
+    const { error } = await supabase
+        .from('events')
+        .delete()
+        .eq('id', eventId);
+
+    if (error) throw error;
+}
+
+
+
