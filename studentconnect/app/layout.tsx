@@ -38,31 +38,41 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen bg-gradient-to-br from-mint-50 to-mint-100">
-            <nav className="w-full border-b border-b-foreground/10 h-16 bg-white">
-              <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-3 px-5 text-sm">
-                <div className="flex gap-5 items-center font-semibold">
-                  <Link href="/" className="hover:opacity-80 transition-opacity -ml-10">
+            <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
+              <div className="w-full max-w-6xl mx-auto flex justify-between items-center px-6 py-6">
+                <div className="flex gap-8 items-center">
+                  <Link
+                    href="/"
+                    className="hover:opacity-80 transition-opacity flex-shrink-0"
+                  >
                     <Image
                       src="/images/StudentConnect2.png"
                       alt="StudentConnect logo"
-                      width={160}
-                      height={160}
+                      width={150}
+                      height={150}
                       className="object-contain"
                     />
                   </Link>
-                  <Link
-                    href="/events"
-                    className="hover:underline text-black"
-                  >
-                    Events
-                  </Link>
-                  <Link href="/jobs" className="hover:underline text-black">
-                    Jobs
-                  </Link>
+                  <div className="flex gap-6 items-center font-semibold text-lg">
+                    <Link
+                      href="/events"
+                      className="hover:underline text-black transition-colors hover:text-pink-600"
+                    >
+                      Events
+                    </Link>
+                    <Link
+                      href="/jobs"
+                      className="hover:underline text-black transition-colors hover:text-pink-600"
+                    >
+                      Jobs
+                    </Link>
+                  </div>
                 </div>
-                <Suspense>
-                  <AuthButton />
-                </Suspense>
+                <div className="flex-shrink-0">
+                  <Suspense>
+                    <AuthButton />
+                  </Suspense>
+                </div>
               </div>
             </nav>
             <div className="flex-1">{children}</div>
