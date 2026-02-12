@@ -13,9 +13,12 @@ export default function Home() {
             Connect with opportunities and events for students
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <Link href="/events" className="group p-8 bg-white/70 backdrop-blur-sm border border-mint-200 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300">
+          <Link
+            href="/events"
+            className="group p-8 bg-white/70 backdrop-blur-sm border border-mint-200 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
             <div className="text-center">
               <h3 className="text-2xl font-semibold mb-3 text-mint-800 group-hover:text-mint-600">
                 📅 Events
@@ -25,8 +28,11 @@ export default function Home() {
               </p>
             </div>
           </Link>
-          
-          <Link href="/jobs" className="group p-8 bg-white/70 backdrop-blur-sm border border-mint-200 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300">
+
+          <Link
+            href="/jobs"
+            className="group p-8 bg-white/70 backdrop-blur-sm border border-mint-200 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
             <div className="text-center">
               <h3 className="text-2xl font-semibold mb-3 text-mint-800 group-hover:text-mint-600">
                 💼 Job Opportunities
