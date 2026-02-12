@@ -1,5 +1,5 @@
 import { createClient } from './client';
-import { events, event_registration, job_posting, profiles, create_event_input, create_job_input } from './types';
+import { events, event_registration, job_postings, profiles, create_event_input, create_job_input } from './types';
 
 const supabase = createClient();
 
@@ -25,16 +25,16 @@ export async function registerForEvent(eventId: string, userId: string): Promise
     return registration as event_registration;
 }
 
-export async function createJobPosting(data: create_job_input): Promise<job_posting> {
-  const { data: job, error } = await supabase.from('job_posting').insert(data).select().single();
+export async function createJobListings(data: create_job_input): Promise<job_postings> {
+  const { data: job, error } = await supabase.from('job_postings').insert(data).select().single();
   if (error) throw error;
-  return job as job_posting;
+  return job as job_postings;
 }
 
-export async function getJobPostings(): Promise<job_posting[]> {
-    const { data: jobs, error } = await supabase.from('job_posting').select();
+export async function getJobListings(): Promise<job_postings[]> {
+    const { data: jobs, error } = await supabase.from('job_postings').select();
     if (error) throw error;
-    return jobs as job_posting[];
+    return jobs as job_postings[];
 }
 
 // User Profile Functions
