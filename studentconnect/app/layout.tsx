@@ -39,8 +39,8 @@ export default function RootLayout({
         >
           <div className="min-h-screen bg-gradient-to-br from-mint-50 to-mint-100">
             <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
-              <div className="w-full max-w-6xl mx-auto flex justify-between items-center px-6 py-6">
-                <div className="flex gap-8 items-center">
+              <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-6 py-6 gap-4">
+                <div className="flex gap-8 items-center flex-1">
                   <Link
                     href="/"
                     className="hover:opacity-80 transition-opacity flex-shrink-0"
@@ -48,8 +48,8 @@ export default function RootLayout({
                     <Image
                       src="/images/StudentConnect2.png"
                       alt="StudentConnect logo"
-                      width={150}
-                      height={150}
+                      width={120}
+                      height={120}
                       className="object-contain"
                     />
                   </Link>
@@ -68,7 +68,7 @@ export default function RootLayout({
                     </Link>
                   </div>
                 </div>
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 ml-4">
                   <Suspense>
                     <AuthButton />
                   </Suspense>
