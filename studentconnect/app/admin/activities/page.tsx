@@ -1,7 +1,10 @@
-"use client"; 
-// Sørger for at komponenten kjøres på klienten (trengs fordi vi bruker React hooks)
+// Denne komponenten er utviklet med støtte fra KI-verktøy.
+// Koden er gjennomgått, forstått og tilpasset prosjektets behov.
+
+"use client"; // Sørger for at komponenten kjøres på klienten
 
 import { useMemo, useState } from "react";
+import { createClient } from "@/lib/supabase/client"; // Database: importerer funksjon for å lage Supabase-klient
 
 // TypeScript-type som beskriver dataene i skjemaet
 type ActivityDraft = {
@@ -24,6 +27,8 @@ const initial: ActivityDraft = {
 };
 
 export default function NewActivityPage() {
+  const supabase = createClient();      // Database: oppretter Supabase-klient for å kommunisere med databasen
+  
   // State som holder verdiene i skjemaet
   const [draft, setDraft] = useState<ActivityDraft>(initial);
 
@@ -33,48 +38,63 @@ export default function NewActivityPage() {
   // State for feilmelding ved validering
   const [error, setError] = useState<string | null>(null);
 
-  // Enkel validering: sjekker at tittel og dato/tid er fylt inn
+  // Beregner om skjemaet er gyldig
   const isValid = useMemo(() => {
     return draft.title.trim().length > 0 && draft.startsAt.trim().length > 0;
   }, [draft.title, draft.startsAt]);
 
-  // Oppdaterer en spesifikk verdi i skjema-state
+  // Oppdaterer en spesifikk verdi i skjemaets state
   function onChange<K extends keyof ActivityDraft>(key: K, value: ActivityDraft[K]) {
     setDraft((p) => ({ ...p, [key]: value }));
   }
 
-  // Kjøres når skjemaet sendes inn
-  function onSubmit(e: React.FormEvent) {
-    e.preventDefault(); // Hindrer side-reload
+// Håndterer innsending: validerer og lagrer til Supabase
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
     setError(null);
 
-    // Hvis validering feiler
     if (!isValid) {
       setError("Vennligst fyll inn tittel og dato/tid.");
       return;
     }
 
-    // Lagrer data lokalt (kun frontend)
-    setSubmitted(draft);
+    try {
+      const startTimeIso = new Date(draft.startsAt).toISOString();
 
-    // Logger data til konsoll (senere kan dette sendes til database)
-    console.log("Aktivitetsutkast:", draft);
+      const { error: insertError } = await supabase.from("events").insert({  //Database: data insert i "events" tabellen i Supabase  
+        title: draft.title.trim(),
+        description: draft.description.trim() || null,
+        location: draft.location.trim() || null,
+        start_time: startTimeIso,
+        end_time: null,
+      });
+
+      if (insertError) throw insertError;
+
+      setSubmitted(draft);
+      console.log("Event lagret i Supabase:", draft);
+    } catch (err: any) {
+      console.error(err);
+      setError(err?.message ?? "Kunne ikke lagre event i databasen.");
+    }
   }
 
   return (
     <main className="mx-auto max-w-2xl p-6">
+
+                                
+                                
+                                
+                                             {/* UI (frontend) */}
+
+
       {/* Sideoverskrift */}
       <h1 className="text-2xl font-semibold">Opprett ny aktivitet</h1>
 
-      {/* Kort forklaring av siden */}
-      <p className="mt-2 text-sm text-gray-600">
-        Administratorside (kun frontend). Data lagres ikke i databasen ennå.
-      </p>
-
       {/* Skjema for å opprette aktivitet */}
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
-
-        {/* Viser feilmelding hvis noe mangler */}
+        
+        {/* Viser feilmelding hvis validering feiler */}
         {error && (
           <div className="rounded border border-red-300 bg-red-50 p-3 text-sm text-red-700">
             {error}
@@ -188,7 +208,8 @@ export default function NewActivityPage() {
             type="button"
             className="rounded border px-4 py-2"
             onClick={() => {
-              // Nullstiller skjemaet
+              // Tilbakestiller skjemaet til startverdier
+              // Fjerner preview og feilmelding
               setDraft(initial);
               setSubmitted(null);
               setError(null);
@@ -199,7 +220,7 @@ export default function NewActivityPage() {
         </div>
       </form>
 
-      {/* Viser forhåndsvisning av data etter innsending */}
+      {/* Viser en JSON-forhåndsvisning av data etter innsending */}
       {submitted && (
         <section className="mt-8 rounded border p-4">
           <h2 className="text-lg font-medium">Forhåndsvisning</h2>
