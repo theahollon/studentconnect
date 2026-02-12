@@ -1,25 +1,29 @@
 /**
  * Acknowledgement: Implemented with assistance from GitHub Copilot.
  */
-import { createClient } from "@/lib/supabase/server";
+import { getEvents } from "@/lib/supabase/database";
 import Link from "next/link";
 
 /**
  * Server component that fetches and renders a list of events.
  *
- * Uses the Supabase server client to query the `events` table
+ * Uses the database layer to query events
  * and renders each item as a navigable link.
  *
  * @returns A grid of event links or an error message if fetching fails.
  */
 export default async function EventsPage() {
-    // If env vars aren't configured, show a helpful warning instead of failing.
+    let events;
+    let error;
 
-    const supabase = await createClient();
-    const { data: events, error } = await supabase.from("events").select("*");
+    try {
+        events = await getEvents();
+    } catch (err) {
+        error = err instanceof Error ? err.message : String(err);
+    }
 
     if (error) {
-        return <div>Error loading events: {error.message}</div>;
+        return <div>Error loading events: {error}</div>;
     }
 
     return (
