@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
+import Image from "next/image";
 import { AuthButton } from "@/components/auth-button";
 import { Suspense } from "react";
 import "./globals.css";
@@ -40,8 +41,14 @@ export default function RootLayout({
             <nav className="w-full border-b border-b-foreground/10 h-16 bg-white/80 backdrop-blur-sm">
               <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-3 px-5 text-sm">
                 <div className="flex gap-5 items-center font-semibold">
-                  <Link href="/" className="hover:underline text-mint-800">
-                    StudentConnect
+                  <Link href="/" className="hover:opacity-80 transition-opacity">
+                    <Image
+                      src="/images/studentconnectrikitg.png"
+                      alt="StudentConnect logo"
+                      width={40}
+                      height={40}
+                      className="object-contain"
+                    />
                   </Link>
                   <Link
                     href="/events"
