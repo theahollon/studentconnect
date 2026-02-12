@@ -5,7 +5,7 @@ export interface profiles {
   role: "user" | "admin";
 }
 
-export interface job_posting {
+export interface job_postings {
   id: string;
   title: string;
   description: string;
