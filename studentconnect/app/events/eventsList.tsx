@@ -43,6 +43,7 @@ export default async function EventsPage() {
                             margin: "10px",
                             textDecoration: "none",
                             fontSize: "32px",
+                            color: "#000",
                         }}
                     >
                         {event.title}
