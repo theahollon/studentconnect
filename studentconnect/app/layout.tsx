@@ -37,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-gradient-to-br from-mint-50 to-mint-100">
+          <div className="min-h-screen bg-pink-200">
             <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
               <div className="w-full max-w-6xl mx-auto flex justify-between items-center px-6 py-6">
                 <div className="flex gap-8 items-center">
