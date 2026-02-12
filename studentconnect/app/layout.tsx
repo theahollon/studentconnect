@@ -38,7 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen bg-gradient-to-br from-mint-50 to-mint-100">
-            <nav className="w-full border-b border-b-foreground/10 h-16 bg-white/80 backdrop-blur-sm">
+            <nav className="w-full border-b border-b-foreground/10 h-16 bg-white">
               <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-3 px-5 text-sm">
                 <div className="flex gap-5 items-center font-semibold">
                   <Link href="/" className="hover:opacity-80 transition-opacity -ml-5">
@@ -52,11 +52,11 @@ export default function RootLayout({
                   </Link>
                   <Link
                     href="/events"
-                    className="hover:underline text-mint-700"
+                    className="hover:underline text-black"
                   >
                     Events
                   </Link>
-                  <Link href="/jobs" className="hover:underline text-mint-700">
+                  <Link href="/jobs" className="hover:underline text-black">
                     Jobs
                   </Link>
                 </div>
