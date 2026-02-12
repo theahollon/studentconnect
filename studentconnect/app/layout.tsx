@@ -41,12 +41,12 @@ export default function RootLayout({
             <nav className="w-full border-b border-b-foreground/10 h-16 bg-white">
               <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-3 px-5 text-sm">
                 <div className="flex gap-5 items-center font-semibold">
-                  <Link href="/" className="hover:opacity-80 transition-opacity -ml-5">
+                  <Link href="/" className="hover:opacity-80 transition-opacity -ml-10">
                     <Image
-                      src="/images/studentconnectrikitg.png"
+                      src="/images/StudentConnect2.png"
                       alt="StudentConnect logo"
-                      width={80}
-                      height={80}
+                      width={160}
+                      height={160}
                       className="object-contain"
                     />
                   </Link>
