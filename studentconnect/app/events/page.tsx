@@ -12,7 +12,7 @@ import EventsList from "./eventsList";
  */
 export default function EventsPage() {
   return (
-    <div>
+    <div className="mx-auto max-w-4xl px-6 text-center">
       <h1 className="text-6xl font-bold">Events</h1>
 
       <Suspense fallback={<p>Loading events…</p>}>

@@ -1,58 +1,49 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
+// app/page.tsx
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
+    <main className="flex-1">
+      <section className="max-w-6xl mx-auto p-8">
+        <div className="text-center mb-12 bg-pink-200 p-8 rounded-lg">
+          <h1 className="text-5xl font-bold mb-4 text-black">
+            Welcome to StudentConnect
+          </h1>
+          <p className="text-xl mb-8 text-black">
+            Connect with opportunities and events for students
+          </p>
         </div>
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
-          </p>
-          <ThemeSwitcher />
-        </footer>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <Link
+            href="/events"
+            className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold mb-3 text-black group-hover:text-gray-800">
+                📅 Events
+              </h3>
+              <p className="text-black">
+                Discover upcoming student events and activities
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/jobs"
+            className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold mb-3 text-black group-hover:text-gray-800">
+                💼 Job Opportunities
+              </h3>
+              <p className="text-black">
+                Find internships and job opportunities
+              </p>
+            </div>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
