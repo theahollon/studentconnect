@@ -98,6 +98,7 @@ export default async function JobListingsPage() {
                       color: "#9ca3af",
                       marginBottom: "6px",
                       lineHeight: "1.4",
+                      wordBreak: "break-word",
                     }}
                   >
                     {jobListing.description.substring(0, 100)}
