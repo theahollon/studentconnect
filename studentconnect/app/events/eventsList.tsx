@@ -138,7 +138,7 @@ export default async function EventsPage() {
                       marginTop: "6px",
                     }}
                   >
-                    🔴 Kommende
+                    Kommende
                   </div>
                 )}
               </div>
