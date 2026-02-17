@@ -13,7 +13,7 @@ export default async function JoblistingContent(props: {
 
   return (
     <div className="p-8">
-      <h1 className="text-5xl font-bold">{joblisting.title}</h1>
+      <h1 className="text-5xl font-bold text-gray-900">{joblisting.title}</h1>
 
     {/*
       <p className="text-gray-500 mt-2">
@@ -21,7 +21,7 @@ export default async function JoblistingContent(props: {
       </p>
       */}
 
-      <p className="mt-6 text-lg">
+      <p className="mt-6 text-lg text-gray-700">
         {joblisting.description}
       </p>
 
