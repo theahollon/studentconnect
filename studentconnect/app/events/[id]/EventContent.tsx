@@ -87,7 +87,7 @@ export default async function EventContent(props: {
         {new Date(event.start_time).toLocaleString()}
       </p>
 
-      <p className="mt-6 text-lg">
+      <p className="mt-6 text-lg text-gray-700">
         {event.description}
       </p>
 
