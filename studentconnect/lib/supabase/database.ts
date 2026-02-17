@@ -1,5 +1,12 @@
 import { createClient } from './client';
-import { events, event_registration, job_postings, profiles, create_event_input, create_job_input } from './types';
+import type {
+    events,
+    event_registration,
+    job_postings,
+    profiles,
+    create_event_input,
+    create_job_input
+  } from './types';
 
 const supabase = createClient();
 
