@@ -13,9 +13,9 @@ import JobList from "./jobList";
 export default function JobListingsPage() {
   return (
     <div>
-      <h1 className="text-6xl font-bold">Job Listings</h1>
+      <h1 className="text-6xl font-bold text-center">Job Listings</h1>
 
-      <Suspense fallback={<p>Loading job listings…</p>}>
+      <Suspense fallback={<p className="text-center">Loading job listings…</p>}>
         <JobList />
       </Suspense>
     </div>
