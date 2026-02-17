@@ -61,7 +61,7 @@ export default function RootLayout({
                       Events
                     </Link>
                     <Link
-                      href="/jobs"
+                      href="/joblistings"
                       className="hover:underline text-black transition-colors hover:text-pink-600"
                     >
                       Jobs

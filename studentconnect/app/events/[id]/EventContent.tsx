@@ -13,7 +13,7 @@ export default async function EventContent(props: {
 
   return (
     <div className="p-8">
-      <h1 className="text-5xl font-bold">{event.title}</h1>
+      <h1 className="text-5xl font-bold text-gray-900">{event.title}</h1>
 
       <p className="text-gray-500 mt-2">
         {new Date(event.start_time).toLocaleString()}
