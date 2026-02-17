@@ -21,7 +21,7 @@ export default async function JoblistingContent(props: {
       </p>
       */}
 
-      <p className="mt-6 text-lg text-gray-700">
+      <p className="mt-6 text-lg text-gray-700 break-words">
         {joblisting.description}
       </p>
 

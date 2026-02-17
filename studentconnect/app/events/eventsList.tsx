@@ -113,6 +113,7 @@ export default async function EventsPage() {
                       color: "#9ca3af",
                       marginBottom: "6px",
                       lineHeight: "1.4",
+                      wordBreak: "break-word",
                     }}
                   >
                     {event.description.substring(0, 100)}
