@@ -30,7 +30,7 @@ export default function Home() {
           </Link>
 
           <Link
-            href="/jobs"
+            href="/joblistings"
             className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
           >
             <div className="text-center">
