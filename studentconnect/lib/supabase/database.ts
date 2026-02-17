@@ -1,5 +1,12 @@
 import { createClient } from './client';
-import { events, event_registration, job_postings, profiles, create_event_input, create_job_input } from './types';
+import type {
+    events,
+    event_registration,
+    job_postings,
+    profiles,
+    create_event_input,
+    create_job_input
+  } from './types';
 
 const supabase = createClient();
 
@@ -113,6 +120,32 @@ export async function deleteEvent(eventId: string): Promise<void> {
 
     if (error) throw error;
 }
+
+export async function getJoblistingById(
+    jobId: string
+  ): Promise<job_postings | null> {
+    const { data: job, error } = await supabase
+      .from('job_postings')
+      .select()
+      .eq('id', jobId)
+      .single();
+  
+    if (error && error.code !== 'PGRST116') throw error;
+  
+    return job as job_postings | null;
+  }
+
+  export async function deleteJoblisting(
+    jobId: string
+  ): Promise<void> {
+    const { error } = await supabase
+      .from('job_postings')
+      .delete()
+      .eq('id', jobId);
+  
+    if (error) throw error;
+  }
+  
 
 
 

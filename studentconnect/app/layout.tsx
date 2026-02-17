@@ -13,8 +13,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "StudentConnect",
+  description: "The fastest way to build connect on campus",
 };
 
 const geistSans = Geist({
@@ -61,7 +61,7 @@ export default function RootLayout({
                       Events
                     </Link>
                     <Link
-                      href="/jobs"
+                      href="/joblistings"
                       className="hover:underline text-black transition-colors hover:text-pink-600"
                     >
                       Jobs
