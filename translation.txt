@@ -1,0 +1,7 @@
+for alle komponenter som skal oversettes legg til: 
+
+const { t } = useTranslation('common'); //øverst rett under deklarering av funksjon
+<h1>{t('jobListings')}</h1> {/* Oversatt tekst */} // legg til t('tekst') for all tekst som skal oversettes
+
+all tekst som skal oversettes må legges inn i oversettelsesfilene /public/locales/en/common.json
+eller/og /public/locales/it/common.json
