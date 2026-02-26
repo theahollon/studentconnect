@@ -35,8 +35,26 @@ export default async function JobListingsPage() {
     <div style={{ display: "grid", justifyItems: "center" }}>
       {jobListings?.map((jobListing: any) => {
         const href = `/joblistings/${jobListing.slug ?? jobListing.id}`;
-        const deadline = jobListing.deadline
-          ? new Date(jobListing.deadline).toLocaleDateString("nb-NO", {
+        const deadlineDate = jobListing.application_deadline
+          ? new Date(jobListing.application_deadline)
+          : null;
+
+        // Compare by calendar date in Europe/Oslo to avoid server-timezone drift
+        const dateKey = (d: Date) =>
+          new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Europe/Oslo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(d);
+
+        const todayKey = dateKey(new Date());
+        const deadlineKey = deadlineDate ? dateKey(deadlineDate) : null;
+
+        const isUpcomingDeadline = !!deadlineKey && deadlineKey >= todayKey;
+
+        const applicationDeadline = deadlineDate
+          ? deadlineDate.toLocaleDateString("nb-NO", {
               day: "numeric",
               month: "long",
             })
@@ -116,11 +134,11 @@ export default async function JobListingsPage() {
                   </div>
                 )}
               </div>
-              {deadline && (
+              {applicationDeadline && (
                 <div
                   style={{
                     textAlign: "center",
-                    backgroundColor: "#f3f4f6",
+                    backgroundColor: isUpcomingDeadline ? "#fef3c7" : "#f3f4f6",
                     padding: "8px 12px",
                     borderRadius: "6px",
                     minWidth: "100px",
@@ -133,7 +151,7 @@ export default async function JobListingsPage() {
                       marginBottom: "2px",
                     }}
                   >
-                    Frist
+                    Application deadline
                   </div>
                   <div
                     style={{
@@ -142,7 +160,7 @@ export default async function JobListingsPage() {
                       color: "#374151",
                     }}
                   >
-                    {deadline}
+                    {applicationDeadline}
                   </div>
                 </div>
               )}
