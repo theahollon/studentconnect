@@ -124,9 +124,14 @@ export default function JobAdForm() {
       const payload = {
         title: draft.title.trim(),
         company: draft.company.trim(),
+      
+        location: draft.location.trim() || null,
+        application_deadline: draft.deadline.trim() || null, // "YYYY-MM-DD" fra input type="date"
+        employment_type: draft.employmentType || null,
+        contact_email: draft.contactEmail.trim() || null,
+      
         description: draft.description.trim() || null,
         application_url: draft.applyUrl.trim() || null,
-        // Optional fields can be added here if present in DB schema
       };
 
       // Insert job posting into Supabase
