@@ -1,7 +1,27 @@
-for alle komponenter som skal oversettes legg til: 
+OVERSATTEKST (EN/IT) – KORT GUIDE
 
-const { t } = useTranslation('common'); //øverst rett under deklarering av funksjon
-<h1>{t('jobListings')}</h1> {/* Oversatt tekst */} // legg til t('tekst') for all tekst som skal oversettes
+All tekst som skal oversettes legges inn som “keys” i:
+- /public/locales/en/common.json
+- /public/locales/it/common.json
+Samme key må finnes i begge filer (value = teksten som vises).
 
-all tekst som skal oversettes må legges inn i oversettelsesfilene /public/locales/en/common.json
-eller/og /public/locales/it/common.json
+CLIENT COMPONENTS (filer med "use client")
+Øverst i fila:
+"use client";
+import { t } from "@/lib/i18n/client";
+
+Bruk i JSX:
+<h1>{t("keyword")}</h1>
+
+SERVER COMPONENTS (default i app/, ofte async + datahenting)
+Øverst i fila:
+import { t } from "@/lib/i18n/server";
+
+Hent tekst før JSX (t er async):
+const key = await t("keyword");
+
+Bruk i JSX:
+<h1>{key}</h1>
+
+Ergo: legg keys + oversettelser i common.json-filene, og bruk key i komponentene
+(client: {t("key")}, server: const x = await t("key") -> {x}).
