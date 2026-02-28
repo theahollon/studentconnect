@@ -1,0 +1,27 @@
+OVERSATTEKST (EN/IT) – KORT GUIDE
+
+All tekst som skal oversettes legges inn som “keys” i:
+- /public/locales/en/common.json
+- /public/locales/it/common.json
+Samme key må finnes i begge filer (value = teksten som vises).
+
+CLIENT COMPONENTS (filer med "use client")
+Øverst i fila:
+"use client";
+import { t } from "@/lib/i18n/client";
+
+Bruk i JSX:
+<h1>{t("keyword")}</h1>
+
+SERVER COMPONENTS (default i app/, ofte async + datahenting)
+Øverst i fila:
+import { t } from "@/lib/i18n/server";
+
+Hent tekst før JSX (t er async):
+const key = await t("keyword");
+
+Bruk i JSX:
+<h1>{key}</h1>
+
+Ergo: legg keys + oversettelser i common.json-filene, og bruk key i komponentene
+(client: {t("key")}, server: const x = await t("key") -> {x}).

@@ -4,6 +4,7 @@
 "use client"; // Ensures the component runs on the client (Next.js App Router)
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "next-i18next";
 import { createClient } from "@/lib/supabase/client"; // Supabase client factory
 
 /**
@@ -31,6 +32,7 @@ const initial: ActivityDraft = {
 };
 
 export default function ActivityForm() {
+  const { t } = useTranslation("common");
   // Create Supabase client instance for database operations
   const supabase = createClient();
 
@@ -100,7 +102,7 @@ export default function ActivityForm() {
 
     // Validate required fields
     if (!isValid) {
-      setError("Please enter a title and date/time.");
+      setError(t("activityForm.validationRequired"));
       return;
     }
 
@@ -134,7 +136,7 @@ export default function ActivityForm() {
       setShowAlert(true);
     } catch (err: any) {
       console.error(err);
-      setError(err?.message ?? "Could not save event to the database.");
+      setError(err?.message ?? t("activityForm.saveError"));
     } finally {
       // Unlock the UI
       setIsSubmitting(false);
@@ -144,7 +146,7 @@ export default function ActivityForm() {
   return (
     <main className="mx-auto max-w-2xl p-6">
       {/* Page heading */}
-      <h1 className="text-2xl font-semibold">Create new activity</h1>
+      <h1 className="text-2xl font-semibold">{t("activityForm.heading")}</h1>
 
       {/* Activity creation form */}
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -158,14 +160,14 @@ export default function ActivityForm() {
         {/* Title (required) */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="title">
-            Title <span className="text-red-600">*</span>
+            {t("activityForm.fields.title")} <span className="text-red-600">*</span>
           </label>
           <input
             id="title"
             className="w-full rounded border px-3 py-2"
             value={draft.title}
             onChange={(e) => onChange("title", e.target.value)}
-            placeholder="e.g. Board game night"
+            placeholder={t("activityForm.placeholders.title")}
             disabled={isSubmitting}
           />
         </div>
@@ -173,7 +175,7 @@ export default function ActivityForm() {
         {/* Description */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="description">
-            Description
+            {t("activityForm.fields.description")}
           </label>
           <textarea
             id="description"
@@ -181,7 +183,7 @@ export default function ActivityForm() {
             value={draft.description}
             onChange={(e) => onChange("description", e.target.value)}
             rows={4}
-            placeholder="Short description of the activity..."
+            placeholder={t("activityForm.placeholders.description")}
             disabled={isSubmitting}
           />
         </div>
@@ -190,7 +192,7 @@ export default function ActivityForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="startsAt">
-              Date and time <span className="text-red-600">*</span>
+              {t("activityForm.fields.dateTime")} <span className="text-red-600">*</span>
             </label>
             <input
               id="startsAt"
@@ -204,14 +206,14 @@ export default function ActivityForm() {
 
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="location">
-              Location
+              {t("activityForm.fields.location")}
             </label>
             <input
               id="location"
               className="w-full rounded border px-3 py-2"
               value={draft.location}
               onChange={(e) => onChange("location", e.target.value)}
-              placeholder="e.g. Room A-201"
+              placeholder={t("activityForm.placeholders.location")}
               disabled={isSubmitting}
             />
           </div>
@@ -221,7 +223,7 @@ export default function ActivityForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="capacity">
-              Number of spots
+              {t("activityForm.fields.spots")}
             </label>
             <input
               id="capacity"
@@ -230,14 +232,14 @@ export default function ActivityForm() {
               className="w-full rounded border px-3 py-2"
               value={draft.capacity}
               onChange={(e) => onChange("capacity", e.target.value)}
-              placeholder="e.g. 30"
+              placeholder={t("activityForm.placeholders.spots")}
               disabled={isSubmitting}
             />
           </div>
 
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="category">
-              Category
+              {t("activityForm.fields.category")}
             </label>
             <select
               id="category"
@@ -246,10 +248,10 @@ export default function ActivityForm() {
               onChange={(e) => onChange("category", e.target.value)}
               disabled={isSubmitting}
             >
-              <option value="general">General</option>
-              <option value="social">Social</option>
-              <option value="sports">Sports</option>
-              <option value="academic">Academic</option>
+              <option value="general">{t("activityForm.categories.general")}</option>
+              <option value="social">{t("activityForm.categories.social")}</option>
+              <option value="sports">{t("activityForm.categories.sports")}</option>
+              <option value="academic">{t("activityForm.categories.academic")}</option>
             </select>
           </div>
         </div>
@@ -262,7 +264,7 @@ export default function ActivityForm() {
             // Disable submit while saving or when the form is invalid
             disabled={!isValid || isSubmitting}
           >
-            {isSubmitting ? "Saving..." : "Create activity"}
+            {isSubmitting ? t("activityForm.buttons.saving") : t("activityForm.buttons.create")}
           </button>
 
           <button
@@ -278,7 +280,7 @@ export default function ActivityForm() {
               closeAlert();
             }}
           >
-            Reset
+            {t("activityForm.buttons.reset")}
           </button>
         </div>
       </form>
@@ -301,9 +303,9 @@ export default function ActivityForm() {
             // Prevent closing when clicking inside the modal content
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-semibold text-gray-900">Success</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t("activityForm.modal.title")}</h3>
             <p className="mt-2 text-sm text-gray-600">
-              Your activity has been successfully created.
+              {t("activityForm.modal.body")}
             </p>
 
             <div className="mt-6 flex justify-end">
@@ -311,7 +313,7 @@ export default function ActivityForm() {
                 className="rounded-md border px-4 py-2 text-sm hover:bg-gray-50"
                 onClick={closeAlert}
               >
-                OK
+                {t("activityForm.modal.ok")}
               </button>
             </div>
           </div>

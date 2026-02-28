@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import JobList from "./jobList";
+import { t } from "@/lib/i18n/server";
 
 /**
  * Job listings route page component.
@@ -11,9 +12,11 @@ import JobList from "./jobList";
  * @returns The JSX for the job listings page.
  */
 export default function JobListingsPage() {
+const title = t("jobListings");
+
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold text-center">Job Listings</h1>
+      <h1 className="text-6xl font-bold text-center">{title}</h1>
 
       <Suspense fallback={<p className="text-center">Loading job listings…</p>}>
             {/*AI generated button:*/}
