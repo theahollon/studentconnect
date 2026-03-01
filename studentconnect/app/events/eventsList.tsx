@@ -3,16 +3,12 @@
  */
 import { getEvents } from "@/lib/supabase/database";
 import Link from "next/link";
+import { getLocale, t } from "@/lib/i18n/server";
 
-/**
- * Server component that fetches and renders a list of events.
- *
- * Uses the database layer to query events
- * and renders each item as a navigable link.
- *
- * @returns A grid of event links or an error message if fetching fails.
- */
-export default async function EventsPage() {
+export default async function EventsList() {
+  const locale = await getLocale();
+  const dateLocale = locale === "it" ? "it-IT" : "en-GB";
+
   let events;
   let error;
 
@@ -23,7 +19,12 @@ export default async function EventsPage() {
   }
 
   if (error) {
-    return <div>Error loading events: {error}</div>;
+    const errorText = await t("eventsList.errorLoading");
+    return (
+      <div>
+        {errorText}: {error}
+      </div>
+    );
   }
 
   const now = Date.now();
@@ -34,6 +35,7 @@ export default async function EventsPage() {
     const bTime = b.start_time
       ? new Date(b.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;
+
     const aIsFuture = aTime >= now;
     const bIsFuture = bTime >= now;
 
@@ -43,132 +45,72 @@ export default async function EventsPage() {
     return aTime - bTime;
   });
 
+  const upcomingText = await t("eventsList.upcoming");
+  const dateLabel = await t("eventsList.dateLabel");
+
   return (
-    <div style={{ display: "grid", justifyItems: "center" }}>
+    <div className="grid justify-items-center">
       {sortedEvents.map((event: any) => {
-        const href = `/events/${event.slug ?? event.id}`;
+        if (!event?.id) return null;
+
+        const href = `/events/${String(event.id)}`;
+
         const startDate = event.start_time
-          ? new Date(event.start_time).toLocaleDateString("nb-NO", {
+          ? new Date(event.start_time).toLocaleDateString(dateLocale, {
               day: "numeric",
               month: "long",
             })
           : "";
+
         const isUpcoming =
           event.start_time &&
           new Date(event.start_time).getTime() >= Date.now();
+
         return (
           <Link
             key={event.id}
             href={href}
-            role="button"
-            style={{
-              display: "block",
-              width: "100%",
-              maxWidth: 560,
-              padding: "16px 20px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              margin: "12px 0",
-              textDecoration: "none",
-              fontSize: "20px",
-              color: "#000",
-              backgroundColor: "#fff",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-            }}
+            className="block w-full max-w-[560px] rounded-lg border border-gray-300 bg-white px-5 py-4 my-3 no-underline text-black shadow-sm hover:shadow transition"
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: "16px",
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <div
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "bold",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {event.title}
-                </div>
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <div className="text-2xl font-bold mb-2">{event.title}</div>
+
                 {event.organizer && (
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      color: "#6b7280",
-                      fontWeight: "600",
-                      marginBottom: "6px",
-                    }}
-                  >
+                  <div className="text-base text-gray-500 font-semibold mb-1.5">
                     {event.organizer}
                   </div>
                 )}
+
                 {event.description && (
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "#9ca3af",
-                      marginBottom: "6px",
-                      lineHeight: "1.4",
-                      wordBreak: "break-word",
-                    }}
-                  >
+                  <div className="text-sm text-gray-400 mb-1.5 break-words leading-snug">
                     {event.description.substring(0, 100)}
                     {event.description.length > 100 ? "..." : ""}
                   </div>
                 )}
+
                 {event.location && (
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "#6b7280",
-                    }}
-                  >
-                    {event.location}
-                  </div>
+                  <div className="text-sm text-gray-500">{event.location}</div>
                 )}
+
                 {isUpcoming && (
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#10b981",
-                      fontWeight: "600",
-                      marginTop: "6px",
-                    }}
-                  >
-                    Kommende
+                  <div className="text-xs text-emerald-500 font-semibold mt-1.5">
+                    {upcomingText}
                   </div>
                 )}
               </div>
+
               {startDate && (
                 <div
+                  className="text-center rounded-md px-3 py-2 min-w-[100px]"
                   style={{
-                    textAlign: "center",
                     backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
-                    padding: "8px 12px",
-                    borderRadius: "6px",
-                    minWidth: "100px",
                   }}
                 >
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#6b7280",
-                      marginBottom: "2px",
-                    }}
-                  >
-                    Dato
+                  <div className="text-xs text-gray-500 mb-0.5">
+                    {dateLabel}
                   </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      color: "#374151",
-                    }}
-                  >
+                  <div className="text-sm font-semibold text-gray-700">
                     {startDate}
                   </div>
                 </div>

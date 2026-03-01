@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import JoblistingContent from "./JoblistingContent";
+import LoadingJoblisting from "./LoadingJoblisting";
 
 export default function JoblistingPage(props: {
   params: Promise<{ id: string }>;
@@ -11,8 +12,10 @@ export default function JoblistingPage(props: {
           <Suspense
             fallback={
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-                <p className="text-lg text-gray-600">Laster jobb...</p>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4" />
+                <p className="text-lg text-gray-600">
+                  <LoadingJoblisting />
+                </p>
               </div>
             }
           >

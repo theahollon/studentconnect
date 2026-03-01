@@ -4,8 +4,8 @@
 "use client"; // Ensures the component runs on the client (Next.js App Router)
 
 import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "next-i18next";
 import { createClient } from "@/lib/supabase/client"; // Supabase client factory
+import { t } from "@/lib/i18n/client";
 
 /**
  * TypeScript type describing the activity form fields
@@ -32,7 +32,6 @@ const initial: ActivityDraft = {
 };
 
 export default function ActivityForm() {
-  const { t } = useTranslation("common");
   // Create Supabase client instance for database operations
   const supabase = createClient();
 

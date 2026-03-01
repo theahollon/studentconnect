@@ -1,4 +1,121 @@
 {
     "jobListings": "Offerte di lavoro",
-    "errorLoading": "Errore durante il caricamento delle offerte di lavoro"
-  }
+    "errorLoading": "Errore durante il caricamento delle offerte di lavoro",
+
+    "activityForm.heading": "Crea attività",
+    "activityForm.validationRequired": "Compila i campi obbligatori (titolo e data/ora).",
+    "activityForm.saveError": "Si è verificato un errore durante il salvataggio. Riprova.",
+  
+    "activityForm.fields.title": "Titolo",
+    "activityForm.fields.description": "Descrizione",
+    "activityForm.fields.dateTime": "Data e ora",
+    "activityForm.fields.location": "Luogo",
+    "activityForm.fields.spots": "Capienza",
+    "activityForm.fields.category": "Categoria",
+  
+    "activityForm.placeholders.title": "es. Serata di giochi da tavolo",
+    "activityForm.placeholders.description": "Aggiungi una breve descrizione (facoltativo)",
+    "activityForm.placeholders.location": "es. Aula A2, edificio principale",
+    "activityForm.placeholders.spots": "es. 30",
+  
+    "activityForm.categories.general": "Generale",
+    "activityForm.categories.social": "Sociale",
+    "activityForm.categories.sports": "Sport",
+    "activityForm.categories.academic": "Accademico",
+  
+    "activityForm.buttons.saving": "Salvataggio…",
+    "activityForm.buttons.create": "Crea",
+    "activityForm.buttons.reset": "Reimposta",
+  
+    "activityForm.modal.title": "Attività creata",
+    "activityForm.modal.body": "La tua attività è stata salvata correttamente.",
+    "activityForm.modal.ok": "OK",
+
+    "admin.activities.checkingPermissions": "Verifica dei permessi…",
+
+    "jobAdForm.heading": "Crea un nuovo annuncio di lavoro",
+
+    "jobAdForm.fields.title": "Titolo della posizione",
+    "jobAdForm.fields.company": "Azienda",
+    "jobAdForm.fields.location": "Luogo",
+    "jobAdForm.fields.deadline": "Scadenza per la candidatura",
+    "jobAdForm.fields.employmentType": "Tipo di impiego",
+    "jobAdForm.fields.applyUrl": "Link per candidarsi",
+    "jobAdForm.fields.contactEmail": "Email di contatto",
+    "jobAdForm.fields.description": "Descrizione",
+  
+    "jobAdForm.placeholders.title": "es. Sviluppatore junior",
+    "jobAdForm.placeholders.company": "es. Acme AS",
+    "jobAdForm.placeholders.location": "es. Trondheim / Ibrido",
+  
+    "jobAdForm.employmentTypes.fulltime": "Tempo pieno",
+    "jobAdForm.employmentTypes.parttime": "Part-time",
+    "jobAdForm.employmentTypes.internship": "Tirocinio",
+    "jobAdForm.employmentTypes.temporary": "Temporaneo",
+  
+    "jobAdForm.actions.creating": "Creazione in corso...",
+    "jobAdForm.actions.create": "Crea annuncio di lavoro",
+    "jobAdForm.actions.reset": "Reimposta",
+  
+    "jobAdForm.modal.successTitle": "Operazione riuscita",
+    "jobAdForm.modal.successBody": "Il tuo annuncio di lavoro è stato creato con successo.",
+    "jobAdForm.modal.ok": "OK",
+  
+    "jobAdForm.errors.missingRequired": "Inserisci titolo, azienda e scadenza per la candidatura.",
+    "jobAdForm.errors.saveFailed": "Impossibile salvare l'annuncio di lavoro nel database.",
+
+    "adminJobAdPage.checkingPermissions": "Verifica dei permessi…",
+
+    "eventsPage.heading": "Eventi",
+    "eventsPage.createButton": "Crea nuovo evento",
+    "eventsPage.loading": "Caricamento eventi…",
+  
+    "eventsList.errorLoading": "Errore durante il caricamento degli eventi",
+    "eventsList.upcoming": "In arrivo",
+    "eventsList.dateLabel": "Data",
+
+    "deleteEventButton.label": "Elimina evento",
+    "eventContent.register": "Iscriviti",
+    "eventContent.withdraw": "Annulla iscrizione",
+
+    "jobList.errorLoading": "Errore durante il caricamento delle offerte di lavoro",
+    "jobList.applicationDeadline": "Scadenza candidatura",
+
+    "jobListingsPage.loading": "Caricamento offerte di lavoro…",
+    "jobListingsPage.createButton": "Crea una nuova offerta di lavoro",
+
+    "protectedLayout.brand": "Next.js Supabase Starter",
+    "protectedLayout.poweredBy": "Powered by",
+  
+    "protectedPage.banner": "This is a protected page that you can only see as an authenticated user",
+    "protectedPage.userDetailsTitle": "Your user details",
+    "protectedPage.nextStepsTitle": "Next steps",
+
+    "rootNav.events": "Eventi",
+    "rootNav.jobs": "Lavori",
+  
+    "home.title": "Benvenuto su StudentConnect",
+    "home.subtitle": "Connettiti con opportunità ed eventi per studenti",
+  
+    "home.cards.events.title": "Eventi",
+    "home.cards.events.body": "Scopri i prossimi eventi e attività per studenti",
+  
+    "home.cards.jobs.title": "Opportunità di lavoro",
+    "home.cards.jobs.body": "Trova tirocini e opportunità di lavoro",
+
+    "deleteJoblistingButton.label": "Elimina offerta di lavoro",
+
+    "joblistingPage.loading": "Caricamento offerta di lavoro…",
+  
+    "joblistingContent.keyInformation": "Informazioni principali",
+    "joblistingContent.location": "Luogo",
+    "joblistingContent.employmentType": "Tipo di impiego",
+    "joblistingContent.applicationDeadline": "Scadenza candidatura",
+    "joblistingContent.contact": "Contatto",
+    "joblistingContent.applyNow": "Candidati ora",
+    "joblistingContent.deadlinePassed": "Scadenza candidatura superata",
+    "joblistingContent.description": "Descrizione"
+
+
+
+}

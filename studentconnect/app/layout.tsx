@@ -8,6 +8,8 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Suspense } from "react";
 import "./globals.css";
 
+import { t } from "@/lib/i18n/server";
+
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -38,58 +40,69 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-pink-200">
-            <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
-              <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-6 py-6 gap-4">
-                <div className="flex gap-8 items-center flex-1">
-                  <Link
-                    href="/"
-                    className="hover:opacity-80 transition-opacity flex-shrink-0"
-                  >
-                    <Image
-                      src="/images/StudentConnect2.png"
-                      alt="StudentConnect logo"
-                      width={180}
-                      height={180}
-                      className="object-contain"
-                    />
-                  </Link>
-
-                  <div className="flex gap-6 items-center font-semibold text-lg">
-                    <Link
-                      href="/events"
-                      className="hover:underline text-black transition-colors hover:text-pink-600"
-                    >
-                      Events
-                    </Link>
-                    <Link
-                      href="/joblistings"
-                      className="hover:underline text-black transition-colors hover:text-pink-600"
-                    >
-                      Jobs
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Språkvelger */}
-                <div className="flex gap-4 items-center">
-                  <Suspense fallback={null}>
-                    <LanguageSwitcher />
-                  </Suspense>
-                </div>
-
-                <div className="flex-shrink-0 ml-4">
-                  <Suspense fallback={null}>
-                    <AuthButton />
-                  </Suspense>
-                </div>
-              </div>
-            </nav>
-
-            <div className="flex-1">{children}</div>
-          </div>
+          <Suspense fallback={null}>
+            <RootShell>{children}</RootShell>
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>
+  );
+}
+
+async function RootShell({ children }: { children: React.ReactNode }) {
+  // ✅ cookies()/t() happens INSIDE Suspense
+  const navEvents = await t("rootNav.events");
+  const navJobs = await t("rootNav.jobs");
+
+  return (
+    <div className="min-h-screen bg-pink-200">
+      <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
+        <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-6 py-6 gap-4">
+          <div className="flex gap-8 items-center flex-1">
+            <Link
+              href="/"
+              className="hover:opacity-80 transition-opacity flex-shrink-0"
+            >
+              <Image
+                src="/images/StudentConnect2.png"
+                alt="StudentConnect logo"
+                width={180}
+                height={180}
+                className="object-contain"
+              />
+            </Link>
+
+            <div className="flex gap-6 items-center font-semibold text-lg">
+              <Link
+                href="/events"
+                className="hover:underline text-black transition-colors hover:text-pink-600"
+              >
+                {navEvents}
+              </Link>
+              <Link
+                href="/joblistings"
+                className="hover:underline text-black transition-colors hover:text-pink-600"
+              >
+                {navJobs}
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <Suspense fallback={null}>
+              <LanguageSwitcher />
+            </Suspense>
+          </div>
+
+          <div className="flex-shrink-0 ml-4">
+            <Suspense fallback={null}>
+              <AuthButton />
+            </Suspense>
+          </div>
+        </div>
+      </nav>
+
+      <div className="flex-1">{children}</div>
+    </div>
   );
 }
