@@ -114,7 +114,84 @@
   "joblistingContent.contact": "Contact",
   "joblistingContent.applyNow": "Apply now",
   "joblistingContent.deadlinePassed": "Application deadline passed",
-  "joblistingContent.description": "Description"
+  "joblistingContent.description": "Description",
+
+  "auth.error.title": "Sorry, something went wrong.",
+  "auth.error.codePrefix": "Code error",
+  "auth.error.unspecified": "An unspecified error occurred.",
+
+  "auth.signUpSuccess.title": "Thank you for signing up!",
+  "auth.signUpSuccess.description": "Check your email to confirm",
+  "auth.signUpSuccess.body": "You've successfully signed up. Please check your email to confirm your account before signing in.",
+
+  "auth.authButton.hey": "Hey",
+  "auth.authButton.signIn": "Sign in",
+  "auth.authButton.signUp": "Sign up",
+
+  "deployButton.label": "Deploy to Vercel",
+
+  "envVarWarning.badge": "Supabase environment variables required",
+  "envVarWarning.signIn": "Sign in",
+  "envVarWarning.signUp": "Sign up",
+
+  "auth.forgotPassword.errorGeneric": "An error occurred",
+
+  "auth.forgotPassword.successTitle": "Check Your Email",
+  "auth.forgotPassword.successDescription": "Password reset instructions sent",
+  "auth.forgotPassword.successBody": "If you registered using your email and password, you will receive a password reset email.",
+
+  "auth.forgotPassword.title": "Reset Your Password",
+  "auth.forgotPassword.description": "Type in your email and we'll send you a link to reset your password",
+  "auth.forgotPassword.email": "Email",
+  "auth.forgotPassword.emailPlaceholder": "m@example.com",
+  "auth.forgotPassword.sending": "Sending...",
+  "auth.forgotPassword.submit": "Send reset email",
+  "auth.forgotPassword.alreadyHaveAccount": "Already have an account?",
+  "auth.forgotPassword.login": "Login",
+
+  "hero.srTitle": "Supabase and Next.js Starter Template",
+  "hero.headlinePrefix": "The fastest way to build apps with",
+  "hero.headlineMiddle": "and",
+
+  "auth.login.title": "Login",
+  "auth.login.description": "Enter your email below to login to your account",
+  "auth.login.email": "Email",
+  "auth.login.emailPlaceholder": "m@example.com",
+  "auth.login.password": "Password",
+  "auth.login.forgotPassword": "Forgot your password?",
+  "auth.login.loggingIn": "Logging in...",
+  "auth.login.submit": "Login",
+  "auth.login.noAccount": "Don't have an account?",
+  "auth.login.signUp": "Sign up",
+  "auth.login.errorGeneric": "An error occurred",
+
+  "auth.logoutButton.logout": "Logout",
+
+  "auth.signUp.title": "Sign up",
+  "auth.signUp.description": "Create a new account",
+  "auth.signUp.email": "Email",
+  "auth.signUp.emailPlaceholder": "m@example.com",
+  "auth.signUp.password": "Password",
+  "auth.signUp.repeatPassword": "Repeat Password",
+
+  "auth.signUp.role": "Role",
+  "auth.signUp.roleUser": "User",
+  "auth.signUp.roleAdmin": "Admin",
+
+  "auth.signUp.passwordsDoNotMatch": "Passwords do not match",
+  "auth.signUp.creatingAccount": "Creating an account...",
+  "auth.signUp.submit": "Sign up",
+  "auth.signUp.alreadyHaveAccount": "Already have an account?",
+  "auth.signUp.login": "Login",
+  "auth.signUp.errorGeneric": "An error occurred",
+
+  "auth.updatePassword.title": "Reset Your Password",
+  "auth.updatePassword.description": "Please enter your new password below.",
+  "auth.updatePassword.newPassword": "New password",
+  "auth.updatePassword.newPasswordPlaceholder": "New password",
+  "auth.updatePassword.saving": "Saving...",
+  "auth.updatePassword.submit": "Save new password",
+  "auth.updatePassword.errorGeneric": "An error occurred"
 
 
 }

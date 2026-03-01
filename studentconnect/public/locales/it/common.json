@@ -87,9 +87,9 @@
     "protectedLayout.brand": "Next.js Supabase Starter",
     "protectedLayout.poweredBy": "Powered by",
   
-    "protectedPage.banner": "This is a protected page that you can only see as an authenticated user",
-    "protectedPage.userDetailsTitle": "Your user details",
-    "protectedPage.nextStepsTitle": "Next steps",
+    "protectedPage.banner": "Questa è una pagina protetta visibile solo agli utenti autenticati",
+    "protectedPage.userDetailsTitle": "I tuoi dati utente",
+    "protectedPage.nextStepsTitle": "Prossimi passi",
 
     "rootNav.events": "Eventi",
     "rootNav.jobs": "Lavori",
@@ -114,7 +114,84 @@
     "joblistingContent.contact": "Contatto",
     "joblistingContent.applyNow": "Candidati ora",
     "joblistingContent.deadlinePassed": "Scadenza candidatura superata",
-    "joblistingContent.description": "Descrizione"
+    "joblistingContent.description": "Descrizione",
+
+    "auth.error.title": "Spiacenti, qualcosa è andato storto.",
+    "auth.error.codePrefix": "Codice errore",
+    "auth.error.unspecified": "Si è verificato un errore non specificato.",
+
+    "auth.signUpSuccess.title": "Grazie per esserti registrato!",
+    "auth.signUpSuccess.description": "Controlla la tua email per confermare",
+    "auth.signUpSuccess.body": "Registrazione completata. Controlla la tua email per confermare l'account prima di accedere.",
+
+    "auth.authButton.hey": "Ciao",
+    "auth.authButton.signIn": "Accedi",
+    "auth.authButton.signUp": "Registrati",
+
+    "deployButton.label": "Distribuisci su Vercel",
+
+    "envVarWarning.badge": "Sono richieste le variabili d'ambiente di Supabase",
+    "envVarWarning.signIn": "Accedi",
+    "envVarWarning.signUp": "Registrati",
+
+    "auth.forgotPassword.errorGeneric": "Si è verificato un errore",
+
+    "auth.forgotPassword.successTitle": "Controlla la tua email",
+    "auth.forgotPassword.successDescription": "Istruzioni per reimpostare la password inviate",
+    "auth.forgotPassword.successBody": "Se ti sei registrato con email e password, riceverai un'email per reimpostare la password.",
+  
+    "auth.forgotPassword.title": "Reimposta la password",
+    "auth.forgotPassword.description": "Inserisci la tua email e ti invieremo un link per reimpostare la password",
+    "auth.forgotPassword.email": "Email",
+    "auth.forgotPassword.emailPlaceholder": "m@example.com",
+    "auth.forgotPassword.sending": "Invio...",
+    "auth.forgotPassword.submit": "Invia email di reimpostazione",
+    "auth.forgotPassword.alreadyHaveAccount": "Hai già un account?",
+    "auth.forgotPassword.login": "Accedi",
+
+    "hero.srTitle": "Template starter Supabase e Next.js",
+    "hero.headlinePrefix": "Il modo più veloce per creare app con",
+    "hero.headlineMiddle": "e",
+
+    "auth.login.title": "Accedi",
+    "auth.login.description": "Inserisci la tua email qui sotto per accedere al tuo account",
+    "auth.login.email": "Email",
+    "auth.login.emailPlaceholder": "m@example.com",
+    "auth.login.password": "Password",
+    "auth.login.forgotPassword": "Hai dimenticato la password?",
+    "auth.login.loggingIn": "Accesso in corso...",
+    "auth.login.submit": "Accedi",
+    "auth.login.noAccount": "Non hai un account?",
+    "auth.login.signUp": "Registrati",
+    "auth.login.errorGeneric": "Si è verificato un errore",
+
+    "auth.logoutButton.logout": "Esci",
+
+    "auth.signUp.title": "Registrati",
+    "auth.signUp.description": "Crea un nuovo account",
+    "auth.signUp.email": "Email",
+    "auth.signUp.emailPlaceholder": "m@example.com",
+    "auth.signUp.password": "Password",
+    "auth.signUp.repeatPassword": "Ripeti password",
+  
+    "auth.signUp.role": "Ruolo",
+    "auth.signUp.roleUser": "Utente",
+    "auth.signUp.roleAdmin": "Admin",
+  
+    "auth.signUp.passwordsDoNotMatch": "Le password non corrispondono",
+    "auth.signUp.creatingAccount": "Creazione dell'account...",
+    "auth.signUp.submit": "Registrati",
+    "auth.signUp.alreadyHaveAccount": "Hai già un account?",
+    "auth.signUp.login": "Accedi",
+    "auth.signUp.errorGeneric": "Si è verificato un errore",
+
+    "auth.updatePassword.title": "Reimposta la password",
+    "auth.updatePassword.description": "Inserisci qui sotto la tua nuova password.",
+    "auth.updatePassword.newPassword": "Nuova password",
+    "auth.updatePassword.newPasswordPlaceholder": "Nuova password",
+    "auth.updatePassword.saving": "Salvataggio...",
+    "auth.updatePassword.submit": "Salva la nuova password",
+    "auth.updatePassword.errorGeneric": "Si è verificato un errore"
 
 
 
