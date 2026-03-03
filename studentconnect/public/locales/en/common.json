@@ -192,7 +192,16 @@
   "auth.updatePassword.newPasswordPlaceholder": "New password",
   "auth.updatePassword.saving": "Saving...",
   "auth.updatePassword.submit": "Save new password",
-  "auth.updatePassword.errorGeneric": "An error occurred"
+  "auth.updatePassword.errorGeneric": "An error occurred",
 
-
+  "adminManage.title": "Manage Admins",
+  "adminManage.users": "Regular Users",
+  "adminManage.noUsers": "No regular users found.",
+  "adminManage.promote": "Make Admin",
+  "adminManage.currentAdmins": "Current Admins",
+  "adminManage.noAdmins": "No admins found.",
+  "adminManage.revoke": "Revoke Admin",
+  "adminManage.cannotRevokeSelf": "You cannot revoke your own admin access.",
+  "adminManage.promoteSuccess": "User has been promoted to admin.",
+  "adminManage.revokeSuccess": "Admin access has been revoked."
 }
