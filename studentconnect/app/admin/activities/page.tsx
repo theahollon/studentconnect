@@ -1,16 +1,26 @@
+import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth";
 import ActivityForm from "./ActivityForm";
-import { Suspense } from "react";
+import { t } from "@/lib/i18n/server";
 
-export default async function Page() {
+export default function Page() {
   return (
-    <Suspense fallback={<p>Checking permissions…</p>}>
-      <AdminGuardWrapper />
+    <Suspense fallback={<p>Loading…</p>}>
+      <AdminActivitiesShell />
     </Suspense>
   );
 }
 
-async function AdminGuardWrapper() {
-  await requireAdmin(); // 🔒 Only admins can access this page
-  return <ActivityForm />;
+async function AdminActivitiesShell() {
+  // 🔒 Only admins can access this page
+  await requireAdmin();
+
+  // ✅ Inside Suspense -> safe to call t() (cookies())
+  const checkingText = await t("admin.activities.checkingPermissions");
+
+  return (
+    <Suspense fallback={<p>{checkingText}</p>}>
+      <ActivityForm />
+    </Suspense>
+  );
 }

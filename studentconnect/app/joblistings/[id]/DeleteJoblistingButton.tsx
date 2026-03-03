@@ -2,6 +2,7 @@
 
 import { deleteJoblisting } from "@/lib/supabase/database";
 import { useRouter } from "next/navigation";
+import { t } from "@/lib/i18n/client";
 
 export default function DeleteJoblistingButton({ id }: { id: string }) {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function DeleteJoblistingButton({ id }: { id: string }) {
       onClick={handleDelete}
       className="mt-10 px-4 py-2 bg-red-600 text-white rounded"
     >
-      Delete Joblisting
+      {t("deleteJoblistingButton.label")}
     </button>
   );
 }

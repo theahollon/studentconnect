@@ -1,16 +1,25 @@
+import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth";
 import JobAdForm from "./JobAdForm";
-import { Suspense } from "react";
+import { t } from "@/lib/i18n/server";
 
-export default async function Page() {
+export default function Page() {
   return (
-    <Suspense fallback={<p>Checking permissions…</p>}>
-      <AdminGuardWrapper />
+    <Suspense fallback={<p>Loading…</p>}>
+      <AdminJobsPage />
     </Suspense>
   );
 }
 
-async function AdminGuardWrapper() {
+async function AdminJobsPage() {
   await requireAdmin(); // 🔒 Only admins can access this page
-  return <JobAdForm />;
+
+  const heading = await t("jobAdForm.heading");
+
+  return (
+    <div>
+
+      <JobAdForm />
+    </div>
+  );
 }

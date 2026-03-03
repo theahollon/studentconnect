@@ -9,6 +9,9 @@ import { useMemo, useState, useEffect } from "react";
 // Supabase client factory
 import { createClient } from "@/lib/supabase/client";
 
+// i18n (client)
+import { t } from "@/lib/i18n/client";
+
 /**
  * Type describing the job posting form data
  */
@@ -110,7 +113,7 @@ export default function JobAdForm() {
 
     // Validate required fields
     if (!isValid) {
-      setError("Please enter job title, company, and application deadline.");
+      setError(t("jobAdForm.errors.missingRequired"));
       return;
     }
 
@@ -124,12 +127,12 @@ export default function JobAdForm() {
       const payload = {
         title: draft.title.trim(),
         company: draft.company.trim(),
-      
+
         location: draft.location.trim() || null,
         application_deadline: draft.deadline.trim() || null, // "YYYY-MM-DD" fra input type="date"
         employment_type: draft.employmentType || null,
         contact_email: draft.contactEmail.trim() || null,
-      
+
         description: draft.description.trim() || null,
         application_url: draft.applyUrl.trim() || null,
       };
@@ -148,7 +151,7 @@ export default function JobAdForm() {
       setShowAlert(true);
     } catch (err: any) {
       console.error(err);
-      setError(err?.message ?? "Could not save job posting to the database.");
+      setError(err?.message ?? t("jobAdForm.errors.saveFailed"));
     } finally {
       setLoading(false);
     }
@@ -159,7 +162,7 @@ export default function JobAdForm() {
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <h1 className="text-2xl font-semibold">Create new job posting</h1>
+      <h1 className="text-2xl font-semibold">{t("jobAdForm.heading")}</h1>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         {/* Error message */}
@@ -172,14 +175,14 @@ export default function JobAdForm() {
         {/* Job title */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="title">
-            Job title <span className="text-red-600">*</span>
+            {t("jobAdForm.fields.title")} <span className="text-red-600">*</span>
           </label>
           <input
             id="title"
             className="w-full rounded border px-3 py-2"
             value={draft.title}
             onChange={(e) => onChange("title", e.target.value)}
-            placeholder="e.g. Junior developer"
+            placeholder={t("jobAdForm.placeholders.title")}
             disabled={loading}
           />
         </div>
@@ -187,14 +190,15 @@ export default function JobAdForm() {
         {/* Company */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="company">
-            Company <span className="text-red-600">*</span>
+            {t("jobAdForm.fields.company")}{" "}
+            <span className="text-red-600">*</span>
           </label>
           <input
             id="company"
             className="w-full rounded border px-3 py-2"
             value={draft.company}
             onChange={(e) => onChange("company", e.target.value)}
-            placeholder="e.g. Acme AS"
+            placeholder={t("jobAdForm.placeholders.company")}
             disabled={loading}
           />
         </div>
@@ -203,21 +207,22 @@ export default function JobAdForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="location">
-              Location
+              {t("jobAdForm.fields.location")}
             </label>
             <input
               id="location"
               className="w-full rounded border px-3 py-2"
               value={draft.location}
               onChange={(e) => onChange("location", e.target.value)}
-              placeholder="e.g. Trondheim / Hybrid"
+              placeholder={t("jobAdForm.placeholders.location")}
               disabled={loading}
             />
           </div>
 
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="deadline">
-              Application deadline <span className="text-red-600">*</span>
+              {t("jobAdForm.fields.deadline")}{" "}
+              <span className="text-red-600">*</span>
             </label>
             <input
               id="deadline"
@@ -233,7 +238,7 @@ export default function JobAdForm() {
         {/* Employment type */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="employmentType">
-            Employment type
+            {t("jobAdForm.fields.employmentType")}
           </label>
           <select
             id="employmentType"
@@ -242,10 +247,18 @@ export default function JobAdForm() {
             onChange={(e) => onChange("employmentType", e.target.value)}
             disabled={loading}
           >
-            <option value="fulltime">Full-time</option>
-            <option value="parttime">Part-time</option>
-            <option value="internship">Internship</option>
-            <option value="temporary">Temporary</option>
+            <option value="fulltime">
+              {t("jobAdForm.employmentTypes.fulltime")}
+            </option>
+            <option value="parttime">
+              {t("jobAdForm.employmentTypes.parttime")}
+            </option>
+            <option value="internship">
+              {t("jobAdForm.employmentTypes.internship")}
+            </option>
+            <option value="temporary">
+              {t("jobAdForm.employmentTypes.temporary")}
+            </option>
           </select>
         </div>
 
@@ -253,7 +266,7 @@ export default function JobAdForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="applyUrl">
-              Application link
+              {t("jobAdForm.fields.applyUrl")}
             </label>
             <input
               id="applyUrl"
@@ -267,7 +280,7 @@ export default function JobAdForm() {
 
           <div className="space-y-1">
             <label className="text-sm font-medium" htmlFor="contactEmail">
-              Contact email
+              {t("jobAdForm.fields.contactEmail")}
             </label>
             <input
               id="contactEmail"
@@ -283,7 +296,7 @@ export default function JobAdForm() {
         {/* Description */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="description">
-            Description
+            {t("jobAdForm.fields.description")}
           </label>
           <textarea
             id="description"
@@ -302,7 +315,9 @@ export default function JobAdForm() {
             className="rounded border px-4 py-2 disabled:opacity-50"
             disabled={submitDisabled}
           >
-            {loading ? "Creating..." : "Create job posting"}
+            {loading
+              ? t("jobAdForm.actions.creating")
+              : t("jobAdForm.actions.create")}
           </button>
 
           <button
@@ -315,7 +330,7 @@ export default function JobAdForm() {
             }}
             disabled={loading}
           >
-            Reset
+            {t("jobAdForm.actions.reset")}
           </button>
         </div>
       </form>
@@ -336,9 +351,11 @@ export default function JobAdForm() {
             ].join(" ")}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-semibold text-gray-900">Success</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {t("jobAdForm.modal.successTitle")}
+            </h3>
             <p className="mt-2 text-sm text-gray-600">
-              Your job posting has been successfully created.
+              {t("jobAdForm.modal.successBody")}
             </p>
 
             <div className="mt-6 flex justify-end">
@@ -346,7 +363,7 @@ export default function JobAdForm() {
                 className="rounded-md border px-4 py-2 text-sm hover:bg-gray-50"
                 onClick={closeAlert}
               >
-                OK
+                {t("jobAdForm.modal.ok")}
               </button>
             </div>
           </div>
@@ -355,5 +372,3 @@ export default function JobAdForm() {
     </main>
   );
 }
-
-

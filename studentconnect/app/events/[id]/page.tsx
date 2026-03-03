@@ -1,5 +1,4 @@
-//AI generated code:
-
+// app/events/[id]/page.tsx
 import { Suspense } from "react";
 import EventContent from "./EventContent";
 
@@ -11,8 +10,8 @@ export default function EventPage(props: { params: Promise<{ id: string }> }) {
           <Suspense
             fallback={
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-                <p className="text-lg text-gray-600">Laster event...</p>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4" />
+                <p className="text-lg text-gray-600">Loading…</p>
               </div>
             }
           >

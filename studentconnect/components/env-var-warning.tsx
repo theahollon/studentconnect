@@ -1,18 +1,21 @@
+"use client";
+
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { t } from "@/lib/i18n/client";
 
 export function EnvVarWarning() {
   return (
     <div className="flex gap-4 items-center">
       <Badge variant={"outline"} className="font-normal">
-        Supabase environment variables required
+        {t("envVarWarning.badge")}
       </Badge>
       <div className="flex gap-2">
         <Button size="sm" variant={"outline"} disabled>
-          Sign in
+          {t("envVarWarning.signIn")}
         </Button>
         <Button size="sm" variant={"default"} disabled>
-          Sign up
+          {t("envVarWarning.signUp")}
         </Button>
       </div>
     </div>

@@ -3,6 +3,7 @@
  */
 import { getJobListings } from "@/lib/supabase/database";
 import Link from "next/link";
+import { getLocale, t } from "@/lib/i18n/server";
 
 /**
  * Server component that fetches and renders a list of job listings.
@@ -13,6 +14,9 @@ import Link from "next/link";
  * @returns A grid of job listing links or an error message if fetching fails.
  */
 export default async function JobListingsPage() {
+  const locale = await getLocale();
+  const dateLocale = locale === "it" ? "it-IT" : "en-GB";
+
   let jobListings;
   let error: string | undefined;
 
@@ -28,8 +32,15 @@ export default async function JobListingsPage() {
   }
 
   if (error) {
-    return <div>Error loading job listings: {error}</div>;
+    const errorText = await t("jobList.errorLoading");
+    return (
+      <div>
+        {errorText}: {error}
+      </div>
+    );
   }
+
+  const deadlineLabel = await t("jobList.applicationDeadline");
 
   return (
     <div style={{ display: "grid", justifyItems: "center" }}>
@@ -54,11 +65,12 @@ export default async function JobListingsPage() {
         const isUpcomingDeadline = !!deadlineKey && deadlineKey >= todayKey;
 
         const applicationDeadline = deadlineDate
-          ? deadlineDate.toLocaleDateString("nb-NO", {
+          ? deadlineDate.toLocaleDateString(dateLocale, {
               day: "numeric",
               month: "long",
             })
           : "";
+
         return (
           <Link
             key={jobListing.id}
@@ -97,6 +109,7 @@ export default async function JobListingsPage() {
                 >
                   {jobListing.title}
                 </div>
+
                 {jobListing.company && (
                   <div
                     style={{
@@ -109,6 +122,7 @@ export default async function JobListingsPage() {
                     {jobListing.company}
                   </div>
                 )}
+
                 {jobListing.description && (
                   <div
                     style={{
@@ -123,6 +137,7 @@ export default async function JobListingsPage() {
                     {jobListing.description.length > 100 ? "..." : ""}
                   </div>
                 )}
+
                 {jobListing.location && (
                   <div
                     style={{
@@ -134,6 +149,7 @@ export default async function JobListingsPage() {
                   </div>
                 )}
               </div>
+
               {applicationDeadline && (
                 <div
                   style={{
@@ -151,7 +167,7 @@ export default async function JobListingsPage() {
                       marginBottom: "2px",
                     }}
                   >
-                    Application deadline
+                    {deadlineLabel}
                   </div>
                   <div
                     style={{
