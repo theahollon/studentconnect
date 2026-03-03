@@ -52,7 +52,7 @@ export function SignUpForm({
 
       if (error) throw error;
 
-      if (data.user) {
+      if (data?.user) {
         await supabase
           .from("profiles")
           .upsert({ id: data.user.id, email: data.user.email, role: "user" });
