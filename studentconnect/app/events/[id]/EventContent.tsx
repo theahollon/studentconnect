@@ -4,6 +4,7 @@ import DeleteEventButton from "./DeleteEventButton";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getLocale, t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 export default async function EventContent(props: {
   params: Promise<{ id: string }>;
@@ -78,6 +79,7 @@ export default async function EventContent(props: {
 
   const registerText = await t("eventContent.register");
   const withdrawText = await t("eventContent.withdraw");
+  const admin = await isAdmin();
 
   return (
     <div className="p-8">
@@ -102,7 +104,7 @@ export default async function EventContent(props: {
         </form>
       )}
 
-      <DeleteEventButton id={event.id} />
+      {admin && <DeleteEventButton id={event.id} />}
     </div>
   );
 }
