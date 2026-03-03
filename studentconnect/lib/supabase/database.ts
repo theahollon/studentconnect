@@ -154,6 +154,15 @@ export async function getAdminList(): Promise<profiles[]> {
   if (error) throw error;
   return admins as profiles[];
 }
+
+export async function getNonAdminList(): Promise<profiles[]> {
+  const { data: users, error } = await supabase
+    .from('profiles')
+    .select()
+    .eq('role', 'user');
+  if (error) throw error;
+  return users as profiles[];
+}
   
 
 
