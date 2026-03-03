@@ -16,8 +16,8 @@ async function EventsShell() {
   const loadingEvents = await t("eventsPage.loading");
 
   return (
-    <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold">{heading}</h1>
+    <div className="mx-auto max-w-4xl px-6 text-center text-black">
+      <h1 className="text-6xl font-bold text-black">{heading}</h1>
 
       {/*AI generated button:*/}
       <div className="mt-10">
