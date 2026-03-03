@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 export default async function Home() {
+  const admin = await isAdmin();
   const title = await t("home.title");
   const subtitle = await t("home.subtitle");
 
@@ -10,7 +12,7 @@ export default async function Home() {
 
   const cardJobsTitle = await t("home.cards.jobs.title");
   const cardJobsBody = await t("home.cards.jobs.body");
-
+  const cardManageAdminsTitle = await t("home.cards.admins.title");
   return (
     <main className="flex-1">
       <section className="max-w-6xl mx-auto p-8">
@@ -43,6 +45,22 @@ export default async function Home() {
               <p className="text-black">{cardJobsBody}</p>
             </div>
           </Link>
+          {admin && (
+            <Link
+              href="/admin/manage-admins"
+              className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold mb-3 text-black group-hover:text-gray-800">
+                  👑 {cardManageAdminsTitle}
+                </h3>
+                <p className="text-black">
+                  {cardManageAdminsTitle}
+                </p>
+              </div>
+            </Link>
+          )}
+
         </div>
       </section>
     </main>

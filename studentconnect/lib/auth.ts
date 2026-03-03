@@ -15,11 +15,22 @@ export async function isAdmin(): Promise<boolean> {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, email")
     .eq("id", user.id)
     .single();
 
-  return !!profile && profile.role === "admin";
+  if (profile) {
+    // Backfill email if missing
+    if (!profile.email && user.email) {
+      await supabase.from("profiles").update({ email: user.email }).eq("id", user.id);
+    }
+    return profile.role === "admin";
+  }
+
+  // Fallback: create profile if it doesn't exist
+  const role = user.user_metadata?.role === "admin" ? "admin" : "user";
+  await supabase.from("profiles").upsert({ id: user.id, role, email: user.email ?? "" });
+  return role === "admin";
 }
 
 // use for restricting access to pages

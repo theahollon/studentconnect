@@ -4,3 +4,4 @@ module.exports = {
       locales: ['en', 'it'], // Legg til språkene du vil støtte
     },
   };
+  

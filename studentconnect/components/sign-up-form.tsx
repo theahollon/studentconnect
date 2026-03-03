@@ -27,10 +27,6 @@ export function SignUpForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 🔴 AI generated
-  const [role, setRole] = useState<"user" | "admin">("user");
-  // 🔴 AI generated end
-
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -46,20 +42,21 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          // 🔴 AI generated
-          data: {
-            role,
-          },
-          // 🔴 AI generated end
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
 
       if (error) throw error;
+
+      if (data?.user) {
+        await supabase
+          .from("profiles")
+          .upsert({ id: data.user.id, email: data.user.email, role: "user" });
+      }
 
       router.push("/auth/sign-up-success");
       router.refresh();
@@ -113,28 +110,6 @@ export function SignUpForm({
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
-
-              {/* 🔴 AI generated */}
-              <div className="grid gap-2">
-                <Label>{t("auth.signUp.role")}</Label>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant={role === "user" ? "default" : "outline"}
-                    onClick={() => setRole("user")}
-                  >
-                    {t("auth.signUp.roleUser")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={role === "admin" ? "default" : "outline"}
-                    onClick={() => setRole("admin")}
-                  >
-                    {t("auth.signUp.roleAdmin")}
-                  </Button>
-                </div>
-              </div>
-              {/* 🔴 AI generated end */}
 
               {error && <p className="text-sm text-red-500">{error}</p>}
 

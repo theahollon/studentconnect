@@ -93,6 +93,7 @@
 
     "rootNav.events": "Eventi",
     "rootNav.jobs": "Lavori",
+    "rootNav.manageAdmins": "Gestisci Amministratori",
   
     "home.title": "Benvenuto su StudentConnect",
     "home.subtitle": "Connettiti con opportunità ed eventi per studenti",
@@ -191,8 +192,18 @@
     "auth.updatePassword.newPasswordPlaceholder": "Nuova password",
     "auth.updatePassword.saving": "Salvataggio...",
     "auth.updatePassword.submit": "Salva la nuova password",
-    "auth.updatePassword.errorGeneric": "Si è verificato un errore"
+    "auth.updatePassword.errorGeneric": "Si è verificato un errore",
 
-
-
+    "home.cards.admins.title": "Gestisci Amministratori",
+    "adminManage.title": "Gestisci Amministratori",
+    "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",
+    "adminManage.users": "Utenti Normali",
+    "adminManage.noUsers": "Nessun utente normale trovato.",
+    "adminManage.promote": "Rendi Amministratore",
+    "adminManage.currentAdmins": "Amministratori Attuali",
+    "adminManage.noAdmins": "Nessun amministratore trovato.",
+    "adminManage.revoke": "Revoca Accesso Admin",
+    "adminManage.cannotRevokeSelf": "Non puoi revocare il tuo stesso accesso amministratore.",
+    "adminManage.promoteSuccess": "L'utente è stato promosso ad amministratore.",
+    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato."
 }

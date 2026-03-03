@@ -17,6 +17,16 @@ export async function GET(request: NextRequest) {
       token_hash,
     });
     if (!error) {
+      // Create profile row if it doesn't exist yet
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase.from("profiles").upsert({
+          id: user.id,
+          role: (user.user_metadata?.role === "admin" ? "admin" : "user") as "admin" | "user",
+          email: user.email ?? "",
+        });
+      }
+
       // redirect user to specified redirect URL or root of app
       redirect(next);
     } else {

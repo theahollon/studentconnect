@@ -142,9 +142,27 @@ export async function getJoblistingById(
       .from('job_postings')
       .delete()
       .eq('id', jobId);
-  
+
     if (error) throw error;
   }
+
+export async function getAdminList(): Promise<profiles[]> {
+  const { data: admins, error } = await supabase
+    .from('profiles')
+    .select()
+    .eq('role', 'admin');
+  if (error) throw error;
+  return admins as profiles[];
+}
+
+export async function getNonAdminList(): Promise<profiles[]> {
+  const { data: users, error } = await supabase
+    .from('profiles')
+    .select()
+    .eq('role', 'user');
+  if (error) throw error;
+  return users as profiles[];
+}
   
 
 
