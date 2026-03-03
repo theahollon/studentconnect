@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import JobList from "./jobList";
 import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 export default function JobListingsPage() {
   return (
@@ -16,11 +17,12 @@ async function JobListingsShell() {
   const title = await t("jobListings"); 
   const loadingText = await t("jobListingsPage.loading");
   const createBtn = await t("jobListingsPage.createButton");
+  const admin = await isAdmin();
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
       <h1 className="text-6xl font-bold text-center">{title}</h1>
-
+      {admin &&
       <div className="mt-10">
         <a
           href="/admin/jobs"
@@ -28,7 +30,7 @@ async function JobListingsShell() {
         >
           {createBtn}
         </a>
-      </div>
+      </div>}
 
       <Suspense fallback={<p>{loadingText}</p>}>
         <JobList />
