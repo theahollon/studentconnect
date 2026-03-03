@@ -4,6 +4,7 @@ import { getJoblistingById } from "@/lib/supabase/database";
 import { notFound } from "next/navigation";
 import DeleteJoblistingButton from "./DeleteJoblistingButton";
 import { getLocale, t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 function formatDate(value: string | null | undefined, dateLocale: string) {
   if (!value) return null;
@@ -69,11 +70,13 @@ export default async function JoblistingContent(props: {
   const applyNowText = await t("joblistingContent.applyNow");
   const deadlinePassedText = await t("joblistingContent.deadlinePassed");
   const descriptionTitle = await t("joblistingContent.description");
+  
 
   // Employment type label: reuse JobAdForm keys if possible
   const employmentTypeText = employment_type
     ? await t(`jobAdForm.employmentTypes.${employment_type}`)
     : null;
+  const admin = await isAdmin();
 
   return (
     <div className="p-8 space-y-8">
@@ -160,7 +163,7 @@ export default async function JoblistingContent(props: {
       )}
 
       <div className="pt-2">
-        <DeleteJoblistingButton id={joblisting.id} />
+        {admin && <DeleteJoblistingButton id={joblisting.id} />}
       </div>
     </div>
   );
