@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import JobList from "./jobList";
 import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 export default function JobListingsPage() {
   return (
@@ -16,6 +17,7 @@ async function JobListingsShell() {
   const title = await t("jobListings"); 
   const loadingText = await t("jobListingsPage.loading");
   const createBtn = await t("jobListingsPage.createButton");
+  const admin = await isAdmin();
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
