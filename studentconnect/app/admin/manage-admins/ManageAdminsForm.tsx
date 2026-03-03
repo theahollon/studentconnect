@@ -119,7 +119,7 @@ export default function ManageAdminsForm({
             {admins.map((admin) => (
               <li key={admin.id} className="flex items-center justify-between px-4 py-3">
                 <div className="flex min-w-0 items-center gap-2">
-                  <span className="truncate text-sm text-gray-600">{admin.id}</span>
+                  <span className="truncate text-sm text-gray-600">{admin.email ?? admin.id}</span>
                   {admin.id === currentUserId && (
                     <span className="flex-shrink-0 rounded-full bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-600">
                       You

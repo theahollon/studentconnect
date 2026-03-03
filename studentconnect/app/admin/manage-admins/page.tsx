@@ -23,6 +23,15 @@ async function ManageAdminsShell() {
 
   const [admins, nonAdmins] = await Promise.all([getAdminList(), getNonAdminList()]);
 
+  // Backfill email for the current user if missing in profiles
+  if (user?.email) {
+    const currentProfile = admins.find((a) => a.id === user.id);
+    if (currentProfile && !currentProfile.email) {
+      await supabase.from("profiles").update({ email: user.email }).eq("id", user.id);
+      currentProfile.email = user.email;
+    }
+  }
+
   return (
     <ManageAdminsForm
       admins={admins}
