@@ -12,7 +12,7 @@ export default async function Home() {
 
   const cardJobsTitle = await t("home.cards.jobs.title");
   const cardJobsBody = await t("home.cards.jobs.body");
-
+  const cardManageAdminsTitle = await t("home.cards.admins.title");
   return (
     <main className="flex-1">
       <section className="max-w-6xl mx-auto p-8">
@@ -52,10 +52,10 @@ export default async function Home() {
             >
               <div className="text-center">
                 <h3 className="text-2xl font-semibold mb-3 text-black group-hover:text-gray-800">
-                  👑 {await t("home.cards.admins.title")}
+                  👑 {cardManageAdminsTitle}
                 </h3>
                 <p className="text-black">
-                  {await t("home.cards.admins.body")}
+                  {cardManageAdminsTitle}
                 </p>
               </div>
             </Link>

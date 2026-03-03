@@ -194,6 +194,7 @@
   "auth.updatePassword.submit": "Save new password",
   "auth.updatePassword.errorGeneric": "An error occurred",
 
+  "home.cards.admins.title": "Manage Admins",
   "adminManage.title": "Manage Admins",
   "adminManage.subtitle": "Grant or revoke admin access for users.",
   "adminManage.users": "Regular Users",
@@ -205,4 +206,5 @@
   "adminManage.cannotRevokeSelf": "You cannot revoke your own admin access.",
   "adminManage.promoteSuccess": "User has been promoted to admin.",
   "adminManage.revokeSuccess": "Admin access has been revoked."
+
 }

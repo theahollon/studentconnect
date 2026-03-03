@@ -194,6 +194,7 @@
     "auth.updatePassword.submit": "Salva la nuova password",
     "auth.updatePassword.errorGeneric": "Si è verificato un errore",
 
+    "home.cards.admins.title": "Gestisci Amministratori",
     "adminManage.title": "Gestisci Amministratori",
     "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",
     "adminManage.users": "Utenti Normali",
