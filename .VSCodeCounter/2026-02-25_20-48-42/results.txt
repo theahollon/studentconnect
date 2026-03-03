@@ -1,0 +1,162 @@
+Date : 2026-02-25 20:48:42
+Directory : /Users/christiansommer/Desktop/PU/group-52
+Total : 89 files,  18036 codes, 417 comments, 767 blanks, all 19220 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          4 |     13,202 |          0 |          3 |     13,205 |
+| TypeScript JSX     |         50 |      2,912 |        231 |        335 |      3,478 |
+| TypeScript         |         19 |      1,525 |        167 |        293 |      1,985 |
+| Markdown           |         10 |        244 |          3 |        116 |        363 |
+| PostCSS            |          1 |         66 |          0 |          3 |         69 |
+| JavaScript         |          4 |         52 |         16 |         16 |         84 |
+| JSON with Comments |          1 |         35 |          0 |          1 |         36 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                           | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                              |         89 |     18,036 |        417 |        767 |     19,220 |
+| . (Files)                                                                                                      |          1 |         11 |          0 |          6 |         17 |
+| .github                                                                                                        |          2 |         45 |          3 |         24 |         72 |
+| .github/templates                                                                                              |          2 |         45 |          3 |         24 |         72 |
+| studentconnect                                                                                                 |         86 |     17,980 |        414 |        737 |     19,131 |
+| studentconnect (Files)                                                                                         |         12 |     13,442 |         25 |         61 |     13,528 |
+| studentconnect/__tests__                                                                                       |         15 |      1,261 |        117 |        258 |      1,636 |
+| studentconnect/__tests__ (Files)                                                                               |          3 |         73 |          0 |         23 |         96 |
+| studentconnect/__tests__/e2e                                                                                   |          1 |          7 |          0 |          4 |         11 |
+| studentconnect/__tests__/integration                                                                           |          6 |        819 |        102 |        150 |      1,071 |
+| studentconnect/__tests__/integration (Files)                                                                   |          1 |          7 |          0 |          4 |         11 |
+| studentconnect/__tests__/integration/supabase                                                                  |          5 |        812 |        102 |        146 |      1,060 |
+| studentconnect/__tests__/unit                                                                                  |          5 |        362 |         15 |         81 |        458 |
+| studentconnect/__tests__/unit/components                                                                       |          1 |          7 |          0 |          4 |         11 |
+| studentconnect/__tests__/unit/utils                                                                            |          4 |        355 |         15 |         77 |        447 |
+| studentconnect/app                                                                                             |         26 |      1,465 |        170 |        192 |      1,827 |
+| studentconnect/app (Files)                                                                                     |          3 |        191 |          1 |         12 |        204 |
+| studentconnect/app/admin                                                                                       |          4 |        511 |        117 |         83 |        711 |
+| studentconnect/app/admin/activities                                                                            |          2 |        239 |         62 |         39 |        340 |
+| studentconnect/app/admin/jobs                                                                                  |          2 |        272 |         55 |         44 |        371 |
+| studentconnect/app/auth                                                                                        |          7 |        142 |          3 |         19 |        164 |
+| studentconnect/app/auth/confirm                                                                                |          1 |         23 |          3 |          5 |         31 |
+| studentconnect/app/auth/error                                                                                  |          1 |         48 |          0 |          4 |         52 |
+| studentconnect/app/auth/forgot-password                                                                        |          1 |         10 |          0 |          2 |         12 |
+| studentconnect/app/auth/login                                                                                  |          1 |         10 |          0 |          2 |         12 |
+| studentconnect/app/auth/sign-up                                                                                |          1 |         10 |          0 |          2 |         12 |
+| studentconnect/app/auth/sign-up-success                                                                        |          1 |         31 |          0 |          2 |         33 |
+| studentconnect/app/auth/update-password                                                                        |          1 |         10 |          0 |          2 |         12 |
+| studentconnect/app/events                                                                                      |          5 |        308 |         22 |         45 |        375 |
+| studentconnect/app/events (Files)                                                                              |          2 |        184 |         21 |         12 |        217 |
+| studentconnect/app/events/[id]                                                                                 |          3 |        124 |          1 |         33 |        158 |
+| studentconnect/app/joblistings                                                                                 |          5 |        222 |         27 |         24 |        273 |
+| studentconnect/app/joblistings (Files)                                                                         |          2 |        161 |         22 |          9 |        192 |
+| studentconnect/app/joblistings/[id]                                                                            |          3 |         61 |          5 |         15 |         81 |
+| studentconnect/app/protected                                                                                   |          2 |         91 |          0 |          9 |        100 |
+| studentconnect/components                                                                                      |         24 |      1,493 |         64 |        141 |      1,698 |
+| studentconnect/components (Files)                                                                              |         12 |        752 |         11 |         61 |        824 |
+| studentconnect/components/tutorial                                                                             |          5 |        334 |         53 |         25 |        412 |
+| studentconnect/components/ui                                                                                   |          7 |        407 |          0 |         55 |        462 |
+| studentconnect/docs                                                                                            |          1 |         50 |          0 |         25 |         75 |
+| studentconnect/lib                                                                                             |          7 |        265 |         38 |         60 |        363 |
+| studentconnect/lib (Files)                                                                                     |          2 |         27 |          2 |         12 |         41 |
+| studentconnect/lib/supabase                                                                                    |          5 |        238 |         36 |         48 |        322 |
+| studentconnect/test-results                                                                                    |          1 |          4 |          0 |          0 |          4 |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                       | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/christiansommer/Desktop/PU/group-52/.github/templates/issue_template.md                                 | Markdown           |         16 |          0 |          7 |         23 |
+| /Users/christiansommer/Desktop/PU/group-52/.github/templates/pull_request_template.md                          | Markdown           |         29 |          3 |         17 |         49 |
+| /Users/christiansommer/Desktop/PU/group-52/README.md                                                           | Markdown           |         11 |          0 |          6 |         17 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/README.md                                            | Markdown           |         77 |          0 |         33 |        110 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/README.md                                  | Markdown           |         30 |          0 |         13 |         43 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/e2e/README.md                              | Markdown           |          7 |          0 |          4 |         11 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/eventsList.test.tsx                        | TypeScript JSX     |         22 |          0 |          5 |         27 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/README.md                      | Markdown           |          7 |          0 |          4 |         11 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/connection.test.ts    | TypeScript         |         97 |          9 |         21 |        127 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/constraints.test.ts   | TypeScript         |        256 |         17 |         35 |        308 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/database-crud.test.ts | TypeScript         |        240 |         24 |         39 |        303 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/relationships.test.ts | TypeScript         |        171 |         35 |         40 |        246 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/setup.ts              | TypeScript         |         48 |         17 |         11 |         76 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/jobList.test.tsx                           | TypeScript JSX     |         21 |          0 |          5 |         26 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/components/README.md                  | Markdown           |          7 |          0 |          4 |         11 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/README.md                       | Markdown           |         10 |          0 |          3 |         13 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/eventRegistration.test.ts       | TypeScript         |        135 |          2 |         33 |        170 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/events.test.ts                  | TypeScript         |        147 |         11 |         26 |        184 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/joblistings.test.ts             | TypeScript         |         63 |          2 |         15 |         80 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/activities/ActivityForm.tsx                | TypeScript JSX     |        225 |         62 |         36 |        323 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/activities/page.tsx                        | TypeScript JSX     |         14 |          0 |          3 |         17 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/jobs/JobAdForm.tsx                         | TypeScript JSX     |        258 |         55 |         42 |        355 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/jobs/page.tsx                              | TypeScript JSX     |         14 |          0 |          2 |         16 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/confirm/route.ts                            | TypeScript         |         23 |          3 |          5 |         31 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/error/page.tsx                              | TypeScript JSX     |         48 |          0 |          4 |         52 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/forgot-password/page.tsx                    | TypeScript JSX     |         10 |          0 |          2 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/login/page.tsx                              | TypeScript JSX     |         10 |          0 |          2 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/sign-up-success/page.tsx                    | TypeScript JSX     |         31 |          0 |          2 |         33 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/sign-up/page.tsx                            | TypeScript JSX     |         10 |          0 |          2 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/update-password/page.tsx                    | TypeScript JSX     |         10 |          0 |          2 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/DeleteEventButton.tsx                | TypeScript JSX     |         18 |          0 |          5 |         23 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/EventContent.tsx                     | TypeScript JSX     |         84 |          0 |         25 |        109 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/page.tsx                             | TypeScript JSX     |         22 |          1 |          3 |         26 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/eventsList.tsx                            | TypeScript JSX     |        164 |         11 |          8 |        183 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/page.tsx                                  | TypeScript JSX     |         20 |         10 |          4 |         34 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/globals.css                                      | PostCSS            |         66 |          0 |          3 |         69 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/DeleteJoblistingButton.tsx      | TypeScript JSX     |         18 |          0 |          5 |         23 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/JoblistingContent.tsx           | TypeScript JSX     |         19 |          5 |          8 |         32 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/page.tsx                        | TypeScript JSX     |         24 |          0 |          2 |         26 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/jobList.tsx                          | TypeScript JSX     |        139 |         12 |          5 |        156 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/page.tsx                             | TypeScript JSX     |         22 |         10 |          4 |         36 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/layout.tsx                                       | TypeScript JSX     |         80 |          0 |          5 |         85 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/page.tsx                                         | TypeScript JSX     |         45 |          1 |          4 |         50 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/protected/layout.tsx                             | TypeScript JSX     |         53 |          0 |          3 |         56 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/app/protected/page.tsx                               | TypeScript JSX     |         38 |          0 |          6 |         44 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components.json                                      | JSON               |         21 |          0 |          1 |         22 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/auth-button.tsx                           | TypeScript JSX     |         24 |          1 |          5 |         30 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/deploy-button.tsx                         | TypeScript JSX     |         24 |          0 |          2 |         26 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/env-var-warning.tsx                       | TypeScript JSX     |         19 |          0 |          2 |         21 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/forgot-password-form.tsx                  | TypeScript JSX     |         99 |          1 |          6 |        106 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/hero.tsx                                  | TypeScript JSX     |         43 |          0 |          2 |         45 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/login-form.tsx                            | TypeScript JSX     |        105 |          1 |          6 |        112 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/logout-button.tsx                         | TypeScript JSX     |         14 |          0 |          5 |         19 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/next-logo.tsx                             | TypeScript JSX     |         46 |          0 |          1 |         47 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/sign-up-form.tsx                          | TypeScript JSX     |        134 |          6 |         17 |        157 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/supabase-logo.tsx                         | TypeScript JSX     |        102 |          0 |          1 |        103 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/theme-switcher.tsx                        | TypeScript JSX     |         70 |          1 |          8 |         79 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/code-block.tsx                   | TypeScript JSX     |         55 |          0 |          7 |         62 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/connect-supabase-steps.tsx       | TypeScript JSX     |         58 |          0 |          5 |         63 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/fetch-data-steps.tsx             | TypeScript JSX     |        154 |          0 |         10 |        164 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/sign-up-user-steps.tsx           | TypeScript JSX     |         38 |         53 |          1 |         92 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/tutorial-step.tsx                | TypeScript JSX     |         29 |          0 |          2 |         31 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/badge.tsx                              | TypeScript JSX     |         31 |          0 |          6 |         37 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/button.tsx                             | TypeScript JSX     |         52 |          0 |          6 |         58 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/card.tsx                               | TypeScript JSX     |         75 |          0 |          9 |         84 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/checkbox.tsx                           | TypeScript JSX     |         26 |          0 |          5 |         31 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/dropdown-menu.tsx                      | TypeScript JSX     |        183 |          0 |         19 |        202 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/input.tsx                              | TypeScript JSX     |         19 |          0 |          4 |         23 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/label.tsx                              | TypeScript JSX     |         21 |          0 |          6 |         27 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/components/update-password-form.tsx                  | TypeScript JSX     |         72 |          1 |          6 |         79 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/docs/commit_message_standard.md                      | Markdown           |         50 |          0 |         25 |         75 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/eslint.config.mjs                                    | JavaScript         |         12 |          0 |          5 |         17 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/jest.config.js                                       | JavaScript         |         24 |          7 |          5 |         36 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/jest.setup.js                                        | JavaScript         |          9 |          8 |          4 |         21 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/auth.ts                                          | TypeScript         |         19 |          1 |          9 |         29 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/client.ts                               | TypeScript         |          7 |          0 |          2 |          9 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/database.ts                             | TypeScript         |        122 |          4 |         26 |        152 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/proxy.ts                                | TypeScript         |         46 |         22 |          9 |         77 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/server.ts                               | TypeScript         |         24 |          8 |          3 |         35 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/types.ts                                | TypeScript         |         39 |          2 |          8 |         49 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/utils.ts                                         | TypeScript         |          8 |          1 |          3 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/next.config.ts                                       | TypeScript         |          8 |          1 |          3 |         12 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/package-lock.json                                    | JSON               |     13,119 |          0 |          1 |     13,120 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/package.json                                         | JSON               |         58 |          0 |          1 |         59 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/postcss.config.mjs                                   | JavaScript         |          7 |          1 |          2 |         10 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/proxy.ts                                             | TypeScript         |         10 |          8 |          3 |         21 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/tailwind.config.ts                                   | TypeScript         |         62 |          0 |          2 |         64 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/test-results/.last-run.json                          | JSON               |          4 |          0 |          0 |          4 |
+| /Users/christiansommer/Desktop/PU/group-52/studentconnect/tsconfig.json                                        | JSON with Comments |         35 |          0 |          1 |         36 |
+| Total                                                                                                          |                    |     18,036 |        417 |        767 |     19,220 |
++----------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
