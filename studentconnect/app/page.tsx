@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 export default async function Home() {
+  const admin = await isAdmin();
   const title = await t("home.title");
   const subtitle = await t("home.subtitle");
 
@@ -43,6 +45,22 @@ export default async function Home() {
               <p className="text-black">{cardJobsBody}</p>
             </div>
           </Link>
+          {admin && (
+            <Link
+              href="/admin/manage-admins"
+              className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold mb-3 text-black group-hover:text-gray-800">
+                  👑 {await t("home.cards.admins.title")}
+                </h3>
+                <p className="text-black">
+                  {await t("home.cards.admins.body")}
+                </p>
+              </div>
+            </Link>
+          )}
+
         </div>
       </section>
     </main>

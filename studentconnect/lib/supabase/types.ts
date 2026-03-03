@@ -3,7 +3,7 @@
 export interface profiles {
   id: string;
   role: "user" | "admin";
-  email?: string;
+  email: string;
 }
 
 export interface job_postings {
