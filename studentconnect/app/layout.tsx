@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import "./globals.css";
 
 import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -53,6 +54,8 @@ async function RootShell({ children }: { children: React.ReactNode }) {
   // ✅ cookies()/t() happens INSIDE Suspense
   const navEvents = await t("rootNav.events");
   const navJobs = await t("rootNav.jobs");
+  const navManageAdmins = await t("rootNav.manageAdmins");
+  const admin = await isAdmin();
 
   return (
     <div className="min-h-screen bg-pink-200">
@@ -85,6 +88,14 @@ async function RootShell({ children }: { children: React.ReactNode }) {
               >
                 {navJobs}
               </Link>
+              {admin && (
+                <Link
+                  href="/admin/manage-admins"
+                  className="hover:underline text-black transition-colors hover:text-pink-600"
+                >
+                  {navManageAdmins}
+                </Link>
+              )}
             </div>
           </div>
 

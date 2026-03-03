@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getAdminList } from "@/lib/supabase/admin-actions";
+import { getAdminList } from "@/lib/supabase/database";
 import ManageAdminsForm from "./ManageAdminsForm";
 
 export default function Page() {
