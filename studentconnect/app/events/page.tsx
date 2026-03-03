@@ -1,37 +1,32 @@
-import { Suspense } from "react";
+import Link from "next/link";
+import { isAdmin } from "@/lib/auth";
 import EventsList from "./eventsList";
 import { t } from "@/lib/i18n/server";
 
-export default function EventsPage() {
-  return (
-    <Suspense fallback={<p>Loading…</p>}>
-      <EventsShell />
-    </Suspense>
-  );
-}
+export default async function EventsPage() {
+  const admin = await isAdmin();
 
-async function EventsShell() {
-  const heading = await t("eventsPage.heading");
-  const createBtn = await t("eventsPage.createButton");
-  const loadingEvents = await t("eventsPage.loading");
+  const title = await t("eventsPage.heading");
+  const createText = await t("eventsPage.createButton");
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold">{heading}</h1>
+      <h1 className="text-6xl font-bold text-center">{title}</h1>
 
-      {/*AI generated button:*/}
-      <div className="mt-10">
-        <a
-          href="/admin/activities"
-          className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
-        >
-          {createBtn}
-        </a>
-      </div>
+      {admin && (
+        <div className="mt-10">
+          <Link
+            href="/admin/activities"
+            className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
+          >
+            {createText}
+          </Link>
+        </div>
+      )}
 
-      <Suspense fallback={<p>{loadingEvents}</p>}>
+      <div className="mt-8">
         <EventsList />
-      </Suspense>
+      </div>
     </div>
   );
 }
