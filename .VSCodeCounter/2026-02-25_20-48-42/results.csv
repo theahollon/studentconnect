@@ -1,0 +1,91 @@
+"filename", "language", "Markdown", "JavaScript", "TypeScript", "JSON", "JSON with Comments", "TypeScript JSX", "PostCSS", "comment", "blank", "total"
+"/Users/christiansommer/Desktop/PU/group-52/.github/templates/issue_template.md", "Markdown", 16, 0, 0, 0, 0, 0, 0, 0, 7, 23
+"/Users/christiansommer/Desktop/PU/group-52/.github/templates/pull_request_template.md", "Markdown", 29, 0, 0, 0, 0, 0, 0, 3, 17, 49
+"/Users/christiansommer/Desktop/PU/group-52/README.md", "Markdown", 11, 0, 0, 0, 0, 0, 0, 0, 6, 17
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/README.md", "Markdown", 77, 0, 0, 0, 0, 0, 0, 0, 33, 110
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/README.md", "Markdown", 30, 0, 0, 0, 0, 0, 0, 0, 13, 43
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/e2e/README.md", "Markdown", 7, 0, 0, 0, 0, 0, 0, 0, 4, 11
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/eventsList.test.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 22, 0, 0, 5, 27
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/README.md", "Markdown", 7, 0, 0, 0, 0, 0, 0, 0, 4, 11
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/connection.test.ts", "TypeScript", 0, 0, 97, 0, 0, 0, 0, 9, 21, 127
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/constraints.test.ts", "TypeScript", 0, 0, 256, 0, 0, 0, 0, 17, 35, 308
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/database-crud.test.ts", "TypeScript", 0, 0, 240, 0, 0, 0, 0, 24, 39, 303
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/relationships.test.ts", "TypeScript", 0, 0, 171, 0, 0, 0, 0, 35, 40, 246
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/integration/supabase/setup.ts", "TypeScript", 0, 0, 48, 0, 0, 0, 0, 17, 11, 76
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/jobList.test.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 21, 0, 0, 5, 26
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/components/README.md", "Markdown", 7, 0, 0, 0, 0, 0, 0, 0, 4, 11
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/README.md", "Markdown", 10, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/eventRegistration.test.ts", "TypeScript", 0, 0, 135, 0, 0, 0, 0, 2, 33, 170
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/events.test.ts", "TypeScript", 0, 0, 147, 0, 0, 0, 0, 11, 26, 184
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/__tests__/unit/utils/joblistings.test.ts", "TypeScript", 0, 0, 63, 0, 0, 0, 0, 2, 15, 80
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/activities/ActivityForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 225, 0, 62, 36, 323
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/activities/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 14, 0, 0, 3, 17
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/jobs/JobAdForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 258, 0, 55, 42, 355
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/admin/jobs/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 14, 0, 0, 2, 16
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/confirm/route.ts", "TypeScript", 0, 0, 23, 0, 0, 0, 0, 3, 5, 31
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/error/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 48, 0, 0, 4, 52
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/forgot-password/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 2, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/login/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 2, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/sign-up-success/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 31, 0, 0, 2, 33
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/sign-up/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 2, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/auth/update-password/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 2, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/DeleteEventButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 18, 0, 0, 5, 23
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/EventContent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 84, 0, 0, 25, 109
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/[id]/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 22, 0, 1, 3, 26
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/eventsList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 164, 0, 11, 8, 183
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/events/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 20, 0, 10, 4, 34
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/globals.css", "PostCSS", 0, 0, 0, 0, 0, 0, 66, 0, 3, 69
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/DeleteJoblistingButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 18, 0, 0, 5, 23
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/JoblistingContent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 19, 0, 5, 8, 32
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/[id]/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 0, 2, 26
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/jobList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 139, 0, 12, 5, 156
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/joblistings/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 22, 0, 10, 4, 36
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 80, 0, 0, 5, 85
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 45, 0, 1, 4, 50
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/protected/layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 53, 0, 0, 3, 56
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/app/protected/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 38, 0, 0, 6, 44
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components.json", "JSON", 0, 0, 0, 21, 0, 0, 0, 0, 1, 22
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/auth-button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 1, 5, 30
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/deploy-button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 0, 2, 26
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/env-var-warning.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 19, 0, 0, 2, 21
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/forgot-password-form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 99, 0, 1, 6, 106
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/hero.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 43, 0, 0, 2, 45
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/login-form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 105, 0, 1, 6, 112
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/logout-button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 14, 0, 0, 5, 19
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/next-logo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 46, 0, 0, 1, 47
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/sign-up-form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 134, 0, 6, 17, 157
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/supabase-logo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 102, 0, 0, 1, 103
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/theme-switcher.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 70, 0, 1, 8, 79
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/code-block.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 55, 0, 0, 7, 62
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/connect-supabase-steps.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 58, 0, 0, 5, 63
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/fetch-data-steps.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 154, 0, 0, 10, 164
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/sign-up-user-steps.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 38, 0, 53, 1, 92
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/tutorial/tutorial-step.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 29, 0, 0, 2, 31
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/badge.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 31, 0, 0, 6, 37
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 52, 0, 0, 6, 58
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/card.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 75, 0, 0, 9, 84
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/checkbox.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 26, 0, 0, 5, 31
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/dropdown-menu.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 183, 0, 0, 19, 202
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/input.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 19, 0, 0, 4, 23
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/ui/label.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 21, 0, 0, 6, 27
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/components/update-password-form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 72, 0, 1, 6, 79
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/docs/commit_message_standard.md", "Markdown", 50, 0, 0, 0, 0, 0, 0, 0, 25, 75
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/eslint.config.mjs", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 5, 17
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/jest.config.js", "JavaScript", 0, 24, 0, 0, 0, 0, 0, 7, 5, 36
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/jest.setup.js", "JavaScript", 0, 9, 0, 0, 0, 0, 0, 8, 4, 21
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/auth.ts", "TypeScript", 0, 0, 19, 0, 0, 0, 0, 1, 9, 29
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/client.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 2, 9
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/database.ts", "TypeScript", 0, 0, 122, 0, 0, 0, 0, 4, 26, 152
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/proxy.ts", "TypeScript", 0, 0, 46, 0, 0, 0, 0, 22, 9, 77
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/server.ts", "TypeScript", 0, 0, 24, 0, 0, 0, 0, 8, 3, 35
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/supabase/types.ts", "TypeScript", 0, 0, 39, 0, 0, 0, 0, 2, 8, 49
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/lib/utils.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 1, 3, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/next.config.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 1, 3, 12
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/package-lock.json", "JSON", 0, 0, 0, 13119, 0, 0, 0, 0, 1, 13120
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/package.json", "JSON", 0, 0, 0, 58, 0, 0, 0, 0, 1, 59
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/postcss.config.mjs", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 1, 2, 10
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/proxy.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 8, 3, 21
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/tailwind.config.ts", "TypeScript", 0, 0, 62, 0, 0, 0, 0, 0, 2, 64
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/test-results/.last-run.json", "JSON", 0, 0, 0, 4, 0, 0, 0, 0, 0, 4
+"/Users/christiansommer/Desktop/PU/group-52/studentconnect/tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 35, 0, 0, 0, 1, 36
+"Total", "-", 244, 52, 1525, 13202, 35, 2912, 66, 417, 767, 19220
