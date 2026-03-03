@@ -195,6 +195,7 @@
     "auth.updatePassword.errorGeneric": "Si è verificato un errore",
 
     "adminManage.title": "Gestisci Amministratori",
+    "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",
     "adminManage.users": "Utenti Normali",
     "adminManage.noUsers": "Nessun utente normale trovato.",
     "adminManage.promote": "Rendi Amministratore",

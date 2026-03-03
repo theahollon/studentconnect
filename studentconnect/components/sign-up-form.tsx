@@ -42,7 +42,7 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -51,6 +51,12 @@ export function SignUpForm({
       });
 
       if (error) throw error;
+
+      if (data.user) {
+        await supabase
+          .from("profiles")
+          .upsert({ id: data.user.id, email: data.user.email, role: "user" });
+      }
 
       router.push("/auth/sign-up-success");
       router.refresh();

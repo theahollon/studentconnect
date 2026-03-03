@@ -195,6 +195,7 @@
   "auth.updatePassword.errorGeneric": "An error occurred",
 
   "adminManage.title": "Manage Admins",
+  "adminManage.subtitle": "Grant or revoke admin access for users.",
   "adminManage.users": "Regular Users",
   "adminManage.noUsers": "No regular users found.",
   "adminManage.promote": "Make Admin",
