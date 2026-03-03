@@ -10,8 +10,8 @@ export default async function EventsPage() {
   const createText = await t("eventsPage.createButton");
 
   return (
-    <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold text-center">{title}</h1>
+    <div className="mx-auto max-w-4xl px-6 text-center text-black">
+      <h1 className="text-6xl font-bold text-black">{title}</h1>
 
       {admin && (
         <div className="mt-10">
