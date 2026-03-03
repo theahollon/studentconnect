@@ -15,5 +15,14 @@ export function LogoutButton() {
     router.refresh();
   };
 
-  return <Button onClick={logout}>{t("auth.logoutButton.logout")}</Button>;
+  
+return (
+  <Button
+    onClick={logout}
+    className="bg-black text-white hover:bg-black/90 dark:bg-black dark:text-white dark:hover:bg-black/90"
+  >
+    {t("auth.logoutButton.logout")}
+  </Button>
+);
+
 }
