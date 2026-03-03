@@ -22,7 +22,7 @@ async function JobListingsShell() {
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
       <h1 className="text-6xl font-bold text-black">Job Listings</h1>
-
+      {admin &&
       <div className="mt-10">
         <a
           href="/admin/jobs"
@@ -30,7 +30,7 @@ async function JobListingsShell() {
         >
           {createBtn}
         </a>
-      </div>
+      </div>}
 
       <Suspense fallback={<p>{loadingText}</p>}>
         <JobList />
