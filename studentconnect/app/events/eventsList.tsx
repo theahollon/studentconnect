@@ -5,7 +5,7 @@ import { getEvents } from "@/lib/supabase/database";
 import Link from "next/link";
 import { getLocale, t } from "@/lib/i18n/server";
 
-export default async function EventsList() {
+export default async function EventsList({ filter }: { filter?: string }) {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
@@ -28,7 +28,10 @@ export default async function EventsList() {
   }
 
   const now = Date.now();
-  const sortedEvents = [...(events ?? [])].sort((a: any, b: any) => {
+  const filteredEvents = filter
+    ? (events ?? []).filter((e: any) => e.event_type === filter)
+    : (events ?? []);
+  const sortedEvents = [...filteredEvents].sort((a: any, b: any) => {
     const aTime = a.start_time
       ? new Date(a.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;

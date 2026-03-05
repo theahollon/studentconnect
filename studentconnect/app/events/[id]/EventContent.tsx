@@ -92,7 +92,14 @@ export default async function EventContent(props: {
       <p className="mt-6 text-lg text-gray-700 break-words">
         {event.description}
       </p>
-
+      <p className="mt-4 text-sm text-gray-500">
+        {event.location}
+      </p>
+      {event.event_type && (
+        <span className="mt-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-blue-700">
+          {event.event_type}
+        </span>
+      )}
       {user && (
         <form action={isRegistered ? withdraw : register} className="mt-6">
           <button
@@ -103,7 +110,7 @@ export default async function EventContent(props: {
           </button>
         </form>
       )}
-
+      
       {admin && <DeleteEventButton id={event.id} />}
     </div>
   );
