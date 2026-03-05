@@ -39,11 +39,11 @@ export interface events {
 export interface create_event_input {
   title: string;
   description: string;
-  location: string;
-  start_time: string;
-  end_time: string;
+  location: string | null;
+  start_time: string | null;
+  end_time: string | null;
   //Here we need created_by and created_at. If we want to use this!
-  event_type: string;
+  event_type: string | null;
 }
 
 export interface create_job_input {

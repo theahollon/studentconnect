@@ -4,7 +4,8 @@
 "use client"; // Ensures the component runs on the client (Next.js App Router)
 
 import { useEffect, useMemo, useState } from "react";
-import { createClient } from "@/lib/supabase/client"; // Supabase client factory
+import { createClient } from "@/lib/supabase/client"; // Supabase client factory¨
+import { createEvent } from "@/lib/supabase/database";
 import { t } from "@/lib/i18n/client";
 
 /**
@@ -115,18 +116,14 @@ export default function ActivityForm() {
       // Convert datetime-local value to ISO format for database storage
       const startTimeIso = new Date(draft.startsAt).toISOString();
 
-      // Insert row into the "events" table in Supabase
-      const { error: insertError } = await supabase.from("events").insert({
+      await createEvent({
         title: draft.title.trim(),
-        description: draft.description.trim() || null,
-        location: draft.location.trim() || null,
+        description: draft.description.trim() || "",
+        location: draft.location.trim(), 
         start_time: startTimeIso,
         end_time: null,
-        // Note: capacity/category are currently only UI fields.
-        // Add corresponding DB columns and include them here if needed.
+        event_type: draft.category,
       });
-
-      if (insertError) throw insertError;
 
       // Clear the form so a new activity can be created without refreshing
       setDraft(initial);
