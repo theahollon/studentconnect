@@ -125,7 +125,7 @@ export default function JobAdForm() {
     try {
       // Prepare payload for database insert
       await createJobListings({
-         title: draft.title.trim(),
+        title: draft.title.trim(),
         company: draft.company.trim(),
         location: draft.location.trim(),
         application_deadline: draft.deadline.trim(), // 

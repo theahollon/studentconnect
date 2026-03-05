@@ -12,12 +12,15 @@ jest.mock("@/lib/i18n/client", () => ({
   t: (key: string) => key,
 }));
 
-// Mock supabase client
-const mockInsert = jest.fn();
+// Mock supabase client (still imported by the component)
 jest.mock("@/lib/supabase/client", () => ({
-  createClient: () => ({
-    from: () => ({ insert: mockInsert }),
-  }),
+  createClient: () => ({}),
+}));
+
+// Mock the database layer used for creating events
+const mockCreateEvent = jest.fn();
+jest.mock("@/lib/supabase/database", () => ({
+  createEvent: (...args: unknown[]) => mockCreateEvent(...args),
 }));
 
 import ActivityForm from "@/app/admin/activities/ActivityForm";
@@ -54,7 +57,7 @@ test("submit button enables when title and date are filled", () => {
 });
 
 test("shows error on failed submission", async () => {
-  mockInsert.mockResolvedValue({ error: { message: "DB error" } });
+  mockCreateEvent.mockRejectedValue(new Error("DB error"));
 
   render(<ActivityForm />);
   fireEvent.change(screen.getByLabelText(/activityForm.fields.title/), {
@@ -73,7 +76,7 @@ test("shows error on failed submission", async () => {
 });
 
 test("shows success modal on successful submission", async () => {
-  mockInsert.mockResolvedValue({ error: null });
+  mockCreateEvent.mockResolvedValue(undefined);
 
   render(<ActivityForm />);
   fireEvent.change(screen.getByLabelText(/activityForm.fields.title/), {

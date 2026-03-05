@@ -41,7 +41,7 @@ test("renders events as links", async () => {
     { id: "2", title: "Event B" },
   ]);
 
-  render(await EventsList());
+  render(await EventsList({}));
 
   expect(screen.getByRole("link", { name: /Event A/i })).toHaveAttribute(
     "href",
@@ -55,8 +55,56 @@ test("renders events as links", async () => {
 
 test("shows a readable error message", async () => {
   getEvents.mockRejectedValue(new Error("Invalid API key"));
-  render(await EventsList());
+  render(await EventsList({}));
   expect(screen.getByText(/Error loading events:/)).toHaveTextContent(
     "Invalid API key",
   );
+});
+
+test("shows all events when no filter is applied", async () => {
+  getEvents.mockResolvedValue([
+    { id: "1", title: "Social Night", event_type: "social" },
+    { id: "2", title: "Football Match", event_type: "sports" },
+  ]);
+
+  render(await EventsList({}));
+
+  expect(screen.getByText("Social Night")).toBeInTheDocument();
+  expect(screen.getByText("Football Match")).toBeInTheDocument();
+});
+
+test("filters events by event_type", async () => {
+  getEvents.mockResolvedValue([
+    { id: "1", title: "Social Night", event_type: "social" },
+    { id: "2", title: "Football Match", event_type: "sports" },
+    { id: "3", title: "Study Group", event_type: "academic" },
+  ]);
+
+  render(await EventsList({ filter: "social" }));
+
+  expect(screen.getByText("Social Night")).toBeInTheDocument();
+  expect(screen.queryByText("Football Match")).not.toBeInTheDocument();
+  expect(screen.queryByText("Study Group")).not.toBeInTheDocument();
+});
+
+test("shows no events when filter matches nothing", async () => {
+  getEvents.mockResolvedValue([
+    { id: "1", title: "Social Night", event_type: "social" },
+  ]);
+
+  render(await EventsList({ filter: "sports" }));
+
+  expect(screen.queryByText("Social Night")).not.toBeInTheDocument();
+});
+
+test("renders all events when filter is undefined", async () => {
+  getEvents.mockResolvedValue([
+    { id: "1", title: "General Meeting", event_type: "general" },
+    { id: "2", title: "Sports Day", event_type: "sports" },
+  ]);
+
+  render(await EventsList({ filter: undefined }));
+
+  expect(screen.getByText("General Meeting")).toBeInTheDocument();
+  expect(screen.getByText("Sports Day")).toBeInTheDocument();
 });
