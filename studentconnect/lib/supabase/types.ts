@@ -13,6 +13,7 @@ export interface job_postings {
   company: string;
   application_url: string;
   created_by: string;
+  employment_type: string;
 
 }
 
@@ -30,6 +31,7 @@ export interface events {
   start_time: string;
   end_time: string;
   created_by: string;
+  event_type: string;
 }
 
 
@@ -40,6 +42,8 @@ export interface create_event_input {
   location: string;
   start_time: string;
   end_time: string;
+  //Here we need created_by and created_at. If we want to use this!
+  event_type: string;
 }
 
 export interface create_job_input {
@@ -47,4 +51,5 @@ export interface create_job_input {
   description: string;
   company: string;
   application_url: string;
+  employment_type: string; 
 }
