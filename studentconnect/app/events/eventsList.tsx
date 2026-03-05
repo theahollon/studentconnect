@@ -4,13 +4,34 @@
 import { getEvents } from "@/lib/supabase/database";
 import Link from "next/link";
 import { getLocale, t } from "@/lib/i18n/server";
+import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
+import { Heart } from "lucide-react";
+
+type EventFavoriteRow = {
+  event_id: string;
+};
+
+type EventListItem = {
+  id: string;
+  title: string;
+  description?: string;
+  location?: string;
+  organizer?: string;
+  start_time?: string;
+};
 
 export default async function EventsList() {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
-  let events;
+  let events: EventListItem[] | undefined;
   let error;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   try {
     events = await getEvents();
@@ -28,7 +49,22 @@ export default async function EventsList() {
   }
 
   const now = Date.now();
-  const sortedEvents = [...(events ?? [])].sort((a: any, b: any) => {
+  let favoriteEventIds = new Set<string>();
+
+  if (user) {
+    const { data: eventFavorites } = await supabase
+      .from("event_favorites")
+      .select("event_id")
+      .eq("user_id", user.id);
+
+    favoriteEventIds = new Set(
+      ((eventFavorites ?? []) as EventFavoriteRow[]).map(
+        (favorite) => favorite.event_id,
+      ),
+    );
+  }
+
+  const sortedEvents = [...(events ?? [])].sort((a, b) => {
     const aTime = a.start_time
       ? new Date(a.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;
@@ -48,12 +84,41 @@ export default async function EventsList() {
   const upcomingText = await t("eventsList.upcoming");
   const dateLabel = await t("eventsList.dateLabel");
 
+  async function toggleFavorite(eventId: string, currentlyFavorited: boolean) {
+    "use server";
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    if (currentlyFavorited) {
+      const { error } = await supabase
+        .from("event_favorites")
+        .delete()
+        .eq("event_id", eventId)
+        .eq("user_id", user.id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from("event_favorites").insert({
+        event_id: eventId,
+        user_id: user.id,
+      });
+      if (error) throw error;
+    }
+
+    revalidatePath("/events");
+    revalidatePath("/favorites");
+  }
+
   return (
     <div className="grid justify-items-center">
-      {sortedEvents.map((event: any) => {
+      {sortedEvents.map((event) => {
         if (!event?.id) return null;
 
         const href = `/events/${String(event.id)}`;
+        const isFavorited = favoriteEventIds.has(event.id);
 
         const startDate = event.start_time
           ? new Date(event.start_time).toLocaleDateString(dateLocale, {
@@ -67,13 +132,12 @@ export default async function EventsList() {
           new Date(event.start_time).getTime() >= Date.now();
 
         return (
-          <Link
+          <div
             key={event.id}
-            href={href}
-            className="block w-full max-w-[560px] rounded-lg border border-gray-300 bg-white px-5 py-4 my-3 no-underline text-black shadow-sm hover:shadow transition"
+            className="block w-full max-w-[560px] rounded-lg border border-gray-300 bg-white px-5 py-4 my-3 text-black shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-pink-300"
           >
             <div className="flex justify-between items-start gap-4">
-              <div className="flex-1">
+              <Link href={href} className="flex-1 no-underline text-black">
                 <div className="text-2xl font-bold mb-2">{event.title}</div>
 
                 {event.organizer && (
@@ -98,25 +162,46 @@ export default async function EventsList() {
                     {upcomingText}
                   </div>
                 )}
-              </div>
+              </Link>
 
-              {startDate && (
-                <div
-                  className="text-center rounded-md px-3 py-2 min-w-[100px]"
-                  style={{
-                    backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
-                  }}
-                >
-                  <div className="text-xs text-gray-500 mb-0.5">
-                    {dateLabel}
+              <div className="flex min-w-[100px] flex-col items-center gap-2.5">
+                {startDate && (
+                  <div
+                    className="text-center rounded-md px-3 py-2 min-w-[100px]"
+                    style={{
+                      backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
+                    }}
+                  >
+                    <div className="text-xs text-gray-500 mb-0.5">
+                      {dateLabel}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-700">
+                      {startDate}
+                    </div>
                   </div>
-                  <div className="text-sm font-semibold text-gray-700">
-                    {startDate}
-                  </div>
-                </div>
-              )}
+                )}
+                <form action={toggleFavorite.bind(null, event.id, isFavorited)}>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center leading-none transition-transform duration-150 hover:scale-125 hover:-translate-y-0.5 active:scale-75 active:-translate-y-1"
+                    aria-label={
+                      isFavorited ? "Remove from favorites" : "Add to favorites"
+                    }
+                  >
+                    <Heart
+                      size={30}
+                      strokeWidth={2}
+                      className={
+                        isFavorited
+                          ? "text-pink-500 fill-pink-500"
+                          : "text-gray-400 fill-transparent"
+                      }
+                    />
+                  </button>
+                </form>
+              </div>
             </div>
-          </Link>
+          </div>
         );
       })}
     </div>

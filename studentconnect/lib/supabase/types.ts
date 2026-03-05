@@ -22,6 +22,20 @@ export interface event_registration {
   user_id: string;
 }
 
+export interface event_favorite {
+  id: string;
+  user_id: string;
+  event_id: string;
+  created_at: string;
+}
+
+export interface job_favorite {
+  id: string;
+  user_id: string;
+  job_id: string;
+  created_at: string;
+}
+
 export interface events {
   id: string;
   title: string;
