@@ -48,8 +48,11 @@ export interface create_event_input {
 
 export interface create_job_input {
   title: string;
-  description: string;
+  description: string | null;
   company: string;
   application_url: string;
-  employment_type: string; 
+  location: string | null;
+  application_deadline: string | null, 
+  employment_type: string | null,
+  contact_email: string  | null,
 }

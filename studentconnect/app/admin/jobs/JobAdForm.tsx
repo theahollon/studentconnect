@@ -7,7 +7,7 @@
 import { useMemo, useState, useEffect } from "react";
 
 // Supabase client factory
-import { createClient } from "@/lib/supabase/client";
+import { createJobListings } from "@/lib/supabase/database";
 
 // i18n (client)
 import { t } from "@/lib/i18n/client";
@@ -42,7 +42,7 @@ const initial: JobAdDraft = {
 
 export default function JobAdForm() {
   // Create Supabase client instance
-  const supabase = createClient();
+
 
   // Form state
   const [draft, setDraft] = useState<JobAdDraft>(initial);
@@ -124,25 +124,22 @@ export default function JobAdForm() {
 
     try {
       // Prepare payload for database insert
-      const payload = {
-        title: draft.title.trim(),
+      await createJobListings({
+         title: draft.title.trim(),
         company: draft.company.trim(),
+        location: draft.location.trim(),
+        application_deadline: draft.deadline.trim(), // 
+        employment_type: draft.employmentType,
+        contact_email: draft.contactEmail.trim() ,
+        description: draft.description.trim() ,
+        application_url: draft.applyUrl.trim() ,
 
-        location: draft.location.trim() || null,
-        application_deadline: draft.deadline.trim() || null, // "YYYY-MM-DD" fra input type="date"
-        employment_type: draft.employmentType || null,
-        contact_email: draft.contactEmail.trim() || null,
+      });
 
-        description: draft.description.trim() || null,
-        application_url: draft.applyUrl.trim() || null,
-      };
+
 
       // Insert job posting into Supabase
-      const { error: insertError } = await supabase
-        .from("job_postings")
-        .insert(payload);
 
-      if (insertError) throw insertError;
 
       // Reset form for next job posting
       setDraft(initial);
