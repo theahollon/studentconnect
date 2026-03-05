@@ -104,6 +104,9 @@
   "home.cards.jobs.title": "Job Opportunities",
   "home.cards.jobs.body": "Find internships and job opportunities",
 
+  "home.cards.companies.title": "Manage Companies",
+  "home.cards.companies.body": "Manage company profiles",
+
   "deleteJoblistingButton.label": "Delete job listing",
 
   "joblistingPage.loading": "Loading job listing…",

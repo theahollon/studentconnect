@@ -104,6 +104,9 @@
     "home.cards.jobs.title": "Opportunità di lavoro",
     "home.cards.jobs.body": "Trova tirocini e opportunità di lavoro",
 
+    "home.cards.companies.title": "Gestire le aziende",
+    "home.cards.companies.body": "Gestire i profili aziendali",
+
     "deleteJoblistingButton.label": "Elimina offerta di lavoro",
 
     "joblistingPage.loading": "Caricamento offerta di lavoro…",

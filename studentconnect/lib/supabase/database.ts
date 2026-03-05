@@ -5,7 +5,9 @@ import type {
     job_postings,
     profiles,
     create_event_input,
-    create_job_input
+    create_job_input,
+    create_company_input,
+    companies
   } from './types';
 
 const supabase = createClient();
@@ -163,7 +165,37 @@ export async function getNonAdminList(): Promise<profiles[]> {
   if (error) throw error;
   return users as profiles[];
 }
+
+export async function createCompanyProfile(data: create_company_input): Promise<companies> {
+  const { data: company, error } = await supabase.from('companies').insert(data).select().single();
+  if (error) throw error;
+  return company as companies;
+}
+
+export async function getCompanyById(
+    companyId: string
+  ): Promise<companies | null> {
+    const { data: company, error } = await supabase
+      .from('companies')
+      .select()
+      .eq('id', companyId)
+      .single();
   
+    if (error && error.code !== 'PGRST116') throw error;
+  
+    return company as companies | null;
+  }
+
+  export async function deleteCompanyProfile(
+    companyId: string
+  ): Promise<void> {
+    const { error } = await supabase
+      .from('companies')
+      .delete()
+      .eq('id', companyId);
+
+    if (error) throw error;
+  }
 
 
 
