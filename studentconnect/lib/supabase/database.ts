@@ -2,6 +2,8 @@ import { createClient } from './client';
 import type {
     events,
     event_registration,
+    event_favorite,
+    job_favorite,
     job_postings,
     profiles,
     create_event_input,
@@ -97,6 +99,103 @@ export async function unregisterFromEvent(eventId: string, userId: string): Prom
         .eq('event_id', eventId)
         .eq('user_id', userId);
     if (error) throw error;
+}
+
+// Favorites Functions
+export async function isEventFavorited(eventId: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from('event_favorites')
+        .select('id')
+        .eq('event_id', eventId)
+        .eq('user_id', userId)
+        .single();
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+}
+
+export async function addEventFavorite(eventId: string, userId: string): Promise<event_favorite> {
+    const { data, error } = await supabase
+        .from('event_favorites')
+        .insert({
+            event_id: eventId,
+            user_id: userId
+        })
+        .select()
+        .single();
+    if (error) throw error;
+    return data as event_favorite;
+}
+
+export async function removeEventFavorite(eventId: string, userId: string): Promise<void> {
+    const { error } = await supabase
+        .from('event_favorites')
+        .delete()
+        .eq('event_id', eventId)
+        .eq('user_id', userId);
+    if (error) throw error;
+}
+
+export async function isJobFavorited(jobId: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from('job_favorites')
+        .select('id')
+        .eq('job_id', jobId)
+        .eq('user_id', userId)
+        .single();
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+}
+
+export async function addJobFavorite(jobId: string, userId: string): Promise<job_favorite> {
+    const { data, error } = await supabase
+        .from('job_favorites')
+        .insert({
+            job_id: jobId,
+            user_id: userId
+        })
+        .select()
+        .single();
+    if (error) throw error;
+    return data as job_favorite;
+}
+
+export async function removeJobFavorite(jobId: string, userId: string): Promise<void> {
+    const { error } = await supabase
+        .from('job_favorites')
+        .delete()
+        .eq('job_id', jobId)
+        .eq('user_id', userId);
+    if (error) throw error;
+}
+
+export async function getUserFavoriteEvents(userId: string): Promise<events[]> {
+    const { data, error } = await supabase
+        .from('event_favorites')
+        .select(`
+            events (*)
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+    const rows = (data ?? []) as Array<{ events: events | null }>;
+    return rows
+      .map((row) => row.events)
+      .filter((event): event is events => !!event);
+}
+
+export async function getUserFavoriteJobs(userId: string): Promise<job_postings[]> {
+    const { data, error } = await supabase
+        .from('job_favorites')
+        .select(`
+            job_postings (*)
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+    const rows = (data ?? []) as Array<{ job_postings: job_postings | null }>;
+    return rows
+      .map((row) => row.job_postings)
+      .filter((job): job is job_postings => !!job);
 }
 
 // More detailed event queries
