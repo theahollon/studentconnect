@@ -4,22 +4,6 @@
 import { getJobListings } from "@/lib/supabase/database";
 import Link from "next/link";
 import { getLocale, t } from "@/lib/i18n/server";
-import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
-
-type JobFavoriteRow = {
-  job_id: string;
-};
-
-type JobListItem = {
-  id: string;
-  slug?: string;
-  title: string;
-  description?: string;
-  company?: string;
-  location?: string;
-  application_deadline?: string;
-};
 
 /**
  * Server component that fetches and renders a list of job listings.
@@ -33,22 +17,18 @@ export default async function JobListingsPage() {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
-  let jobListings: JobListItem[] | undefined;
+  let jobListings;
   let error: string | undefined;
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   try {
     jobListings = await getJobListings();
   } catch (err) {
-    if (err instanceof Error) {
-      error = err.message;
-    } else {
-      error = JSON.stringify(err);
-    }
+    const anyErr = err as any;
+    // Prefer standard Error.message, then PostgrestError.message, else stringify
+    error =
+      (anyErr?.message as string) ??
+      (anyErr?.error?.message as string) ??
+      JSON.stringify(anyErr);
   }
 
   if (error) {
@@ -62,55 +42,10 @@ export default async function JobListingsPage() {
 
   const deadlineLabel = await t("jobList.applicationDeadline");
 
-  async function toggleFavorite(jobId: string, currentlyFavorited: boolean) {
-    "use server";
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) return;
-
-    if (currentlyFavorited) {
-      const { error } = await supabase
-        .from("job_favorites")
-        .delete()
-        .eq("job_id", jobId)
-        .eq("user_id", user.id);
-      if (error) throw error;
-    } else {
-      const { error } = await supabase.from("job_favorites").insert({
-        job_id: jobId,
-        user_id: user.id,
-      });
-      if (error) throw error;
-    }
-
-    revalidatePath("/joblistings");
-    revalidatePath("/favorites");
-    revalidatePath(`/joblistings/${jobId}`);
-  }
-
-  let favoriteJobIds = new Set<string>();
-
-  if (user) {
-    const { data: jobFavorites } = await supabase
-      .from("job_favorites")
-      .select("job_id")
-      .eq("user_id", user.id);
-
-    favoriteJobIds = new Set(
-      ((jobFavorites ?? []) as JobFavoriteRow[]).map(
-        (favorite) => favorite.job_id,
-      ),
-    );
-  }
-
   return (
     <div style={{ display: "grid", justifyItems: "center" }}>
-      {jobListings?.map((jobListing) => {
+      {jobListings?.map((jobListing: any) => {
         const href = `/joblistings/${jobListing.slug ?? jobListing.id}`;
-        const isFavorited = favoriteJobIds.has(jobListing.id);
         const deadlineDate = jobListing.application_deadline
           ? new Date(jobListing.application_deadline)
           : null;
@@ -137,8 +72,10 @@ export default async function JobListingsPage() {
           : "";
 
         return (
-          <div
+          <Link
             key={jobListing.id}
+            href={href}
+            role="button"
             style={{
               display: "block",
               width: "100%",
@@ -147,6 +84,7 @@ export default async function JobListingsPage() {
               borderRadius: 8,
               border: "1px solid #d1d5db",
               margin: "12px 0",
+              textDecoration: "none",
               fontSize: "20px",
               color: "#000",
               backgroundColor: "#fff",
@@ -161,16 +99,7 @@ export default async function JobListingsPage() {
                 gap: "16px",
               }}
             >
-              <Link
-                href={href}
-                role="button"
-                style={{
-                  flex: 1,
-                  textDecoration: "none",
-                  color: "#000",
-                  display: "block",
-                }}
-              >
+              <div style={{ flex: 1 }}>
                 <div
                   style={{
                     fontSize: "24px",
@@ -180,6 +109,7 @@ export default async function JobListingsPage() {
                 >
                   {jobListing.title}
                 </div>
+
                 {jobListing.company && (
                   <div
                     style={{
@@ -218,68 +148,40 @@ export default async function JobListingsPage() {
                     {jobListing.location}
                   </div>
                 )}
-              </Link>
+              </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "10px",
-                  minWidth: "100px",
-                }}
-              >
-                {applicationDeadline && (
+              {applicationDeadline && (
+                <div
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: isUpcomingDeadline ? "#fef3c7" : "#f3f4f6",
+                    padding: "8px 12px",
+                    borderRadius: "6px",
+                    minWidth: "100px",
+                  }}
+                >
                   <div
                     style={{
-                      textAlign: "center",
-                      backgroundColor: isUpcomingDeadline ? "#fef3c7" : "#f3f4f6",
-                      padding: "8px 12px",
-                      borderRadius: "6px",
-                      minWidth: "100px",
+                      fontSize: "12px",
+                      color: "#6b7280",
+                      marginBottom: "2px",
                     }}
                   >
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#6b7280",
-                        marginBottom: "2px",
-                      }}
-                    >
-                      {deadlineLabel}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        color: "#374151",
-                      }}
-                    >
-                      {applicationDeadline}
-                    </div>
+                    {deadlineLabel}
                   </div>
-                )}
-
-                <form action={toggleFavorite.bind(null, jobListing.id, isFavorited)}>
-                  <button
-                    type="submit"
-                    className="heart-button transition-transform active:scale-90"
+                  <div
                     style={{
-                      fontSize: isFavorited ? "21px" : "25px",
-                      lineHeight: "1",
-                      color: isFavorited ? "#ec4899" : "#9ca3af",
-                      transform: "translateZ(0)",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      color: "#374151",
                     }}
-                    aria-label={
-                      isFavorited ? "Remove from favorites" : "Add to favorites"
-                    }
                   >
-                    {isFavorited ? "❤" : "♡"}
-                  </button>
-                </form>
-              </div>
+                    {applicationDeadline}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>

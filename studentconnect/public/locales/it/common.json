@@ -77,8 +77,6 @@
     "deleteEventButton.label": "Elimina evento",
     "eventContent.register": "Iscriviti",
     "eventContent.withdraw": "Annulla iscrizione",
-    "eventContent.addFavorite": "Aggiungi ai preferiti",
-    "eventContent.removeFavorite": "Rimuovi dai preferiti",
 
     "jobList.errorLoading": "Errore durante il caricamento delle offerte di lavoro",
     "jobList.applicationDeadline": "Scadenza candidatura",
@@ -95,7 +93,6 @@
 
     "rootNav.events": "Eventi",
     "rootNav.jobs": "Lavori",
-    "rootNav.favorites": "Preferiti",
     "rootNav.manageAdmins": "Gestisci Amministratori",
   
     "home.title": "Benvenuto su StudentConnect",
@@ -119,8 +116,6 @@
     "joblistingContent.applyNow": "Candidati ora",
     "joblistingContent.deadlinePassed": "Scadenza candidatura superata",
     "joblistingContent.description": "Descrizione",
-    "joblistingContent.addFavorite": "Aggiungi ai preferiti",
-    "joblistingContent.removeFavorite": "Rimuovi dai preferiti",
 
     "auth.error.title": "Spiacenti, qualcosa è andato storto.",
     "auth.error.codePrefix": "Codice errore",
@@ -131,7 +126,6 @@
     "auth.signUpSuccess.body": "Registrazione completata. Controlla la tua email per confermare l'account prima di accedere.",
 
     "auth.authButton.hey": "Ciao",
-    "auth.authButton.favorites": "I miei preferiti",
     "auth.authButton.signIn": "Accedi",
     "auth.authButton.signUp": "Registrati",
 

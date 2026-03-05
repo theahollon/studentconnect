@@ -26,15 +26,16 @@ export default async function EventContent(props: {
   } = await supabase.auth.getUser();
 
   let isRegistered = false;
+
   if (user) {
-    const { data: registrationData } = await supabase
+    const { data } = await supabase
       .from("event_registrations")
       .select("id")
       .eq("event_id", event.id)
       .eq("user_id", user.id)
       .maybeSingle();
 
-    isRegistered = !!registrationData;
+    isRegistered = !!data;
   }
 
   async function register() {

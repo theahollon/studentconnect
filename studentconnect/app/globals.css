@@ -66,22 +66,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-@keyframes heart-bounce {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  30% {
-    transform: translateY(-5px) scale(1.12);
-  }
-  60% {
-    transform: translateY(0) scale(0.96);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-.heart-button:active {
-  animation: heart-bounce 260ms ease-out;
-}

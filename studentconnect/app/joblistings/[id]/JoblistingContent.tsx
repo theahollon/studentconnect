@@ -6,15 +6,6 @@ import DeleteJoblistingButton from "./DeleteJoblistingButton";
 import { getLocale, t } from "@/lib/i18n/server";
 import { isAdmin } from "@/lib/auth";
 
-type JoblistingDetails = {
-  location?: string | null;
-  application_deadline?: string | null;
-  employment_type?: string | null;
-  contact_email?: string | null;
-  application_url?: string | null;
-  company?: string | null;
-};
-
 function formatDate(value: string | null | undefined, dateLocale: string) {
   if (!value) return null;
   const d = new Date(value);
@@ -34,17 +25,20 @@ export default async function JoblistingContent(props: {
 
   const joblisting = await getJoblistingById(id);
   if (!joblisting) return notFound();
-  const job = joblisting as typeof joblisting & JoblistingDetails;
 
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
   // NB: disse feltene må finnes i job_postings (og være lagret fra JobAdForm)
-  const location = job.location;
-  const application_deadline = job.application_deadline;
-  const employment_type = job.employment_type;
-  const contact_email = job.contact_email;
-  const application_url = job.application_url;
+  const location = (joblisting as any).location as string | null | undefined;
+  const application_deadline = (joblisting as any)
+    .application_deadline as string | null | undefined;
+  const employment_type = (joblisting as any)
+    .employment_type as string | null | undefined;
+  const contact_email = (joblisting as any)
+    .contact_email as string | null | undefined;
+  const application_url = (joblisting as any)
+    .application_url as string | null | undefined;
 
   // Determine whether the deadline has passed (compare by calendar date in Europe/Oslo)
   const dateKey = (d: Date) =>
@@ -88,8 +82,8 @@ export default async function JoblistingContent(props: {
     <div className="p-8 space-y-8">
       <header className="space-y-2">
         <h1 className="text-5xl font-bold text-gray-900">{joblisting.title}</h1>
-        {job.company && (
-          <p className="text-lg text-gray-600">{job.company}</p>
+        {(joblisting as any).company && (
+          <p className="text-lg text-gray-600">{(joblisting as any).company}</p>
         )}
       </header>
 

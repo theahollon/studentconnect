@@ -77,8 +77,6 @@
   "deleteEventButton.label": "Delete event",
   "eventContent.register": "Register",
   "eventContent.withdraw": "Withdraw registration",
-  "eventContent.addFavorite": "Add to favorites",
-  "eventContent.removeFavorite": "Remove from favorites",
 
   "jobList.errorLoading": "Error loading job listings",
   "jobList.applicationDeadline": "Application deadline",
@@ -95,7 +93,6 @@
 
   "rootNav.events": "Events",
   "rootNav.jobs": "Jobs",
-  "rootNav.favorites": "Favorites",
   "rootNav.manageAdmins": "Manage Admins",
 
   "home.title": "Welcome to StudentConnect",
@@ -119,8 +116,6 @@
   "joblistingContent.applyNow": "Apply now",
   "joblistingContent.deadlinePassed": "Application deadline passed",
   "joblistingContent.description": "Description",
-  "joblistingContent.addFavorite": "Add to favorites",
-  "joblistingContent.removeFavorite": "Remove from favorites",
 
   "auth.error.title": "Sorry, something went wrong.",
   "auth.error.codePrefix": "Code error",
@@ -131,7 +126,6 @@
   "auth.signUpSuccess.body": "You've successfully signed up. Please check your email to confirm your account before signing in.",
 
   "auth.authButton.hey": "Hey",
-  "auth.authButton.favorites": "My favorites",
   "auth.authButton.signIn": "Sign in",
   "auth.authButton.signUp": "Sign up",
 

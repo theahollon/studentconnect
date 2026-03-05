@@ -54,7 +54,6 @@ async function RootShell({ children }: { children: React.ReactNode }) {
   // ✅ cookies()/t() happens INSIDE Suspense
   const navEvents = await t("rootNav.events");
   const navJobs = await t("rootNav.jobs");
-  const navFavorites = await t("rootNav.favorites");
   const navManageAdmins = await t("rootNav.manageAdmins");
   const admin = await isAdmin();
 
@@ -88,12 +87,6 @@ async function RootShell({ children }: { children: React.ReactNode }) {
                 className="hover:underline text-black transition-colors hover:text-pink-600"
               >
                 {navJobs}
-              </Link>
-              <Link
-                href="/favorites"
-                className="hover:underline text-black transition-colors hover:text-pink-600"
-              >
-                {navFavorites}
               </Link>
               {admin && (
                 <Link

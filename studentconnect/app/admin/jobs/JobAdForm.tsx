@@ -123,25 +123,10 @@ export default function JobAdForm() {
     setLoading(true);
 
     try {
-      const normalizedCompany = draft.company.trim();
-
-      // Ensure referenced company exists to satisfy job_postings.company FK -> companies.name
-      const { error: companyError } = await supabase
-        .from("companies")
-        .upsert(
-          {
-            name: normalizedCompany,
-            description: normalizedCompany,
-          },
-          { onConflict: "name" },
-        );
-
-      if (companyError) throw companyError;
-
       // Prepare payload for database insert
       const payload = {
         title: draft.title.trim(),
-        company: normalizedCompany,
+        company: draft.company.trim(),
 
         location: draft.location.trim() || null,
         application_deadline: draft.deadline.trim() || null, // "YYYY-MM-DD" fra input type="date"
@@ -164,16 +149,9 @@ export default function JobAdForm() {
 
       // Show success modal
       setShowAlert(true);
-    } catch (err: unknown) {
+    } catch (err: any) {
       console.error(err);
-      const message =
-        typeof err === "object" &&
-        err !== null &&
-        "message" in err &&
-        typeof (err as { message?: unknown }).message === "string"
-          ? (err as { message: string }).message
-          : t("jobAdForm.errors.saveFailed");
-      setError(message);
+      setError(err?.message ?? t("jobAdForm.errors.saveFailed"));
     } finally {
       setLoading(false);
     }
