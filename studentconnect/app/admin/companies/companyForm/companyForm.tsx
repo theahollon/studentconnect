@@ -16,3 +16,5 @@ export default function CompanyForm() {
     </div>
   );
 }
+
+import { createCompanyProfile } from "@/lib/supabase/database";

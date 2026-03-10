@@ -16,7 +16,7 @@ export default async function CompaniesPage() {
       {admin && (
         <div className="mt-10">
           <Link
-            href="/admin/activities"
+            href="/admin/companies/companyForm"
             className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
           >
             {createText}

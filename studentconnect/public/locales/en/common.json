@@ -84,6 +84,19 @@
   "jobListingsPage.loading": "Loading job listings…",
   "jobListingsPage.createButton": "Create new job listing",
 
+  "companiesPage.heading": "Companies",
+  "companiesPage.createButton": "Create new company",
+  "companiesPage.loading": "Loading companies…",
+
+  "companiesList.errorLoading": "Error loading companies",
+  "companiesList.upcoming": "Upcoming",
+  "companiesList.dateLabel": "Date",
+
+  "deleteCompanyProfileButton.label": "Delete company profile",
+  "companyContent.register": "Register",
+  "companyContent.withdraw": "Withdraw registration",
+
+
   "protectedLayout.brand": "Next.js Supabase Starter",
   "protectedLayout.poweredBy": "Powered by",
 

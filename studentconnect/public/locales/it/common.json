@@ -84,6 +84,18 @@
     "jobListingsPage.loading": "Caricamento offerte di lavoro…",
     "jobListingsPage.createButton": "Crea una nuova offerta di lavoro",
 
+    "companiesPage.heading": "Aziende",
+    "companiesPage.createButton": "Crea nuova azienda",
+    "companiesPage.loading": "Caricamento aziende…",
+
+    "companiesList.errorLoading": "Errore durante il caricamento delle aziende",
+    "companiesList.upcoming": "In arrivo",
+    "companiesList.dateLabel": "Data",
+
+    "deleteCompanyProfileButton.label": "Elimina profilo azienda",
+    "companyContent.register": "Iscriviti",
+    "companyContent.withdraw": "Annulla iscrizione",
+
     "protectedLayout.brand": "Next.js Supabase Starter",
     "protectedLayout.poweredBy": "Powered by",
   
