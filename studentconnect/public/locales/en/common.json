@@ -203,6 +203,10 @@
   "profile.addButton": "Add",
   "profile.saving": "Saving...",
   "profile.myProfile": "My Profile",
+  "profile.strikes": "Strikes",
+  "profile.banStatus": "Ban Status",
+  "profile.bannedUntil": "Banned until",
+  "profile.notBanned": "Not banned",
 
   "home.cards.admins.title": "Manage Admins",
   "adminManage.title": "Manage Admins",

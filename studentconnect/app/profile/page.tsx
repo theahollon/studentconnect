@@ -19,6 +19,8 @@ export default async function ProfilePage() {
       email={profile?.email ?? user.email ?? ""}
       studyProgram={profile?.study_program ?? null}
       allergies={allergies}
+      strikes={profile?.strikes ?? 0}
+      bannedUntil={profile?.is_banned ?? null}
     />
   );
 }

@@ -203,6 +203,10 @@
     "profile.addButton": "Aggiungi",
     "profile.saving": "Salvataggio...",
     "profile.myProfile": "Il mio profilo",
+    "profile.strikes": "Segnalazioni",
+    "profile.banStatus": "Stato ban",
+    "profile.bannedUntil": "Bannato fino al",
+    "profile.notBanned": "Non bannato",
 
     "home.cards.admins.title": "Gestisci Amministratori",
     "adminManage.title": "Gestisci Amministratori",
