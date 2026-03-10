@@ -236,6 +236,16 @@
   "auth.updatePassword.submit": "Save new password",
   "auth.updatePassword.errorGeneric": "An error occurred",
 
+  "profile.title": "My Profile",
+  "profile.studyProgram": "Study Program",
+  "profile.selectProgram": "Select a program...",
+  "profile.allergies": "Allergies",
+  "profile.noAllergies": "No allergies added",
+  "profile.addAllergyPlaceholder": "Add an allergy...",
+  "profile.addButton": "Add",
+  "profile.saving": "Saving...",
+  "profile.myProfile": "My Profile",
+
   "home.cards.admins.title": "Manage Admins",
   "adminManage.title": "Manage Admins",
   "adminManage.subtitle": "Grant or revoke admin access for users.",
@@ -247,6 +257,28 @@
   "adminManage.revoke": "Revoke Admin",
   "adminManage.cannotRevokeSelf": "You cannot revoke your own admin access.",
   "adminManage.promoteSuccess": "User has been promoted to admin.",
-  "adminManage.revokeSuccess": "Admin access has been revoked."
+  "adminManage.revokeSuccess": "Admin access has been revoked.",
+
+  "adminManage.pageLoading": "Loading…",
+  "adminManage.you": "You",
+  "adminManage.strikes": "Strikes",
+  "adminManage.addStrike": "+ Strike",
+  "adminManage.removeStrike": "- Strike",
+  "adminManage.addStrikeSuccess": "Strike added.",
+  "adminManage.removeStrikeSuccess": "Strike removed.",
+  "adminManage.notBanned": "Not banned",
+  "adminManage.bannedUntil": "Banned until",
+  "adminManage.banDateRequired": "Please choose a date and time for the ban.",
+  "adminManage.invalidBanDate": "Invalid ban date.",
+  "adminManage.banDateMustBeFuture": "Ban date must be in the future.",
+  "adminManage.setBan": "Set ban",
+  "adminManage.clearBan": "Clear ban",
+  "adminManage.banSuccess": "User banned successfully.",
+  "adminManage.clearBanSuccess": "Ban removed successfully.",
+  "adminManage.strikeSection": "Strikes",
+  "adminManage.adminSection": "Admin access",
+  "adminManage.banSection": "Ban",
+
+  "eventContent.bannedFromEvents": "You are currently banned from attending events"
 
 }

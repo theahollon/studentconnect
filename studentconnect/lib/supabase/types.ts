@@ -1,10 +1,22 @@
 // Database types for Student Connect application
 // Developed with assistance from AI tools.
 
+import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
+
 export interface profiles {
   id: string;
   role: "user" | "admin";
   email: string;
+  strikes: number;
+  is_banned: string | null;
+  study_program: string | null;
+
+}
+
+export interface user_allergies {
+  id: string;
+  user_id: string;
+  allergy: string;
 }
 
 export interface job_postings {
