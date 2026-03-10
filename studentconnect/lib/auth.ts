@@ -3,6 +3,14 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
+// returns the current authenticated user's id
+export async function getCurrentUserId(): Promise<string> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Not authenticated");
+  return user.id;
+}
+
 // use for hiding buttons
 export async function isAdmin(): Promise<boolean> {
   const supabase = await createClient();
