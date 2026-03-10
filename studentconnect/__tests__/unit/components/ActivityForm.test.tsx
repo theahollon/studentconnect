@@ -19,14 +19,20 @@ jest.mock("@/lib/supabase/client", () => ({
 
 // Mock the database layer used for creating events
 const mockCreateEvent = jest.fn();
+const mockGetCompanies = jest.fn();
 jest.mock("@/lib/supabase/database", () => ({
   createEvent: (...args: unknown[]) => mockCreateEvent(...args),
+  getCompanies: (...args: unknown[]) => mockGetCompanies(...args),
 }));
 
 import ActivityForm from "@/app/admin/activities/ActivityForm";
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockGetCompanies.mockResolvedValue([
+    { id: "1", name: "Acme", description: "", website_url: "" },
+    { id: "2", name: "Globex", description: "", website_url: "" },
+  ]);
 });
 
 test("renders the form with heading", () => {

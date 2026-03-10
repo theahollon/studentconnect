@@ -12,11 +12,13 @@
     "activityForm.fields.location": "Luogo",
     "activityForm.fields.spots": "Capienza",
     "activityForm.fields.category": "Categoria",
+    "activityForm.fields.company": "Azienda",
   
     "activityForm.placeholders.title": "es. Serata di giochi da tavolo",
     "activityForm.placeholders.description": "Aggiungi una breve descrizione (facoltativo)",
     "activityForm.placeholders.location": "es. Aula A2, edificio principale",
     "activityForm.placeholders.spots": "es. 30",
+    "activityForm.placeholders.company": "-- Seleziona un'azienda (facoltativo) --",
   
     "activityForm.categories.general": "Generale",
     "activityForm.categories.social": "Sociale",
@@ -45,7 +47,7 @@
     "jobAdForm.fields.description": "Descrizione",
   
     "jobAdForm.placeholders.title": "es. Sviluppatore junior",
-    "jobAdForm.placeholders.company": "es. Acme AS",
+    "jobAdForm.placeholders.company": "-- Seleziona un'azienda --",
     "jobAdForm.placeholders.location": "es. Trondheim / Ibrido",
   
     "jobAdForm.employmentTypes.fulltime": "Tempo pieno",
@@ -84,6 +86,42 @@
     "jobListingsPage.loading": "Caricamento offerte di lavoro…",
     "jobListingsPage.createButton": "Crea una nuova offerta di lavoro",
 
+    "companiesPage.heading": "Aziende",
+    "companiesPage.createButton": "Crea nuova azienda",
+    "companiesPage.loading": "Caricamento aziende…",
+
+    "companiesList.errorLoading": "Errore durante il caricamento delle aziende",
+    "companiesList.upcoming": "In arrivo",
+    "companiesList.dateLabel": "Data",
+
+    "deleteCompanyProfileButton.label": "Elimina profilo azienda",
+    "companyContent.register": "Iscriviti",
+    "companyContent.withdraw": "Annulla iscrizione",
+
+    "companyForm.heading": "Crea azienda",
+    "companyForm.validationRequired": "Inserisci almeno il nome dell'azienda.",
+    "companyForm.saveError": "Si è verificato un errore durante il salvataggio. Riprova.",
+    "companyForm.fields.name": "Nome azienda",
+    "companyForm.fields.description": "Descrizione",
+    "companyForm.fields.websiteUrl": "URL del sito web",
+    "companyForm.placeholders.name": "es. Google",
+    "companyForm.placeholders.description": "Breve descrizione dell'azienda (facoltativo)",
+    "companyForm.placeholders.websiteUrl": "es. https://google.com",
+    "companyForm.buttons.saving": "Salvataggio…",
+    "companyForm.buttons.create": "Crea",
+    "companyForm.buttons.reset": "Reimposta",
+    "companyForm.modal.title": "Azienda creata",
+    "companyForm.modal.body": "Il profilo aziendale è stato salvato con successo.",
+    "companyForm.modal.ok": "OK",
+
+    "companyDetail.description": "Descrizione",
+    "companyDetail.website": "Sito web",
+    "companyDetail.visitWebsite": "Visita il sito web",
+    "companyDetail.events": "Eventi",
+    "companyDetail.jobListings": "Offerte di lavoro",
+    "companyDetail.noEvents": "Nessun evento da questa azienda ancora.",
+    "companyDetail.noJobListings": "Nessuna offerta di lavoro da questa azienda ancora.",
+
     "protectedLayout.brand": "Next.js Supabase Starter",
     "protectedLayout.poweredBy": "Powered by",
   
@@ -103,6 +141,9 @@
   
     "home.cards.jobs.title": "Opportunità di lavoro",
     "home.cards.jobs.body": "Trova tirocini e opportunità di lavoro",
+
+    "home.cards.companies.title": "Esplora le aziende",
+    "home.cards.companies.body": "Visualizza i profili aziendali",
 
     "deleteJoblistingButton.label": "Elimina offerta di lavoro",
 

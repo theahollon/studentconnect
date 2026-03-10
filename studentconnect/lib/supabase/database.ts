@@ -6,7 +6,9 @@ import type {
     profiles,
     user_allergies,
     create_event_input,
-    create_job_input
+    create_job_input,
+    create_company_input,
+    companies
   } from './types';
 
 const supabase = createClient();
@@ -192,7 +194,74 @@ export async function removeUserAllergy(allergyId: string): Promise<void> {
         .eq('id', allergyId);
     if (error) throw error;
 }
+
+// Company Functions — Developed with assistance from AI tools.
+
+/** Fetches all companies from the database. */
+export async function getCompanies(): Promise<companies[]> {
+  const { data: companyList, error } = await supabase.from('companies').select();
+  if (error) throw error;
+  return companyList as companies[];
+}
+
+/** Fetches a single company by its unique name. Returns null if not found. */
+export async function getCompanyByName(name: string): Promise<companies | null> {
+  const { data: company, error } = await supabase
+    .from('companies')
+    .select()
+    .eq('name', name)
+    .single();
+  if (error && error.code !== 'PGRST116') throw error;
+  return company as companies | null;
+}
+
+/** Fetches all events that belong to a given company (matched by company name). */
+export async function getEventsByCompany(companyName: string): Promise<events[]> {
+  const { data: eventList, error } = await supabase
+    .from('events')
+    .select()
+    .eq('company', companyName);
+  if (error) throw error;
+  return eventList as events[];
+}
+
+/** Fetches all job postings that belong to a given company (matched by company name). */
+export async function getJobListingsByCompany(companyName: string): Promise<job_postings[]> {
+  const { data: jobs, error } = await supabase
+    .from('job_postings')
+    .select()
+    .eq('company', companyName);
+  if (error) throw error;
+  return jobs as job_postings[];
+}
+
+export async function createCompanyProfile(data: create_company_input): Promise<companies> {
+  const { data: company, error } = await supabase.from('companies').insert(data).select().single();
+  if (error) throw error;
+  return company as companies;
+}
+
+export async function getCompanyById(
+    companyId: string
+  ): Promise<companies | null> {
+    const { data: company, error } = await supabase
+      .from('companies')
+      .select()
+      .eq('id', companyId)
+      .single();
   
+    if (error && error.code !== 'PGRST116') throw error;
+  
+    return company as companies | null;
+  }
 
+  export async function deleteCompanyProfile(
+    companyId: string
+  ): Promise<void> {
+    const { error } = await supabase
+      .from('companies')
+      .delete()
+      .eq('id', companyId);
 
-
+    if (error) throw error;
+  }
