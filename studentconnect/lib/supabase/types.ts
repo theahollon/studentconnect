@@ -1,9 +1,13 @@
 // Database types for Student Connect application
 
+import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
+
 export interface profiles {
   id: string;
   role: "user" | "admin";
   email: string;
+  strikes: number;
+  is_banned: string | null;
 }
 
 export interface job_postings {
