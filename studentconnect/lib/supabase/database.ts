@@ -4,6 +4,7 @@ import type {
     event_registration,
     job_postings,
     profiles,
+    user_allergies,
     create_event_input,
     create_job_input
   } from './types';
@@ -162,6 +163,34 @@ export async function getNonAdminList(): Promise<profiles[]> {
     .eq('role', 'user');
   if (error) throw error;
   return users as profiles[];
+}
+
+// User Allergies Functions
+export async function getUserAllergies(userId: string): Promise<user_allergies[]> {
+    const { data: allergies, error } = await supabase
+        .from('user_allergies')
+        .select()
+        .eq('user_id', userId);
+    if (error) throw error;
+    return allergies as user_allergies[];
+}
+
+export async function addUserAllergy(userId: string, allergy: string): Promise<user_allergies> {
+    const { data, error } = await supabase
+        .from('user_allergies')
+        .insert({ user_id: userId, allergy })
+        .select()
+        .single();
+    if (error) throw error;
+    return data as user_allergies;
+}
+
+export async function removeUserAllergy(allergyId: string): Promise<void> {
+    const { error } = await supabase
+        .from('user_allergies')
+        .delete()
+        .eq('id', allergyId);
+    if (error) throw error;
 }
   
 

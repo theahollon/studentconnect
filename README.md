@@ -8,6 +8,7 @@ The platform allows:
 - **Users** to browse events and job advertisements
 - **Users** to view detailed pages for each event and job posting
 - **Users** to register for and unregister from events
+- **Users** to manage their personal profile, including study program and food allergies
 - **Administrators** to create and manage events and job advertisements
 - **Role-based access**, where selected users have administrator privileges
 
