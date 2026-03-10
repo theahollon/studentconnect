@@ -154,7 +154,7 @@ describe("ManageAdminsForm — user list", () => {
 describe("ManageAdminsForm — admin list", () => {
   it("shows the 'You' badge only for the current user", () => {
     render(<ManageAdminsForm {...defaultProps} />);
-    const youBadges = screen.getAllByText("You");
+    const youBadges = screen.getAllByText("adminManage.you");
     expect(youBadges).toHaveLength(1);
   });
 
@@ -162,15 +162,16 @@ describe("ManageAdminsForm — admin list", () => {
     render(
       <ManageAdminsForm {...defaultProps} currentUserId="nobody" />
     );
-    expect(screen.queryByText("You")).not.toBeInTheDocument();
+    expect(screen.queryByText("adminManage.you")).not.toBeInTheDocument();
   });
 
   it("revoke button is disabled for the current user", () => {
     render(<ManageAdminsForm {...defaultProps} />);
-    // Find the list item that contains "You" and check its button
-    const youBadge = screen.getByText("You");
+    // Find the list item that contains "You" and locate the revoke button by text
+    const youBadge = screen.getByText("adminManage.you");
     const ownRow = youBadge.closest("li")!;
-    const revokeBtn = ownRow.querySelector("button")!;
+    const buttons = Array.from(ownRow.querySelectorAll("button"));
+    const revokeBtn = buttons.find((btn) => btn.textContent === "adminManage.revoke")!;
     expect(revokeBtn).toBeDisabled();
   });
 

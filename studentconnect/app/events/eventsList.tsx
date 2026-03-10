@@ -21,7 +21,7 @@ type EventListItem = {
   start_time?: string;
 };
 
-export default async function EventsList() {
+export default async function EventsList({ filter }: { filter?: string }) {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
@@ -64,7 +64,12 @@ export default async function EventsList() {
     );
   }
 
-  const sortedEvents = [...(events ?? [])].sort((a, b) => {
+  const filteredEvents = filter
+    ? (events ?? []).filter((e) => e.event_type === filter)
+    : (events ?? []);
+
+  const sortedEvents = [...filteredEvents].sort((a, b) => {
+
     const aTime = a.start_time
       ? new Date(a.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;

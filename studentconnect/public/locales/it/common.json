@@ -12,11 +12,13 @@
     "activityForm.fields.location": "Luogo",
     "activityForm.fields.spots": "Capienza",
     "activityForm.fields.category": "Categoria",
+    "activityForm.fields.company": "Azienda",
   
     "activityForm.placeholders.title": "es. Serata di giochi da tavolo",
     "activityForm.placeholders.description": "Aggiungi una breve descrizione (facoltativo)",
     "activityForm.placeholders.location": "es. Aula A2, edificio principale",
     "activityForm.placeholders.spots": "es. 30",
+    "activityForm.placeholders.company": "-- Seleziona un'azienda (facoltativo) --",
   
     "activityForm.categories.general": "Generale",
     "activityForm.categories.social": "Sociale",
@@ -45,7 +47,7 @@
     "jobAdForm.fields.description": "Descrizione",
   
     "jobAdForm.placeholders.title": "es. Sviluppatore junior",
-    "jobAdForm.placeholders.company": "es. Acme AS",
+    "jobAdForm.placeholders.company": "-- Seleziona un'azienda --",
     "jobAdForm.placeholders.location": "es. Trondheim / Ibrido",
   
     "jobAdForm.employmentTypes.fulltime": "Tempo pieno",
@@ -84,6 +86,42 @@
     "jobListingsPage.loading": "Caricamento offerte di lavoro…",
     "jobListingsPage.createButton": "Crea una nuova offerta di lavoro",
 
+    "companiesPage.heading": "Aziende",
+    "companiesPage.createButton": "Crea nuova azienda",
+    "companiesPage.loading": "Caricamento aziende…",
+
+    "companiesList.errorLoading": "Errore durante il caricamento delle aziende",
+    "companiesList.upcoming": "In arrivo",
+    "companiesList.dateLabel": "Data",
+
+    "deleteCompanyProfileButton.label": "Elimina profilo azienda",
+    "companyContent.register": "Iscriviti",
+    "companyContent.withdraw": "Annulla iscrizione",
+
+    "companyForm.heading": "Crea azienda",
+    "companyForm.validationRequired": "Inserisci almeno il nome dell'azienda.",
+    "companyForm.saveError": "Si è verificato un errore durante il salvataggio. Riprova.",
+    "companyForm.fields.name": "Nome azienda",
+    "companyForm.fields.description": "Descrizione",
+    "companyForm.fields.websiteUrl": "URL del sito web",
+    "companyForm.placeholders.name": "es. Google",
+    "companyForm.placeholders.description": "Breve descrizione dell'azienda (facoltativo)",
+    "companyForm.placeholders.websiteUrl": "es. https://google.com",
+    "companyForm.buttons.saving": "Salvataggio…",
+    "companyForm.buttons.create": "Crea",
+    "companyForm.buttons.reset": "Reimposta",
+    "companyForm.modal.title": "Azienda creata",
+    "companyForm.modal.body": "Il profilo aziendale è stato salvato con successo.",
+    "companyForm.modal.ok": "OK",
+
+    "companyDetail.description": "Descrizione",
+    "companyDetail.website": "Sito web",
+    "companyDetail.visitWebsite": "Visita il sito web",
+    "companyDetail.events": "Eventi",
+    "companyDetail.jobListings": "Offerte di lavoro",
+    "companyDetail.noEvents": "Nessun evento da questa azienda ancora.",
+    "companyDetail.noJobListings": "Nessuna offerta di lavoro da questa azienda ancora.",
+
     "protectedLayout.brand": "Next.js Supabase Starter",
     "protectedLayout.poweredBy": "Powered by",
   
@@ -104,6 +142,9 @@
   
     "home.cards.jobs.title": "Opportunità di lavoro",
     "home.cards.jobs.body": "Trova tirocini e opportunità di lavoro",
+
+    "home.cards.companies.title": "Esplora le aziende",
+    "home.cards.companies.body": "Visualizza i profili aziendali",
 
     "deleteJoblistingButton.label": "Elimina offerta di lavoro",
 
@@ -195,6 +236,16 @@
     "auth.updatePassword.submit": "Salva la nuova password",
     "auth.updatePassword.errorGeneric": "Si è verificato un errore",
 
+    "profile.title": "Il mio profilo",
+    "profile.studyProgram": "Corso di studi",
+    "profile.selectProgram": "Seleziona un corso...",
+    "profile.allergies": "Allergie",
+    "profile.noAllergies": "Nessuna allergia aggiunta",
+    "profile.addAllergyPlaceholder": "Aggiungi un'allergia...",
+    "profile.addButton": "Aggiungi",
+    "profile.saving": "Salvataggio...",
+    "profile.myProfile": "Il mio profilo",
+
     "home.cards.admins.title": "Gestisci Amministratori",
     "adminManage.title": "Gestisci Amministratori",
     "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",
@@ -206,5 +257,28 @@
     "adminManage.revoke": "Revoca Accesso Admin",
     "adminManage.cannotRevokeSelf": "Non puoi revocare il tuo stesso accesso amministratore.",
     "adminManage.promoteSuccess": "L'utente è stato promosso ad amministratore.",
-    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato."
+    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato.",
+
+    "adminManage.pageLoading": "Caricamento…",
+    "adminManage.you": "Tu",
+    "adminManage.strikes": "Segnalazioni",
+    "adminManage.addStrike": "+ Segnalazione",
+    "adminManage.removeStrike": "- Segnalazione",
+    "adminManage.addStrikeSuccess": "Segnalazione aggiunta.",
+    "adminManage.removeStrikeSuccess": "Segnalazione rimossa.",
+    "adminManage.notBanned": "Non bannato",
+    "adminManage.bannedUntil": "Bannato fino al",
+    "adminManage.banDateRequired": "Seleziona una data e un orario per il ban.",
+    "adminManage.invalidBanDate": "Data del ban non valida.",
+    "adminManage.banDateMustBeFuture": "La data del ban deve essere nel futuro.",
+    "adminManage.setBan": "Imposta ban",
+    "adminManage.clearBan": "Rimuovi ban",
+    "adminManage.banSuccess": "Utente bannato con successo.",
+    "adminManage.clearBanSuccess": "Ban rimosso con successo.",
+    "adminManage.strikeSection": "Segnalazioni",
+    "adminManage.adminSection": "Accesso admin",
+    "adminManage.banSection": "Ban",
+
+    "eventContent.bannedFromEvents": "Al momento ti è vietato partecipare agli eventi"
 }
+

@@ -20,9 +20,22 @@ type JobListItem = {
   company?: string;
   location?: string;
   application_deadline?: string;
+  employment_type?: string;
 };
 
-export default async function JobListingsPage() {
+/**
+ * Server component that fetches and renders a list of job listings.
+ *
+ * Uses the database layer to query job listings
+ * and renders each item as a navigable link.
+ *
+ * @returns A grid of job listing links or an error message if fetching fails.
+ */
+export default async function JobListingsPage({
+  filter,
+}: {
+  filter?: string;
+}) {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
@@ -70,12 +83,14 @@ export default async function JobListingsPage() {
         .delete()
         .eq("job_id", jobId)
         .eq("user_id", user.id);
+
       if (error) throw error;
     } else {
       const { error } = await supabase.from("job_favorites").insert({
         job_id: jobId,
         user_id: user.id,
       });
+
       if (error) throw error;
     }
 
@@ -98,26 +113,31 @@ export default async function JobListingsPage() {
     );
   }
 
+  const filteredListings = filter
+    ? (jobListings ?? []).filter((job) => job.employment_type === filter)
+    : (jobListings ?? []);
+
   return (
     <div style={{ display: "grid", justifyItems: "center" }}>
-      {jobListings?.map((jobListing) => {
+      {filteredListings.map((jobListing) => {
+        if (!jobListing?.id) return null;
+
         const href = `/joblistings/${jobListing.slug ?? jobListing.id}`;
         const isFavorited = favoriteJobIds.has(jobListing.id);
         const deadlineDate = jobListing.application_deadline
           ? new Date(jobListing.application_deadline)
           : null;
 
-        const dateKey = (d: Date) =>
+        const dateKey = (date: Date) =>
           new Intl.DateTimeFormat("en-CA", {
             timeZone: "Europe/Oslo",
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
-          }).format(d);
+          }).format(date);
 
         const todayKey = dateKey(new Date());
         const deadlineKey = deadlineDate ? dateKey(deadlineDate) : null;
-
         const isUpcomingDeadline = !!deadlineKey && deadlineKey >= todayKey;
 
         const applicationDeadline = deadlineDate
@@ -253,7 +273,9 @@ export default async function JobListingsPage() {
                   </div>
                 )}
 
-                <form action={toggleFavorite.bind(null, jobListing.id, isFavorited)}>
+                <form
+                  action={toggleFavorite.bind(null, jobListing.id, isFavorited)}
+                >
                   <button
                     type="submit"
                     className="inline-flex items-center justify-center transition-transform duration-150 hover:scale-125 hover:-translate-y-0.5 active:scale-75 active:-translate-y-1"
@@ -280,3 +302,5 @@ export default async function JobListingsPage() {
     </div>
   );
 }
+
+ 

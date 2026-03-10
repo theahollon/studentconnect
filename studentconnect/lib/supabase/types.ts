@@ -1,18 +1,33 @@
 // Database types for Student Connect application
+// Developed with assistance from AI tools.
+
+import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
 
 export interface profiles {
   id: string;
   role: "user" | "admin";
   email: string;
+  strikes: number;
+  is_banned: string | null;
+  study_program: string | null;
+
+}
+
+export interface user_allergies {
+  id: string;
+  user_id: string;
+  allergy: string;
 }
 
 export interface job_postings {
   id: string;
   title: string;
   description: string;
+  /** Foreign key referencing companies.name — links a job posting to a company */
   company: string;
   application_url: string;
   created_by: string;
+  employment_type: string;
 
 }
 
@@ -44,6 +59,15 @@ export interface events {
   start_time: string;
   end_time: string;
   created_by: string;
+  /** Foreign key referencing companies.name — links an event to a company */
+  company: string;
+}
+
+export interface companies {
+  id: string;
+  name: string;
+  description: string;
+  website_url: string;
 }
 
 
@@ -51,16 +75,30 @@ export interface events {
 export interface create_event_input {
   title: string;
   description: string;
-  location: string;
-  start_time: string;
-  end_time: string;
+  location: string | null;
+  start_time: string | null;
+  end_time: string | null;
+  //Here we need created_by and created_at. If we want to use this!
+  event_type: string | null;
+  company?: string | null;
 }
 
 export interface create_job_input {
   title: string;
-  description: string;
+  description: string | null;
   company: string;
   application_url: string;
+  
+    location: string | null;
+  application_deadline: string | null;
+  employment_type: string | null;
+  contact_email: string | null;
+}
+
+export interface create_company_input {
+  name: string;
+  description: string;
+  website_url: string;
 }
 
 export type FavoriteEvent = Pick<
@@ -80,3 +118,4 @@ export interface EventFavoriteRow {
 export interface JobFavoriteRow {
   job_postings: FavoriteJob | FavoriteJob[] | null;
 }
+

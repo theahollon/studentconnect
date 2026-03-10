@@ -14,7 +14,14 @@ const mockVerifyOtp = jest.fn();
 jest.mock("@/lib/supabase/server", () => ({
   __esModule: true,
   createClient: jest.fn().mockResolvedValue({
-    auth: { verifyOtp: (...args: unknown[]) => mockVerifyOtp(...args) },
+    auth: {
+      verifyOtp: (...args: unknown[]) => mockVerifyOtp(...args),
+      // Route calls getUser() after successful OTP to create a profile row
+      getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+    },
+    from: () => ({
+      upsert: jest.fn().mockResolvedValue({ error: null }),
+    }),
   }),
 }));
 
