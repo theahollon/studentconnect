@@ -62,3 +62,21 @@ export interface create_job_input {
   company: string;
   application_url: string;
 }
+
+export type FavoriteEvent = Pick<
+  events,
+  "id" | "title" | "description" | "location" | "start_time"
+>;
+
+export type FavoriteJob = Pick<
+  job_postings,
+  "id" | "title" | "description" | "company"
+>;
+
+export interface EventFavoriteRow {
+  events: FavoriteEvent | FavoriteEvent[] | null;
+}
+
+export interface JobFavoriteRow {
+  job_postings: FavoriteJob | FavoriteJob[] | null;
+}
