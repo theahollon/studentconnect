@@ -39,22 +39,22 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-pink-200 dark:bg-background py-10">
+    <div className="min-h-screen bg-pink-200 py-10">
       <div className="max-w-2xl mx-auto px-4 space-y-6">
         {/* Profile Header */}
         <div className="flex flex-col items-center space-y-3">
-          <div className="w-24 h-24 rounded-full bg-card border-4 border-pink-400 dark:border-pink-500 flex items-center justify-center shadow-lg">
-            <User className="w-12 h-12 text-pink-600 dark:text-pink-400" />
+          <div className="w-24 h-24 rounded-full bg-white border-4 border-pink-400 flex items-center justify-center shadow-lg">
+            <User className="w-12 h-12 text-pink-600" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">My Profile</h1>
-          <p className="text-muted-foreground">user@example.com</p>
+          <h1 className="text-2xl font-bold text-black">My Profile</h1>
+          <p className="text-gray-600">user@example.com</p>
         </div>
 
         {/* Study Program */}
-        <Card className="shadow-md">
+        <Card className="shadow-md bg-white border-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <GraduationCap className="w-5 h-5 text-pink-600 dark:text-pink-400" />
+              <GraduationCap className="w-5 h-5 text-pink-600" />
               Study Program
             </CardTitle>
           </CardHeader>
@@ -62,21 +62,26 @@ export default function ProfilePage() {
             <div className="relative">
               <button
                 onClick={() => setShowProgramDropdown(!showProgramDropdown)}
-                className="w-full flex items-center justify-between rounded-md border border-input bg-background px-4 py-2.5 text-left text-sm text-foreground hover:border-pink-400 dark:hover:border-pink-500 transition-colors"
+                className="w-full flex items-center justify-between rounded-md border border-pink-200 bg-white px-4 py-2.5 text-left text-sm text-black hover:border-pink-400 transition-colors"
               >
                 <span>{selectedProgram}</span>
                 <svg
-                  className={`w-4 h-4 text-muted-foreground transition-transform ${showProgramDropdown ? "rotate-180" : ""}`}
+                  className={`w-4 h-4 text-gray-500 transition-transform ${showProgramDropdown ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
               {showProgramDropdown && (
-                <div className="absolute z-10 mt-1 w-full rounded-md border border-border bg-popover text-popover-foreground shadow-lg max-h-48 overflow-y-auto">
+                <div className="absolute z-10 mt-1 w-full rounded-md border border-pink-200 bg-white text-black shadow-lg max-h-48 overflow-y-auto">
                   {STUDY_PROGRAMS.map((program) => (
                     <button
                       key={program}
@@ -86,8 +91,8 @@ export default function ProfilePage() {
                       }}
                       className={`w-full text-left px-4 py-2 text-sm transition-colors ${
                         program === selectedProgram
-                          ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 font-medium"
-                          : "text-popover-foreground hover:bg-accent"
+                          ? "bg-pink-100 text-pink-700 font-medium"
+                          : "text-black hover:bg-pink-50"
                       }`}
                     >
                       {program}
@@ -100,10 +105,10 @@ export default function ProfilePage() {
         </Card>
 
         {/* Allergies */}
-        <Card className="shadow-md">
+        <Card className="shadow-md bg-white border-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <AlertTriangle className="w-5 h-5 text-pink-600 dark:text-pink-400" />
+              <AlertTriangle className="w-5 h-5 text-pink-600" />
               Allergies
             </CardTitle>
           </CardHeader>
@@ -111,18 +116,18 @@ export default function ProfilePage() {
             {/* Current allergies */}
             <div className="flex flex-wrap gap-2">
               {allergies.length === 0 && (
-                <p className="text-sm text-muted-foreground">No allergies added</p>
+                <p className="text-sm text-gray-600">No allergies added</p>
               )}
               {allergies.map((allergy) => (
                 <Badge
                   key={allergy}
                   variant="secondary"
-                  className="flex items-center gap-1 px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800 hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-colors"
+                  className="flex items-center gap-1 px-3 py-1 bg-pink-100 text-pink-700 border-pink-200 hover:bg-pink-200 transition-colors"
                 >
                   {allergy}
                   <button
                     onClick={() => removeAllergy(allergy)}
-                    className="ml-1 hover:text-pink-900 dark:hover:text-pink-100"
+                    className="ml-1 hover:text-pink-900"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -144,7 +149,7 @@ export default function ProfilePage() {
               <Button
                 onClick={addAllergy}
                 size="sm"
-                className="bg-pink-600 hover:bg-pink-700 dark:bg-pink-600 dark:hover:bg-pink-500 text-white"
+                className="bg-pink-600 hover:bg-pink-700 text-white"
               >
                 <Plus className="w-4 h-4" />
                 Add
