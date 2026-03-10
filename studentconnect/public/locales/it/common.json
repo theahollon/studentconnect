@@ -194,6 +194,16 @@
     "auth.updatePassword.submit": "Salva la nuova password",
     "auth.updatePassword.errorGeneric": "Si è verificato un errore",
 
+    "profile.title": "Il mio profilo",
+    "profile.studyProgram": "Corso di studi",
+    "profile.selectProgram": "Seleziona un corso...",
+    "profile.allergies": "Allergie",
+    "profile.noAllergies": "Nessuna allergia aggiunta",
+    "profile.addAllergyPlaceholder": "Aggiungi un'allergia...",
+    "profile.addButton": "Aggiungi",
+    "profile.saving": "Salvataggio...",
+    "profile.myProfile": "Il mio profilo",
+
     "home.cards.admins.title": "Gestisci Amministratori",
     "adminManage.title": "Gestisci Amministratori",
     "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",

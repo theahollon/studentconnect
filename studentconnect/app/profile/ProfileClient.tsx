@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { User, GraduationCap, AlertTriangle, Plus, X, Loader2 } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { updateStudyProgram, addAllergy, deleteAllergy } from "@/lib/profile-actions";
 import type { user_allergies } from "@/lib/supabase/types";
+import { t } from "@/lib/i18n/client";
 
 const STUDY_PROGRAMS = [
   "Computer Science",
@@ -34,6 +35,17 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
   const [newAllergy, setNewAllergy] = useState("");
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowProgramDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const selectProgram = (program: string) => {
     setSelectedProgram(program);
@@ -66,11 +78,11 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
           <div className="w-24 h-24 rounded-full bg-white border-4 border-pink-400 flex items-center justify-center shadow-lg">
             <User className="w-12 h-12 text-pink-600" />
           </div>
-          <h1 className="text-2xl font-bold text-black">My Profile</h1>
-          <p className="text-gray-600">{email}</p>
+          <h1 className="text-2xl font-bold text-black">{t("profile.title")}</h1>
+          <p className="text-black">{email}</p>
           {isPending && (
             <p className="text-sm text-pink-600 flex items-center gap-1">
-              <Loader2 className="w-3 h-3 animate-spin" /> Saving...
+              <Loader2 className="w-3 h-3 animate-spin" /> {t("profile.saving")}
             </p>
           )}
         </div>
@@ -78,18 +90,18 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
         {/* Study Program */}
         <Card className="shadow-md bg-white border-pink-100">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg text-black">
               <GraduationCap className="w-5 h-5 text-pink-600" />
-              Study Program
+              {t("profile.studyProgram")}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowProgramDropdown(!showProgramDropdown)}
                 className="w-full flex items-center justify-between rounded-md border border-pink-200 bg-white px-4 py-2.5 text-left text-sm text-black hover:border-pink-400 transition-colors"
               >
-                <span>{selectedProgram ?? "Select a program..."}</span>
+                <span>{selectedProgram ?? t("profile.selectProgram")}</span>
                 <svg
                   className={`w-4 h-4 text-gray-500 transition-transform ${showProgramDropdown ? "rotate-180" : ""}`}
                   fill="none"
@@ -124,15 +136,15 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
         {/* Allergies */}
         <Card className="shadow-md bg-white border-pink-100">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg text-black">
               <AlertTriangle className="w-5 h-5 text-pink-600" />
-              Allergies
+              {t("profile.allergies")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2">
               {allergies.length === 0 && (
-                <p className="text-sm text-gray-600">No allergies added</p>
+                <p className="text-sm text-black">{t("profile.noAllergies")}</p>
               )}
               {allergies.map((a) => (
                 <Badge
@@ -155,8 +167,8 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
               <Input
                 value={newAllergy}
                 onChange={(e) => setNewAllergy(e.target.value)}
-                placeholder="Add an allergy..."
-                className="flex-1"
+                placeholder={t("profile.addAllergyPlaceholder")}
+                className="flex-1 text-black border-pink-200 focus:border-pink-500 focus-visible:ring-pink-400 placeholder:text-gray-400"
                 onKeyDown={(e) => { if (e.key === "Enter") handleAddAllergy(); }}
               />
               <Button
@@ -165,7 +177,7 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
                 className="bg-pink-600 hover:bg-pink-700 text-white"
               >
                 <Plus className="w-4 h-4" />
-                Add
+                {t("profile.addButton")}
               </Button>
             </div>
           </CardContent>

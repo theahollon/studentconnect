@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -14,7 +13,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { t } from "@/lib/i18n/client";
 
-export function UserMenuDropdown({ email }: { email: string }) {
+export function UserMenuDropdown() {
   const router = useRouter();
 
   const logout = async () => {
@@ -31,15 +30,11 @@ export function UserMenuDropdown({ email }: { email: string }) {
           <User className="w-6 h-6 text-pink-600" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel className="font-normal">
-          <p className="text-sm font-medium">{email}</p>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href="/profile" className="flex items-center gap-2">
             <User className="w-4 h-4" />
-            {t("auth.authButton.hey")} Profile
+            {t("profile.myProfile")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

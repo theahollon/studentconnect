@@ -194,6 +194,16 @@
   "auth.updatePassword.submit": "Save new password",
   "auth.updatePassword.errorGeneric": "An error occurred",
 
+  "profile.title": "My Profile",
+  "profile.studyProgram": "Study Program",
+  "profile.selectProgram": "Select a program...",
+  "profile.allergies": "Allergies",
+  "profile.noAllergies": "No allergies added",
+  "profile.addAllergyPlaceholder": "Add an allergy...",
+  "profile.addButton": "Add",
+  "profile.saving": "Saving...",
+  "profile.myProfile": "My Profile",
+
   "home.cards.admins.title": "Manage Admins",
   "adminManage.title": "Manage Admins",
   "adminManage.subtitle": "Grant or revoke admin access for users.",

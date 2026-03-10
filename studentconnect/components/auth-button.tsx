@@ -16,7 +16,7 @@ export async function AuthButton() {
   const signUp = await t("auth.authButton.signUp");
 
   return user ? (
-    <UserMenuDropdown email={user.email as string} />
+    <UserMenuDropdown />
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
