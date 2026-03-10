@@ -20,7 +20,7 @@ export default async function ProfilePage() {
       studyProgram={profile?.study_program ?? null}
       allergies={allergies}
       strikes={profile?.strikes ?? 0}
-      bannedUntil={profile?.is_banned ?? null}
+      bannedUntil={profile?.banned_until ?? null}
     />
   );
 }

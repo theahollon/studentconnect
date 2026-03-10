@@ -7,7 +7,7 @@ export interface profiles {
   role: "user" | "admin";
   email: string;
   strikes: number;
-  is_banned: string | null;
+  banned_until: string | null;
   study_program: string | null;
 
 }
