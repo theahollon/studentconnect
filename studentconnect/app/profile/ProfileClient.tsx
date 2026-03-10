@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { User, GraduationCap, AlertTriangle, Plus, X, Loader2 } from "lucide-react";
+import { User, GraduationCap, AlertTriangle, Plus, X, Loader2, ShieldAlert, Ban } from "lucide-react";
 import { useState, useTransition, useEffect, useRef } from "react";
 import { updateStudyProgram, addAllergy, deleteAllergy } from "@/lib/profile-actions";
 import type { user_allergies } from "@/lib/supabase/types";
@@ -27,9 +27,11 @@ interface Props {
   email: string;
   studyProgram: string | null;
   allergies: user_allergies[];
+  strikes: number;
+  bannedUntil: string | null;
 }
 
-export default function ProfileClient({ email, studyProgram, allergies: initialAllergies }: Props) {
+export default function ProfileClient({ email, studyProgram, allergies: initialAllergies, strikes, bannedUntil }: Props) {
   const [selectedProgram, setSelectedProgram] = useState<string | null>(studyProgram);
   const [allergies, setAllergies] = useState<user_allergies[]>(initialAllergies);
   const [newAllergy, setNewAllergy] = useState("");
@@ -85,6 +87,43 @@ export default function ProfileClient({ email, studyProgram, allergies: initialA
               <Loader2 className="w-3 h-3 animate-spin" /> {t("profile.saving")}
             </p>
           )}
+        </div>
+
+        {/* Strikes & Ban Status */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="rounded-xl bg-pink-50 border border-pink-200 px-4 py-3 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
+              <ShieldAlert className="w-5 h-5 text-pink-600" />
+            </div>
+            <div>
+              <p className="text-xs text-pink-500 font-medium uppercase tracking-wide">{t("profile.strikes")}</p>
+              <p className="text-xl font-bold text-black">{strikes}</p>
+            </div>
+          </div>
+
+          <div className={`rounded-xl border px-4 py-3 flex items-center gap-3 ${
+            bannedUntil
+              ? "bg-red-50 border-red-200"
+              : "bg-green-50 border-green-200"
+          }`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              bannedUntil ? "bg-red-100" : "bg-green-100"
+            }`}>
+              <Ban className={`w-5 h-5 ${bannedUntil ? "text-red-500" : "text-green-500"}`} />
+            </div>
+            <div>
+              <p className={`text-xs font-medium uppercase tracking-wide ${
+                bannedUntil ? "text-red-400" : "text-green-500"
+              }`}>{t("profile.banStatus")}</p>
+              {bannedUntil ? (
+                <p className="text-sm font-semibold text-red-700">
+                  {t("profile.bannedUntil")} {new Date(bannedUntil).toLocaleDateString()}
+                </p>
+              ) : (
+                <p className="text-sm font-semibold text-green-700">{t("profile.notBanned")}</p>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Study Program */}
