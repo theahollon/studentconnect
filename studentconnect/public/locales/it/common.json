@@ -205,5 +205,27 @@
     "adminManage.revoke": "Revoca Accesso Admin",
     "adminManage.cannotRevokeSelf": "Non puoi revocare il tuo stesso accesso amministratore.",
     "adminManage.promoteSuccess": "L'utente è stato promosso ad amministratore.",
-    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato."
+    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato.",
+
+    "adminManage.pageLoading": "Caricamento…",
+    "adminManage.you": "Tu",
+    "adminManage.strikes": "Segnalazioni",
+    "adminManage.addStrike": "+ Segnalazione",
+    "adminManage.removeStrike": "- Segnalazione",
+    "adminManage.addStrikeSuccess": "Segnalazione aggiunta.",
+    "adminManage.removeStrikeSuccess": "Segnalazione rimossa.",
+    "adminManage.notBanned": "Non bannato",
+    "adminManage.bannedUntil": "Bannato fino al",
+    "adminManage.banDateRequired": "Seleziona una data e un orario per il ban.",
+    "adminManage.invalidBanDate": "Data del ban non valida.",
+    "adminManage.banDateMustBeFuture": "La data del ban deve essere nel futuro.",
+    "adminManage.setBan": "Imposta ban",
+    "adminManage.clearBan": "Rimuovi ban",
+    "adminManage.banSuccess": "Utente bannato con successo.",
+    "adminManage.clearBanSuccess": "Ban rimosso con successo.",
+    "adminManage.strikeSection": "Segnalazioni",
+    "adminManage.adminSection": "Accesso admin",
+    "adminManage.banSection": "Ban",
+
+    "eventContent.bannedFromEvents": "Al momento ti è vietato partecipare agli eventi"
 }
