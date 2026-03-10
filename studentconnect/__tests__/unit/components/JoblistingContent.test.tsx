@@ -26,6 +26,25 @@ jest.mock("@/lib/i18n/client", () => ({
   t: (key: string) => key,
 }));
 
+// Mock supabase server client so isAdmin() doesn't try to use real cookies
+const makeChain = (): Record<string, unknown> => {
+  const chain: Record<string, unknown> = {};
+  chain.select = () => chain;
+  chain.eq = () => chain;
+  chain.update = () => chain;
+  chain.upsert = jest.fn().mockResolvedValue({ error: null });
+  chain.single = jest.fn().mockResolvedValue({ data: { role: "user", email: "u@test.com" } });
+  chain.maybeSingle = jest.fn().mockResolvedValue({ data: null });
+  return chain;
+};
+jest.mock("@/lib/supabase/server", () => ({
+  __esModule: true,
+  createClient: jest.fn().mockResolvedValue({
+    auth: { getUser: jest.fn().mockResolvedValue({ data: { user: null } }) },
+    from: () => makeChain(),
+  }),
+}));
+
 const mockGetJoblistingById = jest.fn();
 jest.mock("@/lib/supabase/database", () => ({
   __esModule: true,

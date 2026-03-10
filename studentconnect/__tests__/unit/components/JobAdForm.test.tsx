@@ -11,17 +11,17 @@ jest.mock("@/lib/i18n/client", () => ({
   t: (key: string) => key,
 }));
 
-const mockInsert = jest.fn();
-jest.mock("@/lib/supabase/client", () => ({
-  createClient: () => ({
-    from: () => ({ insert: mockInsert }),
-  }),
+// Mock the database layer used for creating job listings
+const mockCreateJobListings = jest.fn();
+jest.mock("@/lib/supabase/database", () => ({
+  createJobListings: (...args: unknown[]) => mockCreateJobListings(...args),
 }));
 
 import JobAdForm from "@/app/admin/jobs/JobAdForm";
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockCreateJobListings.mockReset();
 });
 
 test("renders the form with heading", () => {
@@ -55,7 +55,7 @@ test("submit button enables when title, company, and deadline are filled", () =>
 });
 
 test("shows error on failed submission", async () => {
-  mockInsert.mockResolvedValue({ error: { message: "Insert failed" } });
+  mockCreateJobListings.mockRejectedValue(new Error("Insert failed"));
 
   render(<JobAdForm />);
   fireEvent.change(screen.getByLabelText(/jobAdForm.fields.title/), {
@@ -77,7 +77,7 @@ test("shows error on failed submission", async () => {
 });
 
 test("shows success modal on successful submission", async () => {
-  mockInsert.mockResolvedValue({ error: null });
+  mockCreateJobListings.mockResolvedValue({});
 
   render(<JobAdForm />);
   fireEvent.change(screen.getByLabelText(/jobAdForm.fields.title/), {

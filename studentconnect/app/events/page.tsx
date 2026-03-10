@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { isAdmin } from "@/lib/auth";
 import EventsList from "./eventsList";
+import EventsFilter from "./EventsFilter";
 import { t } from "@/lib/i18n/server";
+import { Suspense } from "react";
 
-export default async function EventsPage() {
+export default async function EventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
   const admin = await isAdmin();
+  const { type } = await searchParams;
 
   const title = await t("eventsPage.heading");
   const createText = await t("eventsPage.createButton");
@@ -24,8 +31,12 @@ export default async function EventsPage() {
         </div>
       )}
 
+      <Suspense>
+        <EventsFilter />
+      </Suspense>
+
       <div className="mt-8">
-        <EventsList />
+        <EventsList filter={type} />
       </div>
     </div>
   );

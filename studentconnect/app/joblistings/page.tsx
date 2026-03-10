@@ -2,38 +2,52 @@
 
 import { Suspense } from "react";
 import JobList from "./jobList";
+import JobListingsFilter from "./JobListingsFilter";
 import { t } from "@/lib/i18n/server";
 import { isAdmin } from "@/lib/auth";
 
-export default function JobListingsPage() {
+export default function JobListingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
   return (
     <Suspense fallback={<p>Loading…</p>}>
-      <JobListingsShell />
+      <JobListingsShell searchParams={searchParams} />
     </Suspense>
   );
 }
 
-async function JobListingsShell() {
-  const title = await t("jobListings"); 
+async function JobListingsShell({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
   const loadingText = await t("jobListingsPage.loading");
   const createBtn = await t("jobListingsPage.createButton");
   const admin = await isAdmin();
+  const { type } = await searchParams;
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
       <h1 className="text-6xl font-bold text-black">Job Listings</h1>
-      {admin &&
-      <div className="mt-10">
-        <a
-          href="/admin/jobs"
-          className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
-        >
-          {createBtn}
-        </a>
-      </div>}
+      {admin && (
+        <div className="mt-10">
+          <a
+            href="/admin/jobs"
+            className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
+          >
+            {createBtn}
+          </a>
+        </div>
+      )}
+
+      <Suspense>
+        <JobListingsFilter />
+      </Suspense>
 
       <Suspense fallback={<p>{loadingText}</p>}>
-        <JobList />
+        <JobList filter={type} />
       </Suspense>
     </div>
   );

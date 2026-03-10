@@ -13,7 +13,7 @@ import { getLocale, t } from "@/lib/i18n/server";
  *
  * @returns A grid of job listing links or an error message if fetching fails.
  */
-export default async function JobListingsPage() {
+export default async function JobListingsPage({ filter }: { filter?: string }) {
   const locale = await getLocale();
   const dateLocale = locale === "it" ? "it-IT" : "en-GB";
 
@@ -42,9 +42,14 @@ export default async function JobListingsPage() {
 
   const deadlineLabel = await t("jobList.applicationDeadline");
 
+  const filteredListings = filter
+    ? (jobListings ?? []).filter((j: any) => j.employment_type === filter)
+    : (jobListings ?? []);
+
   return (
     <div style={{ display: "grid", justifyItems: "center" }}>
-      {jobListings?.map((jobListing: any) => {
+      {filteredListings.map((jobListing: any) => {
+        if (!jobListing?.id) return null;
         const href = `/joblistings/${jobListing.slug ?? jobListing.id}`;
         const deadlineDate = jobListing.application_deadline
           ? new Date(jobListing.application_deadline)

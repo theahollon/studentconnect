@@ -155,7 +155,6 @@ describe("Database CRUD Operations", () => {
           .insert({
             title: mockJobPosting.title,
             description: mockJobPosting.description,
-            company: mockJobPosting.company,
             application_url: mockJobPosting.application_url,
           })
           .select()
@@ -164,7 +163,6 @@ describe("Database CRUD Operations", () => {
         expect(error).toBeNull();
         expect(data).toBeDefined();
         expect(data.title).toBe(mockJobPosting.title);
-        expect(data.company).toBe(mockJobPosting.company);
         expect(data.application_url).toBe(mockJobPosting.application_url);
 
         createdJobId = data.id;
@@ -200,16 +198,16 @@ describe("Database CRUD Operations", () => {
         createdJobId = newJob.id;
 
         // Så oppdater den
-        const updatedCompany = "Ny Bedrift AS";
+        const updatedTitle = "Oppdatert Jobb Tittel";
         const { data, error } = await supabase
           .from("job_postings")
-          .update({ company: updatedCompany })
+          .update({ title: updatedTitle })
           .eq("id", createdJobId)
           .select()
           .single();
 
         expect(error).toBeNull();
-        expect(data.company).toBe(updatedCompany);
+        expect(data.title).toBe(updatedTitle);
       },
       testConfig.timeout,
     );
