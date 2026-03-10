@@ -131,6 +131,7 @@
 
     "rootNav.events": "Eventi",
     "rootNav.jobs": "Lavori",
+    "rootNav.favorites": "Preferiti",
     "rootNav.manageAdmins": "Gestisci Amministratori",
   
     "home.title": "Benvenuto su StudentConnect",
@@ -280,3 +281,4 @@
 
     "eventContent.bannedFromEvents": "Al momento ti è vietato partecipare agli eventi"
 }
+

@@ -23,6 +23,8 @@ async function JobListingsShell({
 }: {
   searchParams: Promise<{ type?: string }>;
 }) {
+  const title = await t("jobListings");
+
   const loadingText = await t("jobListingsPage.loading");
   const createBtn = await t("jobListingsPage.createButton");
   const admin = await isAdmin();
@@ -30,12 +32,17 @@ async function JobListingsShell({
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold text-black">Job Listings</h1>
+      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
+        {title}
+      </h1>
+      <p className="mt-2 text-base text-gray-500">
+        Find internships and job opportunities for students
+      </p>
       {admin && (
         <div className="mt-10">
           <a
             href="/admin/jobs"
-            className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
+            className="inline-block rounded-lg bg-pink-500 px-6 py-3 text-white font-semibold hover:bg-pink-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition transform"
           >
             {createBtn}
           </a>
@@ -45,7 +52,6 @@ async function JobListingsShell({
       <Suspense>
         <JobListingsFilter />
       </Suspense>
-
       <Suspense fallback={<p>{loadingText}</p>}>
         <JobList filter={type} />
       </Suspense>

@@ -18,13 +18,18 @@ export default async function EventsPage({
 
   return (
     <div className="mx-auto max-w-4xl px-6 text-center text-black">
-      <h1 className="text-6xl font-bold text-black">{title}</h1>
+      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
+        {title}
+      </h1>
+      <p className="mt-2 text-base text-gray-500">
+        Discover upcoming activities and student events
+      </p>
 
       {admin && (
         <div className="mt-10">
           <Link
             href="/admin/activities"
-            className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
+            className="inline-block rounded-lg bg-pink-500 px-6 py-3 text-white font-semibold hover:bg-pink-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition transform"
           >
             {createText}
           </Link>
@@ -38,6 +43,7 @@ export default async function EventsPage({
       <div className="mt-8">
         <EventsList filter={type} />
       </div>
+
     </div>
   );
 }
