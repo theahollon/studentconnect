@@ -17,6 +17,7 @@ type ActivityDraft = {
   location: string;
   capacity: string; // kept as string because HTML inputs return strings
   category: string;
+  company: string;
 };
 
 /**
@@ -29,6 +30,7 @@ const initial: ActivityDraft = {
   location: "",
   capacity: "",
   category: "general",
+  company: "",
 };
 
 export default function ActivityForm() {
@@ -49,6 +51,22 @@ export default function ActivityForm() {
 
   // Animation state for modal transitions (opacity/scale)
   const [alertVisible, setAlertVisible] = useState(false);
+
+  // Companies loaded from database for the dropdown
+  const [companies, setCompanies] = useState<{ id: string; name: string }[]>([]);
+
+  /**
+   * Fetch available companies on mount
+   */
+  useEffect(() => {
+    supabase
+      .from("companies")
+      .select("id, name")
+      .order("name")
+      .then(({ data }) => {
+        if (data) setCompanies(data);
+      });
+  }, [supabase]);
 
   /**
    * Basic form validation:
@@ -122,6 +140,7 @@ export default function ActivityForm() {
         location: draft.location.trim() || null,
         start_time: startTimeIso,
         end_time: null,
+        company: draft.company || null,
         // Note: capacity/category are currently only UI fields.
         // Add corresponding DB columns and include them here if needed.
       });
@@ -216,6 +235,27 @@ export default function ActivityForm() {
               disabled={isSubmitting}
             />
           </div>
+        </div>
+
+        {/* Company dropdown */}
+        <div className="space-y-1">
+          <label className="text-sm font-medium" htmlFor="company">
+            {t("activityForm.fields.company")}
+          </label>
+          <select
+            id="company"
+            className="w-full rounded border px-3 py-2"
+            value={draft.company}
+            onChange={(e) => onChange("company", e.target.value)}
+            disabled={isSubmitting}
+          >
+            <option value="">{t("activityForm.placeholders.company")}</option>
+            {companies.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Capacity + category */}

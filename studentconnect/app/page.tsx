@@ -66,8 +66,7 @@ export default async function Home() {
             </Link>
           )}
           
-          {admin && (
-            <Link
+          <Link
               href="/admin/companies"
               className="group p-8 bg-white backdrop-blur-sm border border-gray-300 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
@@ -80,7 +79,6 @@ export default async function Home() {
                 </p>
               </div>
             </Link>
-          )}
 
         </div>
       </section>

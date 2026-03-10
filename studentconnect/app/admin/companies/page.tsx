@@ -1,7 +1,17 @@
+// This component was developed with assistance from AI tools.
+
 import Link from "next/link";
 import { isAdmin } from "@/lib/auth";
 import CompanyList from "./companyList";
 import { t } from "@/lib/i18n/server";
+
+/**
+ * Companies overview page at /admin/companies.
+ *
+ * Displays a list of all companies (via CompanyList).
+ * If the current user is an admin, a "Create new company" button
+ * linking to the company creation form is shown.
+ */
 
 export default async function CompaniesPage() {
   const admin = await isAdmin();

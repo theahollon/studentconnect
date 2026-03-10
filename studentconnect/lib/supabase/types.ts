@@ -1,4 +1,5 @@
 // Database types for Student Connect application
+// Developed with assistance from AI tools.
 
 export interface profiles {
   id: string;
@@ -10,10 +11,10 @@ export interface job_postings {
   id: string;
   title: string;
   description: string;
+  /** Foreign key referencing companies.name — links a job posting to a company */
   company: string;
   application_url: string;
   created_by: string;
-
 }
 
 export interface event_registration {
@@ -30,6 +31,8 @@ export interface events {
   start_time: string;
   end_time: string;
   created_by: string;
+  /** Foreign key referencing companies.name — links an event to a company */
+  company: string;
 }
 
 export interface companies {

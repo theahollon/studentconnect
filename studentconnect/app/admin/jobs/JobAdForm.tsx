@@ -59,6 +59,22 @@ export default function JobAdForm() {
   // Controls animation state (opacity / scale)
   const [alertVisible, setAlertVisible] = useState(false);
 
+  // Companies loaded from database for the dropdown
+  const [companies, setCompanies] = useState<{ id: string; name: string }[]>([]);
+
+  /**
+   * Fetch available companies on mount
+   */
+  useEffect(() => {
+    supabase
+      .from("companies")
+      .select("id, name")
+      .order("name")
+      .then(({ data }) => {
+        if (data) setCompanies(data);
+      });
+  }, [supabase]);
+
   /**
    * Handles modal animation when showAlert changes
    */
@@ -193,14 +209,20 @@ export default function JobAdForm() {
             {t("jobAdForm.fields.company")}{" "}
             <span className="text-red-600">*</span>
           </label>
-          <input
+          <select
             id="company"
             className="w-full rounded border px-3 py-2"
             value={draft.company}
             onChange={(e) => onChange("company", e.target.value)}
-            placeholder={t("jobAdForm.placeholders.company")}
             disabled={loading}
-          />
+          >
+            <option value="">{t("jobAdForm.placeholders.company")}</option>
+            {companies.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Location + deadline */}
