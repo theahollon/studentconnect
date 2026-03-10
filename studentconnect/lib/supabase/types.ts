@@ -15,6 +15,8 @@ export interface job_postings {
   company: string;
   application_url: string;
   created_by: string;
+  employment_type: string;
+
 }
 
 export interface event_registration {
@@ -47,16 +49,29 @@ export interface companies {
 export interface create_event_input {
   title: string;
   description: string;
-  location: string;
-  start_time: string;
-  end_time: string;
+  location: string | null;
+  start_time: string | null;
+  end_time: string | null;
+  //Here we need created_by and created_at. If we want to use this!
+  event_type: string | null;
+  company?: string | null;
 }
 
 export interface create_job_input {
   title: string;
-  description: string;
+  description: string | null;
   company: string;
   application_url: string;
+  location: string | null;
+  application_deadline: string | null, 
+  employment_type: string | null,
+  contact_email: string  | null,
+}
+
+export interface create_company_input {
+  name: string;
+  description: string;
+  website_url: string;
 }
 
 export interface create_company_input {

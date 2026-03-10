@@ -32,23 +32,34 @@ jest.mock("@/lib/i18n/client", () => ({
 const mockGetEventById = jest.fn();
 const mockGetUser = jest.fn();
 const mockSelect = jest.fn();
+
 jest.mock("@/lib/supabase/database", () => ({
   __esModule: true,
   getEventById: (...args: unknown[]) => mockGetEventById(...args),
 }));
+
+// Build a flexible chainable mock that supports all Supabase query patterns
+// used by EventContent and the auth helpers (isAdmin, requireAdmin).
+const makeChain = (): Record<string, unknown> => {
+  const chain: Record<string, unknown> = {};
+  chain.select = () => chain;
+  chain.eq = () => chain;
+  chain.update = () => chain;
+  chain.upsert = jest.fn().mockResolvedValue({ error: null });
+  chain.insert = jest.fn().mockResolvedValue({ error: null });
+  chain.delete = () => chain;
+  // .single() used by isAdmin / requireAdmin for profile lookup → non-admin user
+  chain.single = jest.fn().mockResolvedValue({ data: { role: "user", email: "u@test.com" } });
+  // .maybeSingle() used by EventContent for registration check
+  chain.maybeSingle = () => mockSelect();
+  return chain;
+};
+
 jest.mock("@/lib/supabase/server", () => ({
   __esModule: true,
   createClient: jest.fn().mockResolvedValue({
     auth: { getUser: () => mockGetUser() },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            maybeSingle: () => mockSelect(),
-          }),
-        }),
-      }),
-    }),
+    from: () => makeChain(),
   }),
 }));
 
@@ -120,4 +131,37 @@ test("calls notFound when event does not exist", async () => {
 
   const params = Promise.resolve({ id: "missing" });
   await expect(EventContent({ params })).rejects.toThrow("NEXT_NOT_FOUND");
+});
+
+test("renders event_type badge when event_type is set", async () => {
+  mockGetEventById.mockResolvedValue({
+    id: "e1",
+    title: "Social Night",
+    description: "Fun evening",
+    start_time: "2026-06-15T10:00:00Z",
+    event_type: "social",
+  });
+  mockGetUser.mockResolvedValue({ data: { user: null } });
+
+  const params = Promise.resolve({ id: "e1" });
+  render(await EventContent({ params }));
+
+  expect(screen.getByText("social")).toBeInTheDocument();
+});
+
+test("does not render event_type badge when event_type is absent", async () => {
+  mockGetEventById.mockResolvedValue({
+    id: "e1",
+    title: "Mystery Event",
+    description: "No type",
+    start_time: "2026-06-15T10:00:00Z",
+    event_type: null,
+  });
+  mockGetUser.mockResolvedValue({ data: { user: null } });
+
+  const params = Promise.resolve({ id: "e1" });
+  render(await EventContent({ params }));
+
+  expect(screen.queryByText("social")).not.toBeInTheDocument();
+  expect(screen.queryByText("general")).not.toBeInTheDocument();
 });

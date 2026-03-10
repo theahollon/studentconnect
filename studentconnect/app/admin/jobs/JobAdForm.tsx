@@ -7,10 +7,12 @@
 import { useMemo, useState, useEffect } from "react";
 
 // Supabase client factory
-import { createClient } from "@/lib/supabase/client";
+import { createJobListings, getCompanies } from "@/lib/supabase/database";
 
 // i18n (client)
 import { t } from "@/lib/i18n/client";
+
+import type { companies } from "@/lib/supabase/types";
 
 /**
  * Type describing the job posting form data
@@ -41,8 +43,8 @@ const initial: JobAdDraft = {
 };
 
 export default function JobAdForm() {
-  // Create Supabase client instance
-  const supabase = createClient();
+  // List of companies fetched from the database
+  const [companies, setCompanies] = useState<companies[]>([]);
 
   // Form state
   const [draft, setDraft] = useState<JobAdDraft>(initial);
@@ -59,21 +61,14 @@ export default function JobAdForm() {
   // Controls animation state (opacity / scale)
   const [alertVisible, setAlertVisible] = useState(false);
 
-  // Companies loaded from database for the dropdown
-  const [companies, setCompanies] = useState<{ id: string; name: string }[]>([]);
-
   /**
-   * Fetch available companies on mount
+   * Fetch companies on mount so they can be shown in the dropdown
    */
   useEffect(() => {
-    supabase
-      .from("companies")
-      .select("id, name")
-      .order("name")
-      .then(({ data }) => {
-        if (data) setCompanies(data);
-      });
-  }, [supabase]);
+    getCompanies()
+      .then((list) => setCompanies(list.sort((a, b) => a.name.localeCompare(b.name))))
+      .catch((err) => console.error("Failed to load companies:", err));
+  }, []);
 
   /**
    * Handles modal animation when showAlert changes
@@ -140,25 +135,22 @@ export default function JobAdForm() {
 
     try {
       // Prepare payload for database insert
-      const payload = {
+      await createJobListings({
         title: draft.title.trim(),
         company: draft.company.trim(),
+        location: draft.location.trim(),
+        application_deadline: draft.deadline.trim(), // 
+        employment_type: draft.employmentType,
+        contact_email: draft.contactEmail.trim() ,
+        description: draft.description.trim() ,
+        application_url: draft.applyUrl.trim() ,
 
-        location: draft.location.trim() || null,
-        application_deadline: draft.deadline.trim() || null, // "YYYY-MM-DD" fra input type="date"
-        employment_type: draft.employmentType || null,
-        contact_email: draft.contactEmail.trim() || null,
+      });
 
-        description: draft.description.trim() || null,
-        application_url: draft.applyUrl.trim() || null,
-      };
+
 
       // Insert job posting into Supabase
-      const { error: insertError } = await supabase
-        .from("job_postings")
-        .insert(payload);
 
-      if (insertError) throw insertError;
 
       // Reset form for next job posting
       setDraft(initial);
@@ -203,7 +195,7 @@ export default function JobAdForm() {
           />
         </div>
 
-        {/* Company */}
+        {/* Company (dropdown) */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="company">
             {t("jobAdForm.fields.company")}{" "}

@@ -4,8 +4,11 @@
 "use client"; // Ensures the component runs on the client (Next.js App Router)
 
 import { useEffect, useMemo, useState } from "react";
-import { createClient } from "@/lib/supabase/client"; // Supabase client factory
+import { createClient } from "@/lib/supabase/client"; // Supabase client factory¨
+import { createEvent, getCompanies } from "@/lib/supabase/database";
 import { t } from "@/lib/i18n/client";
+
+import type { companies } from "@/lib/supabase/types";
 
 /**
  * TypeScript type describing the activity form fields
@@ -37,6 +40,9 @@ export default function ActivityForm() {
   // Create Supabase client instance for database operations
   const supabase = createClient();
 
+  // List of companies fetched from the database
+  const [companiesList, setCompaniesList] = useState<companies[]>([]);
+
   // Form state (all input values)
   const [draft, setDraft] = useState<ActivityDraft>(initial);
 
@@ -52,22 +58,6 @@ export default function ActivityForm() {
   // Animation state for modal transitions (opacity/scale)
   const [alertVisible, setAlertVisible] = useState(false);
 
-  // Companies loaded from database for the dropdown
-  const [companies, setCompanies] = useState<{ id: string; name: string }[]>([]);
-
-  /**
-   * Fetch available companies on mount
-   */
-  useEffect(() => {
-    supabase
-      .from("companies")
-      .select("id, name")
-      .order("name")
-      .then(({ data }) => {
-        if (data) setCompanies(data);
-      });
-  }, [supabase]);
-
   /**
    * Basic form validation:
    * Title and date/time are required
@@ -75,6 +65,15 @@ export default function ActivityForm() {
   const isValid = useMemo(() => {
     return draft.title.trim().length > 0 && draft.startsAt.trim().length > 0;
   }, [draft.title, draft.startsAt]);
+
+  /**
+   * Fetch companies on mount so they can be shown in the dropdown
+   */
+  useEffect(() => {
+    getCompanies()
+      .then((list) => setCompaniesList(list.sort((a, b) => a.name.localeCompare(b.name))))
+      .catch((err) => console.error("Failed to load companies:", err));
+  }, []);
 
   /**
    * Runs fade/scale-in animation when the modal is mounted.
@@ -133,19 +132,15 @@ export default function ActivityForm() {
       // Convert datetime-local value to ISO format for database storage
       const startTimeIso = new Date(draft.startsAt).toISOString();
 
-      // Insert row into the "events" table in Supabase
-      const { error: insertError } = await supabase.from("events").insert({
+      await createEvent({
         title: draft.title.trim(),
-        description: draft.description.trim() || null,
-        location: draft.location.trim() || null,
+        description: draft.description.trim() || "",
+        location: draft.location.trim(), 
         start_time: startTimeIso,
         end_time: null,
+        event_type: draft.category,
         company: draft.company || null,
-        // Note: capacity/category are currently only UI fields.
-        // Add corresponding DB columns and include them here if needed.
       });
-
-      if (insertError) throw insertError;
 
       // Clear the form so a new activity can be created without refreshing
       setDraft(initial);
@@ -206,6 +201,27 @@ export default function ActivityForm() {
           />
         </div>
 
+        {/* Company (dropdown) */}
+        <div className="space-y-1">
+          <label className="text-sm font-medium" htmlFor="company">
+            {t("activityForm.fields.company")}
+          </label>
+          <select
+            id="company"
+            className="w-full rounded border px-3 py-2"
+            value={draft.company}
+            onChange={(e) => onChange("company", e.target.value)}
+            disabled={isSubmitting}
+          >
+            <option value="">{t("activityForm.placeholders.company")}</option>
+            {companiesList.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Date/time (required) + location */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
@@ -235,27 +251,6 @@ export default function ActivityForm() {
               disabled={isSubmitting}
             />
           </div>
-        </div>
-
-        {/* Company dropdown */}
-        <div className="space-y-1">
-          <label className="text-sm font-medium" htmlFor="company">
-            {t("activityForm.fields.company")}
-          </label>
-          <select
-            id="company"
-            className="w-full rounded border px-3 py-2"
-            value={draft.company}
-            onChange={(e) => onChange("company", e.target.value)}
-            disabled={isSubmitting}
-          >
-            <option value="">{t("activityForm.placeholders.company")}</option>
-            {companies.map((c) => (
-              <option key={c.id} value={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
         </div>
 
         {/* Capacity + category */}
