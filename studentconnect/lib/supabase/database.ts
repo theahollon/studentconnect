@@ -4,8 +4,11 @@ import type {
     event_registration,
     job_postings,
     profiles,
+    user_allergies,
     create_event_input,
-    create_job_input
+    create_job_input,
+    create_company_input,
+    companies
   } from './types';
 
 const supabase = createClient();
@@ -99,6 +102,122 @@ export async function unregisterFromEvent(eventId: string, userId: string): Prom
     if (error) throw error;
 }
 
+export async function isEventFavorited(eventId: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from('event_favorites')
+        .select('id')
+        .eq('event_id', eventId)
+        .eq('user_id', userId)
+        .maybeSingle();
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+}
+
+export async function toggleEventFavorite(
+    eventId: string,
+    userId: string
+): Promise<boolean> {
+    const favorited = await isEventFavorited(eventId, userId);
+
+    if (favorited) {
+        const { error } = await supabase
+            .from('event_favorites')
+            .delete()
+            .eq('event_id', eventId)
+            .eq('user_id', userId);
+        if (error) throw error;
+        return false;
+    }
+
+    const { error } = await supabase
+        .from('event_favorites')
+        .insert({
+            event_id: eventId,
+            user_id: userId,
+        });
+    if (error) throw error;
+    return true;
+}
+
+export async function isJobFavorited(jobId: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from('job_favorites')
+        .select('id')
+        .eq('job_id', jobId)
+        .eq('user_id', userId)
+        .maybeSingle();
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+}
+
+export async function toggleJobFavorite(
+    jobId: string,
+    userId: string
+): Promise<boolean> {
+    const favorited = await isJobFavorited(jobId, userId);
+
+    if (favorited) {
+        const { error } = await supabase
+            .from('job_favorites')
+            .delete()
+            .eq('job_id', jobId)
+            .eq('user_id', userId);
+        if (error) throw error;
+        return false;
+    }
+
+    const { error } = await supabase
+        .from('job_favorites')
+        .insert({
+            job_id: jobId,
+            user_id: userId,
+        });
+    if (error) throw error;
+    return true;
+}
+
+export async function getUserFavoriteEvents(userId: string): Promise<events[]> {
+    const { data, error } = await supabase
+        .from('event_favorites')
+        .select(`
+            events (*)
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+
+    const rows = (data ?? []) as Array<{
+        events: events | events[] | null;
+    }>;
+
+    return rows
+        .map((row) => Array.isArray(row.events) ? row.events[0] ?? null : row.events)
+        .filter((event): event is events => !!event);
+}
+
+export async function getUserFavoriteJobs(userId: string): Promise<job_postings[]> {
+    const { data, error } = await supabase
+        .from('job_favorites')
+        .select(`
+            job_postings (*)
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+
+    const rows = (data ?? []) as Array<{
+        job_postings: job_postings | job_postings[] | null;
+    }>;
+
+    return rows
+        .map((row) =>
+            Array.isArray(row.job_postings)
+                ? row.job_postings[0] ?? null
+                : row.job_postings
+        )
+        .filter((job): job is job_postings => !!job);
+}
+
 // More detailed event queries
 export async function getEventById(eventId: string): Promise<events | null> {
     const { data: event, error } = await supabase
@@ -142,10 +261,123 @@ export async function getJoblistingById(
       .from('job_postings')
       .delete()
       .eq('id', jobId);
-  
+
     if (error) throw error;
   }
+
+export async function getAdminList(): Promise<profiles[]> {
+  const { data: admins, error } = await supabase
+    .from('profiles')
+    .select()
+    .eq('role', 'admin');
+  if (error) throw error;
+  return admins as profiles[];
+}
+
+export async function getNonAdminList(): Promise<profiles[]> {
+  const { data: users, error } = await supabase
+    .from('profiles')
+    .select()
+    .eq('role', 'user');
+  if (error) throw error;
+  return users as profiles[];
+}
+
+// User Allergies Functions
+export async function getUserAllergies(userId: string): Promise<user_allergies[]> {
+    const { data: allergies, error } = await supabase
+        .from('user_allergies')
+        .select()
+        .eq('user_id', userId);
+    if (error) throw error;
+    return allergies as user_allergies[];
+}
+
+export async function addUserAllergy(userId: string, allergy: string): Promise<user_allergies> {
+    const { data, error } = await supabase
+        .from('user_allergies')
+        .insert({ user_id: userId, allergy })
+        .select()
+        .single();
+    if (error) throw error;
+    return data as user_allergies;
+}
+
+export async function removeUserAllergy(allergyId: string): Promise<void> {
+    const { error } = await supabase
+        .from('user_allergies')
+        .delete()
+        .eq('id', allergyId);
+    if (error) throw error;
+}
+
+// Company Functions — Developed with assistance from AI tools.
+
+/** Fetches all companies from the database. */
+export async function getCompanies(): Promise<companies[]> {
+  const { data: companyList, error } = await supabase.from('companies').select();
+  if (error) throw error;
+  return companyList as companies[];
+}
+
+/** Fetches a single company by its unique name. Returns null if not found. */
+export async function getCompanyByName(name: string): Promise<companies | null> {
+  const { data: company, error } = await supabase
+    .from('companies')
+    .select()
+    .eq('name', name)
+    .single();
+  if (error && error.code !== 'PGRST116') throw error;
+  return company as companies | null;
+}
+
+/** Fetches all events that belong to a given company (matched by company name). */
+export async function getEventsByCompany(companyName: string): Promise<events[]> {
+  const { data: eventList, error } = await supabase
+    .from('events')
+    .select()
+    .eq('company', companyName);
+  if (error) throw error;
+  return eventList as events[];
+}
+
+/** Fetches all job postings that belong to a given company (matched by company name). */
+export async function getJobListingsByCompany(companyName: string): Promise<job_postings[]> {
+  const { data: jobs, error } = await supabase
+    .from('job_postings')
+    .select()
+    .eq('company', companyName);
+  if (error) throw error;
+  return jobs as job_postings[];
+}
+
+export async function createCompanyProfile(data: create_company_input): Promise<companies> {
+  const { data: company, error } = await supabase.from('companies').insert(data).select().single();
+  if (error) throw error;
+  return company as companies;
+}
+
+export async function getCompanyById(
+    companyId: string
+  ): Promise<companies | null> {
+    const { data: company, error } = await supabase
+      .from('companies')
+      .select()
+      .eq('id', companyId)
+      .single();
   
+    if (error && error.code !== 'PGRST116') throw error;
+  
+    return company as companies | null;
+  }
 
+  export async function deleteCompanyProfile(
+    companyId: string
+  ): Promise<void> {
+    const { error } = await supabase
+      .from('companies')
+      .delete()
+      .eq('id', companyId);
 
-
+    if (error) throw error;
+  }

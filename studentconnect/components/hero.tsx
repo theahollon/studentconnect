@@ -1,5 +1,8 @@
+"use client";
+
 import { NextLogo } from "./next-logo";
 import { SupabaseLogo } from "./supabase-logo";
+import { t } from "@/lib/i18n/client";
 
 export function Hero() {
   return (
@@ -17,9 +20,11 @@ export function Hero() {
           <NextLogo />
         </a>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
+
+      <h1 className="sr-only">{t("hero.srTitle")}</h1>
+
       <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
+        {t("hero.headlinePrefix")}{" "}
         <a
           href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
           target="_blank"
@@ -28,7 +33,7 @@ export function Hero() {
         >
           Supabase
         </a>{" "}
-        and{" "}
+        {t("hero.headlineMiddle")}{" "}
         <a
           href="https://nextjs.org/"
           target="_blank"
@@ -38,6 +43,7 @@ export function Hero() {
           Next.js
         </a>
       </p>
+
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );

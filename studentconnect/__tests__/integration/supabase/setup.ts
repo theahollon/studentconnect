@@ -50,7 +50,6 @@ export const mockEvent = {
 export const mockJobPosting = {
   title: "Test Utvikler Jobb",
   description: "Test jobbeskrivelse for integrasjonstesting",
-  company: "Test Company AS",
   application_url: "https://test-company.no/apply",
 };
 

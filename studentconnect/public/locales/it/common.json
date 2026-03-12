@@ -1,0 +1,284 @@
+{
+    "jobListings": "Offerte di lavoro",
+    "errorLoading": "Errore durante il caricamento delle offerte di lavoro",
+
+    "activityForm.heading": "Crea attività",
+    "activityForm.validationRequired": "Compila i campi obbligatori (titolo e data/ora).",
+    "activityForm.saveError": "Si è verificato un errore durante il salvataggio. Riprova.",
+  
+    "activityForm.fields.title": "Titolo",
+    "activityForm.fields.description": "Descrizione",
+    "activityForm.fields.dateTime": "Data e ora",
+    "activityForm.fields.location": "Luogo",
+    "activityForm.fields.spots": "Capienza",
+    "activityForm.fields.category": "Categoria",
+    "activityForm.fields.company": "Azienda",
+  
+    "activityForm.placeholders.title": "es. Serata di giochi da tavolo",
+    "activityForm.placeholders.description": "Aggiungi una breve descrizione (facoltativo)",
+    "activityForm.placeholders.location": "es. Aula A2, edificio principale",
+    "activityForm.placeholders.spots": "es. 30",
+    "activityForm.placeholders.company": "-- Seleziona un'azienda (facoltativo) --",
+  
+    "activityForm.categories.general": "Generale",
+    "activityForm.categories.social": "Sociale",
+    "activityForm.categories.sports": "Sport",
+    "activityForm.categories.academic": "Accademico",
+  
+    "activityForm.buttons.saving": "Salvataggio…",
+    "activityForm.buttons.create": "Crea",
+    "activityForm.buttons.reset": "Reimposta",
+  
+    "activityForm.modal.title": "Attività creata",
+    "activityForm.modal.body": "La tua attività è stata salvata correttamente.",
+    "activityForm.modal.ok": "OK",
+
+    "admin.activities.checkingPermissions": "Verifica dei permessi…",
+
+    "jobAdForm.heading": "Crea un nuovo annuncio di lavoro",
+
+    "jobAdForm.fields.title": "Titolo della posizione",
+    "jobAdForm.fields.company": "Azienda",
+    "jobAdForm.fields.location": "Luogo",
+    "jobAdForm.fields.deadline": "Scadenza per la candidatura",
+    "jobAdForm.fields.employmentType": "Tipo di impiego",
+    "jobAdForm.fields.applyUrl": "Link per candidarsi",
+    "jobAdForm.fields.contactEmail": "Email di contatto",
+    "jobAdForm.fields.description": "Descrizione",
+  
+    "jobAdForm.placeholders.title": "es. Sviluppatore junior",
+    "jobAdForm.placeholders.company": "-- Seleziona un'azienda --",
+    "jobAdForm.placeholders.location": "es. Trondheim / Ibrido",
+  
+    "jobAdForm.employmentTypes.fulltime": "Tempo pieno",
+    "jobAdForm.employmentTypes.parttime": "Part-time",
+    "jobAdForm.employmentTypes.internship": "Tirocinio",
+    "jobAdForm.employmentTypes.temporary": "Temporaneo",
+  
+    "jobAdForm.actions.creating": "Creazione in corso...",
+    "jobAdForm.actions.create": "Crea annuncio di lavoro",
+    "jobAdForm.actions.reset": "Reimposta",
+  
+    "jobAdForm.modal.successTitle": "Operazione riuscita",
+    "jobAdForm.modal.successBody": "Il tuo annuncio di lavoro è stato creato con successo.",
+    "jobAdForm.modal.ok": "OK",
+  
+    "jobAdForm.errors.missingRequired": "Inserisci titolo, azienda e scadenza per la candidatura.",
+    "jobAdForm.errors.saveFailed": "Impossibile salvare l'annuncio di lavoro nel database.",
+
+    "adminJobAdPage.checkingPermissions": "Verifica dei permessi…",
+
+    "eventsPage.heading": "Eventi",
+    "eventsPage.createButton": "Crea nuovo evento",
+    "eventsPage.loading": "Caricamento eventi…",
+  
+    "eventsList.errorLoading": "Errore durante il caricamento degli eventi",
+    "eventsList.upcoming": "In arrivo",
+    "eventsList.dateLabel": "Data",
+
+    "deleteEventButton.label": "Elimina evento",
+    "eventContent.register": "Iscriviti",
+    "eventContent.withdraw": "Annulla iscrizione",
+
+    "jobList.errorLoading": "Errore durante il caricamento delle offerte di lavoro",
+    "jobList.applicationDeadline": "Scadenza candidatura",
+
+    "jobListingsPage.loading": "Caricamento offerte di lavoro…",
+    "jobListingsPage.createButton": "Crea una nuova offerta di lavoro",
+
+    "companiesPage.heading": "Aziende",
+    "companiesPage.createButton": "Crea nuova azienda",
+    "companiesPage.loading": "Caricamento aziende…",
+
+    "companiesList.errorLoading": "Errore durante il caricamento delle aziende",
+    "companiesList.upcoming": "In arrivo",
+    "companiesList.dateLabel": "Data",
+
+    "deleteCompanyProfileButton.label": "Elimina profilo azienda",
+    "companyContent.register": "Iscriviti",
+    "companyContent.withdraw": "Annulla iscrizione",
+
+    "companyForm.heading": "Crea azienda",
+    "companyForm.validationRequired": "Inserisci almeno il nome dell'azienda.",
+    "companyForm.saveError": "Si è verificato un errore durante il salvataggio. Riprova.",
+    "companyForm.fields.name": "Nome azienda",
+    "companyForm.fields.description": "Descrizione",
+    "companyForm.fields.websiteUrl": "URL del sito web",
+    "companyForm.placeholders.name": "es. Google",
+    "companyForm.placeholders.description": "Breve descrizione dell'azienda (facoltativo)",
+    "companyForm.placeholders.websiteUrl": "es. https://google.com",
+    "companyForm.buttons.saving": "Salvataggio…",
+    "companyForm.buttons.create": "Crea",
+    "companyForm.buttons.reset": "Reimposta",
+    "companyForm.modal.title": "Azienda creata",
+    "companyForm.modal.body": "Il profilo aziendale è stato salvato con successo.",
+    "companyForm.modal.ok": "OK",
+
+    "companyDetail.description": "Descrizione",
+    "companyDetail.website": "Sito web",
+    "companyDetail.visitWebsite": "Visita il sito web",
+    "companyDetail.events": "Eventi",
+    "companyDetail.jobListings": "Offerte di lavoro",
+    "companyDetail.noEvents": "Nessun evento da questa azienda ancora.",
+    "companyDetail.noJobListings": "Nessuna offerta di lavoro da questa azienda ancora.",
+
+    "protectedLayout.brand": "Next.js Supabase Starter",
+    "protectedLayout.poweredBy": "Powered by",
+  
+    "protectedPage.banner": "Questa è una pagina protetta visibile solo agli utenti autenticati",
+    "protectedPage.userDetailsTitle": "I tuoi dati utente",
+    "protectedPage.nextStepsTitle": "Prossimi passi",
+
+    "rootNav.events": "Eventi",
+    "rootNav.jobs": "Lavori",
+    "rootNav.favorites": "Preferiti",
+    "rootNav.manageAdmins": "Gestisci Amministratori",
+  
+    "home.title": "Benvenuto su StudentConnect",
+    "home.subtitle": "Connettiti con opportunità ed eventi per studenti",
+  
+    "home.cards.events.title": "Eventi",
+    "home.cards.events.body": "Scopri i prossimi eventi e attività per studenti",
+  
+    "home.cards.jobs.title": "Opportunità di lavoro",
+    "home.cards.jobs.body": "Trova tirocini e opportunità di lavoro",
+
+    "home.cards.companies.title": "Esplora le aziende",
+    "home.cards.companies.body": "Visualizza i profili aziendali",
+
+    "deleteJoblistingButton.label": "Elimina offerta di lavoro",
+
+    "joblistingPage.loading": "Caricamento offerta di lavoro…",
+  
+    "joblistingContent.keyInformation": "Informazioni principali",
+    "joblistingContent.location": "Luogo",
+    "joblistingContent.employmentType": "Tipo di impiego",
+    "joblistingContent.applicationDeadline": "Scadenza candidatura",
+    "joblistingContent.contact": "Contatto",
+    "joblistingContent.applyNow": "Candidati ora",
+    "joblistingContent.deadlinePassed": "Scadenza candidatura superata",
+    "joblistingContent.description": "Descrizione",
+
+    "auth.error.title": "Spiacenti, qualcosa è andato storto.",
+    "auth.error.codePrefix": "Codice errore",
+    "auth.error.unspecified": "Si è verificato un errore non specificato.",
+
+    "auth.signUpSuccess.title": "Grazie per esserti registrato!",
+    "auth.signUpSuccess.description": "Controlla la tua email per confermare",
+    "auth.signUpSuccess.body": "Registrazione completata. Controlla la tua email per confermare l'account prima di accedere.",
+
+    "auth.authButton.hey": "Ciao",
+    "auth.authButton.signIn": "Accedi",
+    "auth.authButton.signUp": "Registrati",
+
+    "deployButton.label": "Distribuisci su Vercel",
+
+    "envVarWarning.badge": "Sono richieste le variabili d'ambiente di Supabase",
+    "envVarWarning.signIn": "Accedi",
+    "envVarWarning.signUp": "Registrati",
+
+    "auth.forgotPassword.errorGeneric": "Si è verificato un errore",
+
+    "auth.forgotPassword.successTitle": "Controlla la tua email",
+    "auth.forgotPassword.successDescription": "Istruzioni per reimpostare la password inviate",
+    "auth.forgotPassword.successBody": "Se ti sei registrato con email e password, riceverai un'email per reimpostare la password.",
+  
+    "auth.forgotPassword.title": "Reimposta la password",
+    "auth.forgotPassword.description": "Inserisci la tua email e ti invieremo un link per reimpostare la password",
+    "auth.forgotPassword.email": "Email",
+    "auth.forgotPassword.emailPlaceholder": "m@example.com",
+    "auth.forgotPassword.sending": "Invio...",
+    "auth.forgotPassword.submit": "Invia email di reimpostazione",
+    "auth.forgotPassword.alreadyHaveAccount": "Hai già un account?",
+    "auth.forgotPassword.login": "Accedi",
+
+    "hero.srTitle": "Template starter Supabase e Next.js",
+    "hero.headlinePrefix": "Il modo più veloce per creare app con",
+    "hero.headlineMiddle": "e",
+
+    "auth.login.title": "Accedi",
+    "auth.login.description": "Inserisci la tua email qui sotto per accedere al tuo account",
+    "auth.login.email": "Email",
+    "auth.login.emailPlaceholder": "m@example.com",
+    "auth.login.password": "Password",
+    "auth.login.forgotPassword": "Hai dimenticato la password?",
+    "auth.login.loggingIn": "Accesso in corso...",
+    "auth.login.submit": "Accedi",
+    "auth.login.noAccount": "Non hai un account?",
+    "auth.login.signUp": "Registrati",
+    "auth.login.errorGeneric": "Si è verificato un errore",
+
+    "auth.logoutButton.logout": "Esci",
+
+    "auth.signUp.title": "Registrati",
+    "auth.signUp.description": "Crea un nuovo account",
+    "auth.signUp.email": "Email",
+    "auth.signUp.emailPlaceholder": "m@example.com",
+    "auth.signUp.password": "Password",
+    "auth.signUp.repeatPassword": "Ripeti password",
+  
+    "auth.signUp.role": "Ruolo",
+    "auth.signUp.roleUser": "Utente",
+    "auth.signUp.roleAdmin": "Admin",
+  
+    "auth.signUp.passwordsDoNotMatch": "Le password non corrispondono",
+    "auth.signUp.creatingAccount": "Creazione dell'account...",
+    "auth.signUp.submit": "Registrati",
+    "auth.signUp.alreadyHaveAccount": "Hai già un account?",
+    "auth.signUp.login": "Accedi",
+    "auth.signUp.errorGeneric": "Si è verificato un errore",
+
+    "auth.updatePassword.title": "Reimposta la password",
+    "auth.updatePassword.description": "Inserisci qui sotto la tua nuova password.",
+    "auth.updatePassword.newPassword": "Nuova password",
+    "auth.updatePassword.newPasswordPlaceholder": "Nuova password",
+    "auth.updatePassword.saving": "Salvataggio...",
+    "auth.updatePassword.submit": "Salva la nuova password",
+    "auth.updatePassword.errorGeneric": "Si è verificato un errore",
+
+    "profile.title": "Il mio profilo",
+    "profile.studyProgram": "Corso di studi",
+    "profile.selectProgram": "Seleziona un corso...",
+    "profile.allergies": "Allergie",
+    "profile.noAllergies": "Nessuna allergia aggiunta",
+    "profile.addAllergyPlaceholder": "Aggiungi un'allergia...",
+    "profile.addButton": "Aggiungi",
+    "profile.saving": "Salvataggio...",
+    "profile.myProfile": "Il mio profilo",
+
+    "home.cards.admins.title": "Gestisci Amministratori",
+    "adminManage.title": "Gestisci Amministratori",
+    "adminManage.subtitle": "Concedi o revoca l'accesso amministratore agli utenti.",
+    "adminManage.users": "Utenti Normali",
+    "adminManage.noUsers": "Nessun utente normale trovato.",
+    "adminManage.promote": "Rendi Amministratore",
+    "adminManage.currentAdmins": "Amministratori Attuali",
+    "adminManage.noAdmins": "Nessun amministratore trovato.",
+    "adminManage.revoke": "Revoca Accesso Admin",
+    "adminManage.cannotRevokeSelf": "Non puoi revocare il tuo stesso accesso amministratore.",
+    "adminManage.promoteSuccess": "L'utente è stato promosso ad amministratore.",
+    "adminManage.revokeSuccess": "L'accesso amministratore è stato revocato.",
+
+    "adminManage.pageLoading": "Caricamento…",
+    "adminManage.you": "Tu",
+    "adminManage.strikes": "Segnalazioni",
+    "adminManage.addStrike": "+ Segnalazione",
+    "adminManage.removeStrike": "- Segnalazione",
+    "adminManage.addStrikeSuccess": "Segnalazione aggiunta.",
+    "adminManage.removeStrikeSuccess": "Segnalazione rimossa.",
+    "adminManage.notBanned": "Non bannato",
+    "adminManage.bannedUntil": "Bannato fino al",
+    "adminManage.banDateRequired": "Seleziona una data e un orario per il ban.",
+    "adminManage.invalidBanDate": "Data del ban non valida.",
+    "adminManage.banDateMustBeFuture": "La data del ban deve essere nel futuro.",
+    "adminManage.setBan": "Imposta ban",
+    "adminManage.clearBan": "Rimuovi ban",
+    "adminManage.banSuccess": "Utente bannato con successo.",
+    "adminManage.clearBanSuccess": "Ban rimosso con successo.",
+    "adminManage.strikeSection": "Segnalazioni",
+    "adminManage.adminSection": "Accesso admin",
+    "adminManage.banSection": "Ban",
+
+    "eventContent.bannedFromEvents": "Al momento ti è vietato partecipare agli eventi"
+}
+

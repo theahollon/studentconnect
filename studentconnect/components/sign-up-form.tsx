@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { t } from "@/lib/i18n/client";
 
 export function SignUpForm({
   className,
@@ -26,10 +27,6 @@ export function SignUpForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 🔴 AI generated
-  const [role, setRole] = useState<"user" | "admin">("user");
-  // 🔴 AI generated end
-
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -39,31 +36,32 @@ export function SignUpForm({
     setError(null);
 
     if (password !== repeatPassword) {
-      setError("Passwords do not match");
+      setError(t("auth.signUp.passwordsDoNotMatch"));
       setIsLoading(false);
       return;
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          // 🔴 AI generated
-          data: {
-            role,
-          },
-          // 🔴 AI generated end
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
 
       if (error) throw error;
 
+      if (data?.user) {
+        await supabase
+          .from("profiles")
+          .upsert({ id: data.user.id, email: data.user.email, role: "user" });
+      }
+
       router.push("/auth/sign-up-success");
       router.refresh();
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(error instanceof Error ? error.message : t("auth.signUp.errorGeneric"));
     } finally {
       setIsLoading(false);
     }
@@ -73,18 +71,18 @@ export function SignUpForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
+          <CardTitle className="text-2xl">{t("auth.signUp.title")}</CardTitle>
+          <CardDescription>{t("auth.signUp.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.signUp.email")}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t("auth.signUp.emailPlaceholder")}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -92,7 +90,7 @@ export function SignUpForm({
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("auth.signUp.password")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -103,7 +101,7 @@ export function SignUpForm({
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="repeat-password">Repeat Password</Label>
+                <Label htmlFor="repeat-password">{t("auth.signUp.repeatPassword")}</Label>
                 <Input
                   id="repeat-password"
                   type="password"
@@ -113,39 +111,17 @@ export function SignUpForm({
                 />
               </div>
 
-              {/* 🔴 AI generated */}
-              <div className="grid gap-2">
-                <Label>Role</Label>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant={role === "user" ? "default" : "outline"}
-                    onClick={() => setRole("user")}
-                  >
-                    User
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={role === "admin" ? "default" : "outline"}
-                    onClick={() => setRole("admin")}
-                  >
-                    Admin
-                  </Button>
-                </div>
-              </div>
-              {/* 🔴 AI generated end */}
-
               {error && <p className="text-sm text-red-500">{error}</p>}
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating an account..." : "Sign up"}
+                {isLoading ? t("auth.signUp.creatingAccount") : t("auth.signUp.submit")}
               </Button>
             </div>
 
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              {t("auth.signUp.alreadyHaveAccount")}{" "}
               <Link href="/auth/login" className="underline underline-offset-4">
-                Login
+                {t("auth.signUp.login")}
               </Link>
             </div>
           </form>

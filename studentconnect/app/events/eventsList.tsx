@@ -3,18 +3,35 @@
  */
 import { getEvents } from "@/lib/supabase/database";
 import Link from "next/link";
+import { getLocale, t } from "@/lib/i18n/server";
+import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
+import { Heart } from "lucide-react";
 
-/**
- * Server component that fetches and renders a list of events.
- *
- * Uses the database layer to query events
- * and renders each item as a navigable link.
- *
- * @returns A grid of event links or an error message if fetching fails.
- */
-export default async function EventsPage() {
-  let events;
+type EventFavoriteRow = {
+  event_id: string;
+};
+
+type EventListItem = {
+  id: string;
+  title: string;
+  description?: string;
+  location?: string;
+  organizer?: string;
+  start_time?: string;
+};
+
+export default async function EventsList({ filter }: { filter?: string }) {
+  const locale = await getLocale();
+  const dateLocale = locale === "it" ? "it-IT" : "en-GB";
+
+  let events: EventListItem[] | undefined;
   let error;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   try {
     events = await getEvents();
@@ -23,17 +40,43 @@ export default async function EventsPage() {
   }
 
   if (error) {
-    return <div>Error loading events: {error}</div>;
+    const errorText = await t("eventsList.errorLoading");
+    return (
+      <div>
+        {errorText}: {error}
+      </div>
+    );
   }
 
   const now = Date.now();
-  const sortedEvents = [...(events ?? [])].sort((a: any, b: any) => {
+  let favoriteEventIds = new Set<string>();
+
+  if (user) {
+    const { data: eventFavorites } = await supabase
+      .from("event_favorites")
+      .select("event_id")
+      .eq("user_id", user.id);
+
+    favoriteEventIds = new Set(
+      ((eventFavorites ?? []) as EventFavoriteRow[]).map(
+        (favorite) => favorite.event_id,
+      ),
+    );
+  }
+
+  const filteredEvents = filter
+    ? (events ?? []).filter((e) => e.event_type === filter)
+    : (events ?? []);
+
+  const sortedEvents = [...filteredEvents].sort((a, b) => {
+
     const aTime = a.start_time
       ? new Date(a.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;
     const bTime = b.start_time
       ? new Date(b.start_time).getTime()
       : Number.MAX_SAFE_INTEGER;
+
     const aIsFuture = aTime >= now;
     const bIsFuture = bTime >= now;
 
@@ -43,138 +86,127 @@ export default async function EventsPage() {
     return aTime - bTime;
   });
 
+  const upcomingText = await t("eventsList.upcoming");
+  const dateLabel = await t("eventsList.dateLabel");
+
+  async function toggleFavorite(eventId: string, currentlyFavorited: boolean) {
+    "use server";
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    if (currentlyFavorited) {
+      const { error } = await supabase
+        .from("event_favorites")
+        .delete()
+        .eq("event_id", eventId)
+        .eq("user_id", user.id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from("event_favorites").insert({
+        event_id: eventId,
+        user_id: user.id,
+      });
+      if (error) throw error;
+    }
+
+    revalidatePath("/events");
+    revalidatePath("/favorites");
+  }
+
   return (
-    <div style={{ display: "grid", justifyItems: "center" }}>
-      {sortedEvents.map((event: any) => {
-        const href = `/events/${event.slug ?? event.id}`;
+    <div className="grid justify-items-center">
+      {sortedEvents.map((event) => {
+        if (!event?.id) return null;
+
+        const href = `/events/${String(event.id)}`;
+        const isFavorited = favoriteEventIds.has(event.id);
+
         const startDate = event.start_time
-          ? new Date(event.start_time).toLocaleDateString("nb-NO", {
+          ? new Date(event.start_time).toLocaleDateString(dateLocale, {
               day: "numeric",
               month: "long",
             })
           : "";
+
         const isUpcoming =
           event.start_time &&
           new Date(event.start_time).getTime() >= Date.now();
+
         return (
-          <Link
+          <div
             key={event.id}
-            href={href}
-            role="button"
-            style={{
-              display: "block",
-              width: "100%",
-              maxWidth: 560,
-              padding: "16px 20px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              margin: "12px 0",
-              textDecoration: "none",
-              fontSize: "20px",
-              color: "#000",
-              backgroundColor: "#fff",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-            }}
+            className="block w-full max-w-[560px] rounded-lg border border-gray-300 bg-white px-5 py-4 my-3 text-black shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-pink-300"
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: "16px",
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <div
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "bold",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {event.title}
-                </div>
+            <div className="flex justify-between items-start gap-4">
+              <Link href={href} className="flex-1 no-underline text-black">
+                <div className="text-2xl font-bold mb-2">{event.title}</div>
+
                 {event.organizer && (
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      color: "#6b7280",
-                      fontWeight: "600",
-                      marginBottom: "6px",
-                    }}
-                  >
+                  <div className="text-base text-gray-500 font-semibold mb-1.5">
                     {event.organizer}
                   </div>
                 )}
+
                 {event.description && (
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "#9ca3af",
-                      marginBottom: "6px",
-                      lineHeight: "1.4",
-                      wordBreak: "break-word",
-                    }}
-                  >
+                  <div className="text-sm text-gray-400 mb-1.5 break-words leading-snug">
                     {event.description.substring(0, 100)}
                     {event.description.length > 100 ? "..." : ""}
                   </div>
                 )}
+
                 {event.location && (
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "#6b7280",
-                    }}
-                  >
-                    {event.location}
-                  </div>
+                  <div className="text-sm text-gray-500">{event.location}</div>
                 )}
+
                 {isUpcoming && (
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#10b981",
-                      fontWeight: "600",
-                      marginTop: "6px",
-                    }}
-                  >
-                    Kommende
+                  <div className="text-xs text-emerald-500 font-semibold mt-1.5">
+                    {upcomingText}
                   </div>
                 )}
+              </Link>
+
+              <div className="flex min-w-[100px] flex-col items-center gap-2.5">
+                {startDate && (
+                  <div
+                    className="text-center rounded-md px-3 py-2 min-w-[100px]"
+                    style={{
+                      backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
+                    }}
+                  >
+                    <div className="text-xs text-gray-500 mb-0.5">
+                      {dateLabel}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-700">
+                      {startDate}
+                    </div>
+                  </div>
+                )}
+                <form action={toggleFavorite.bind(null, event.id, isFavorited)}>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center leading-none transition-transform duration-150 hover:scale-125 hover:-translate-y-0.5 active:scale-75 active:-translate-y-1"
+                    aria-label={
+                      isFavorited ? "Remove from favorites" : "Add to favorites"
+                    }
+                  >
+                    <Heart
+                      size={30}
+                      strokeWidth={2}
+                      className={
+                        isFavorited
+                          ? "text-pink-500 fill-pink-500"
+                          : "text-gray-400 fill-transparent"
+                      }
+                    />
+                  </button>
+                </form>
               </div>
-              {startDate && (
-                <div
-                  style={{
-                    textAlign: "center",
-                    backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
-                    padding: "8px 12px",
-                    borderRadius: "6px",
-                    minWidth: "100px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#6b7280",
-                      marginBottom: "2px",
-                    }}
-                  >
-                    Dato
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      color: "#374151",
-                    }}
-                  >
-                    {startDate}
-                  </div>
-                </div>
-              )}
             </div>
-          </Link>
+          </div>
         );
       })}
     </div>

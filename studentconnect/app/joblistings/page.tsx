@@ -1,35 +1,60 @@
+//implemented with support of AI
+
 import { Suspense } from "react";
 import JobList from "./jobList";
+import JobListingsFilter from "./JobListingsFilter";
+import { t } from "@/lib/i18n/server";
+import { isAdmin } from "@/lib/auth";
 
-/**
- * Job listings route page component.
- *
- * Renders the page heading and defers the job listings list
- * rendering to a Suspense boundary so data fetching can
- * happen asynchronously without blocking the shell.
- *
- * @returns The JSX for the job listings page.
- */
-export default function JobListingsPage() {
+export default function JobListingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
+  return (
+    <Suspense fallback={<p>Loading…</p>}>
+      <JobListingsShell searchParams={searchParams} />
+    </Suspense>
+  );
+}
+
+async function JobListingsShell({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
+  const title = await t("jobListings");
+
+  const loadingText = await t("jobListingsPage.loading");
+  const createBtn = await t("jobListingsPage.createButton");
+  const admin = await isAdmin();
+  const { type } = await searchParams;
+
   return (
     <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-6xl font-bold text-center">Job Listings</h1>
+      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
+        {title}
+      </h1>
+      <p className="mt-2 text-base text-gray-500">
+        Find internships and job opportunities for students
+      </p>
+      {admin && (
+        <div className="mt-10">
+          <a
+            href="/admin/jobs"
+            className="inline-block rounded-lg bg-pink-500 px-6 py-3 text-white font-semibold hover:bg-pink-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition transform"
+          >
+            {createBtn}
+          </a>
+        </div>
+      )}
 
-      <Suspense fallback={<p className="text-center">Loading job listings…</p>}>
-            {/*AI generated button:*/}
-            <div className="mt-10">
-        <a
-          href="admin/jobs"
-          className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
-        >
-          Create new joblisting
-        </a>
-      </div>
+      <Suspense>
+        <JobListingsFilter />
       </Suspense>
-      <Suspense fallback={<p>Loading job listings…</p>}>
-        <JobList />
+      <Suspense fallback={<p>{loadingText}</p>}>
+        <JobList filter={type} />
       </Suspense>
-
     </div>
   );
 }
