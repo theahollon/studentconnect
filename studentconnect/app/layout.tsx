@@ -61,7 +61,7 @@ async function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-pink-200">
       <nav className="w-full border-b border-b-foreground/10 bg-white shadow-sm">
-        <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-6 py-6 gap-4">
+        <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-6 py-4 gap-4">
           <div className="flex gap-8 items-center flex-1">
             <Link
               href="/"
@@ -70,8 +70,8 @@ async function RootShell({ children }: { children: React.ReactNode }) {
               <Image
                 src="/images/StudentConnect2.png"
                 alt="StudentConnect logo"
-                width={180}
-                height={180}
+                width={216}
+                height={216}
                 className="object-contain"
               />
             </Link>

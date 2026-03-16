@@ -14,36 +14,45 @@ export default async function EventsPage({
   const { type } = await searchParams;
 
   const title = await t("eventsPage.heading");
+  const badge = await t("eventsPage.badge");
+  const subtitle = await t("eventsPage.subtitle");
   const createText = await t("eventsPage.createButton");
 
   return (
-    <div className="mx-auto max-w-4xl px-6 text-center text-black">
-      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
+    <div className="mx-auto mt-4 max-w-4xl px-6 text-center text-black">
+      <div className="mx-auto max-w-3xl rounded-[28px] border border-white/40 bg-white/20 px-6 py-8 backdrop-blur-[2px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+          {badge}
+        </p>
+
+        <h1 className="mt-3 text-5xl md:text-6xl font-semibold tracking-tight text-black">
         {title}
-      </h1>
-      <p className="mt-2 text-base text-gray-500">
-        Discover upcoming activities and student events
-      </p>
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">
+          {subtitle}
+        </p>
 
-      {admin && (
-        <div className="mt-10">
-          <Link
-            href="/admin/activities"
-            className="inline-block rounded-lg bg-pink-500 px-6 py-3 text-white font-semibold hover:bg-pink-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition transform"
-          >
-            {createText}
-          </Link>
+        {admin && (
+          <div className="mt-8">
+            <Link
+              href="/admin/activities"
+              className="inline-flex items-center rounded-full bg-gray-950 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-black"
+            >
+              {createText}
+            </Link>
+          </div>
+        )}
+
+        <div className="mt-8">
+          <Suspense>
+            <EventsFilter />
+          </Suspense>
         </div>
-      )}
-
-      <Suspense>
-        <EventsFilter />
-      </Suspense>
+      </div>
 
       <div className="mt-8">
         <EventsList filter={type} />
       </div>
-
     </div>
   );
 }

@@ -6,9 +6,12 @@ import type {
   FavoriteJob,
   JobFavoriteRow,
 } from "@/lib/supabase/types";
+import { t } from "@/lib/i18n/server";
 import FavoritesList from "./favoritesList";
 
 export default async function FavoritesPage() {
+  const title = await t("favoritesPage.title");
+  const subtitle = await t("favoritesPage.subtitle");
   const supabase = await createClient();
   const {
     data: { user },
@@ -70,10 +73,10 @@ export default async function FavoritesPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 text-center text-black">
       <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
-        Favorites
+        {title}
       </h1>
       <p className="mt-2 text-base text-gray-500">
-        Keep track of saved events and job listings
+        {subtitle}
       </p>
       <FavoritesList
         favoriteEvents={favoriteEvents}

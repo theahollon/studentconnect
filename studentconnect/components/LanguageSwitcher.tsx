@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { t } from "@/lib/i18n/client";
 
 type Locale = "en" | "it";
 
@@ -45,7 +46,7 @@ export default function LanguageSwitcher() {
       onClick={onToggle}
       className="flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold hover:bg-gray-50"
       aria-pressed={checked}
-      aria-label="Switch language"
+      aria-label={t("languageSwitcher.ariaLabel")}
     >
       <span className="text-black">EN</span>
       <span className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${checked ? "bg-pink-600" : "bg-gray-300"}`}>

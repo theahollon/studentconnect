@@ -6,6 +6,10 @@
 
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { TextDecoder, TextEncoder } from "util";
+
+(global as unknown as { TextEncoder: typeof TextEncoder }).TextEncoder = TextEncoder;
+(global as unknown as { TextDecoder: typeof TextDecoder }).TextDecoder = TextDecoder;
 
 // Translation stub returning English values for the keys the component uses
 const translations: Record<string, string> = {
@@ -22,6 +26,22 @@ jest.mock("@/lib/i18n/server", () => ({
   __esModule: true,
   getLocale: jest.fn().mockResolvedValue("en"),
   t: jest.fn((key: string) => Promise.resolve(translations[key] ?? key)),
+}));
+jest.mock("next/cache", () => ({
+  revalidatePath: jest.fn(),
+}));
+jest.mock("@/lib/supabase/server", () => ({
+  __esModule: true,
+  createClient: jest.fn().mockResolvedValue({
+    auth: {
+      getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+    },
+    from: jest.fn(() => ({
+      select: jest.fn(() => ({
+        eq: jest.fn().mockResolvedValue({ data: [] }),
+      })),
+    })),
+  }),
 }));
 jest.mock("@/lib/supabase/database", () => ({
   __esModule: true,

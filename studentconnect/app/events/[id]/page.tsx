@@ -4,9 +4,9 @@ import EventContent from "./EventContent";
 
 export default function EventPage(props: { params: Promise<{ id: string }> }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-mint-500 to-pink-500 py-12">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+    <div className="py-12">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="rounded-[30px] border border-white/40 bg-white/70 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur-sm">
           <Suspense
             fallback={
               <div className="text-center py-12">

@@ -1,13 +1,17 @@
 import { createClient } from './client';
+import { buildEventReviewSummary } from '@/lib/event-reviews';
 import type {
     events,
     event_registration,
+    event_review,
+    event_review_with_profile,
     job_postings,
     profiles,
     user_allergies,
     create_event_input,
     create_job_input,
     create_company_input,
+    create_event_review_input,
     companies
   } from './types';
 
@@ -33,6 +37,90 @@ export async function registerForEvent(eventId: string, userId: string): Promise
     }).select().single();
     if (error) throw error;
     return registration as event_registration;
+}
+
+export async function getEventReviews(eventId: string): Promise<event_review_with_profile[]> {
+    const { data: reviews, error } = await supabase
+        .from('event_reviews')
+        .select(`
+            id,
+            event_id,
+            user_id,
+            rating,
+            comment,
+            created_at,
+            updated_at,
+            profiles (
+                email
+            )
+        `)
+        .eq('event_id', eventId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+    return (reviews ?? []) as event_review_with_profile[];
+}
+
+export async function getEventReviewSummaries(
+    eventIds: string[],
+): Promise<Record<string, { averageRating: number; reviewCount: number }>> {
+    if (eventIds.length === 0) {
+        return {};
+    }
+
+    const { data: reviews, error } = await supabase
+        .from('event_reviews')
+        .select('event_id, rating')
+        .in('event_id', eventIds);
+    if (error) throw error;
+
+    const groupedReviews = new Map<string, Array<{ rating: number }>>();
+
+    for (const review of reviews ?? []) {
+        const existing = groupedReviews.get(review.event_id) ?? [];
+        existing.push({ rating: review.rating });
+        groupedReviews.set(review.event_id, existing);
+    }
+
+    return eventIds.reduce<Record<string, { averageRating: number; reviewCount: number }>>(
+        (acc, eventId) => {
+            const eventReviews = groupedReviews.get(eventId) ?? [];
+            acc[eventId] = buildEventReviewSummary(
+                eventReviews.map((review, index) => ({
+                    id: String(index),
+                    event_id: eventId,
+                    user_id: '',
+                    rating: review.rating,
+                    comment: '',
+                    created_at: '',
+                    updated_at: '',
+                    profiles: null,
+                })),
+            );
+            return acc;
+        },
+        {},
+    );
+}
+
+export async function getUserEventReview(eventId: string, userId: string): Promise<event_review | null> {
+    const { data: review, error } = await supabase
+        .from('event_reviews')
+        .select()
+        .eq('event_id', eventId)
+        .eq('user_id', userId)
+        .maybeSingle();
+    if (error && error.code !== 'PGRST116') throw error;
+    return review as event_review | null;
+}
+
+export async function upsertEventReview(data: create_event_review_input): Promise<event_review> {
+    const { data: review, error } = await supabase
+        .from('event_reviews')
+        .upsert(data, { onConflict: 'event_id,user_id' })
+        .select()
+        .single();
+    if (error) throw error;
+    return review as event_review;
 }
 
 export async function createJobListings(data: create_job_input): Promise<job_postings> {

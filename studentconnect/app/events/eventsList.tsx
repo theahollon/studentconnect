@@ -1,12 +1,13 @@
 /**
  * Acknowledgement: Implemented with assistance from GitHub Copilot.
  */
-import { getEvents } from "@/lib/supabase/database";
+import { getEvents, getEventReviewSummaries } from "@/lib/supabase/database";
 import Link from "next/link";
 import { getLocale, t } from "@/lib/i18n/server";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { Heart } from "lucide-react";
+import ListCard from "@/components/ui/list-card";
 
 type EventFavoriteRow = {
   event_id: string;
@@ -68,6 +69,10 @@ export default async function EventsList({ filter }: { filter?: string }) {
     ? (events ?? []).filter((e) => e.event_type === filter)
     : (events ?? []);
 
+  const reviewSummaries = await getEventReviewSummaries(
+    filteredEvents.map((event) => event.id).filter(Boolean),
+  );
+
   const sortedEvents = [...filteredEvents].sort((a, b) => {
 
     const aTime = a.start_time
@@ -88,6 +93,7 @@ export default async function EventsList({ filter }: { filter?: string }) {
 
   const upcomingText = await t("eventsList.upcoming");
   const dateLabel = await t("eventsList.dateLabel");
+  const noRatingsText = await t("eventsList.noRatings");
 
   async function toggleFavorite(eventId: string, currentlyFavorited: boolean) {
     "use server";
@@ -118,7 +124,7 @@ export default async function EventsList({ filter }: { filter?: string }) {
   }
 
   return (
-    <div className="grid justify-items-center">
+    <div className="grid justify-items-center gap-1">
       {sortedEvents.map((event) => {
         if (!event?.id) return null;
 
@@ -131,53 +137,65 @@ export default async function EventsList({ filter }: { filter?: string }) {
               month: "long",
             })
           : "";
+        const reviewSummary = reviewSummaries[event.id] ?? {
+          averageRating: 0,
+          reviewCount: 0,
+        };
 
         const isUpcoming =
           event.start_time &&
           new Date(event.start_time).getTime() >= Date.now();
 
         return (
-          <div
+          <ListCard
             key={event.id}
-            className="block w-full max-w-[560px] rounded-lg border border-gray-300 bg-white px-5 py-4 my-3 text-black shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-pink-300"
+            className="border-white/50 bg-white/70 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-sm"
           >
             <div className="flex justify-between items-start gap-4">
               <Link href={href} className="flex-1 no-underline text-black">
-                <div className="text-2xl font-bold mb-2">{event.title}</div>
+                <div className="text-xl font-semibold tracking-tight text-gray-950">
+                  {event.title}
+                </div>
 
                 {event.organizer && (
-                  <div className="text-base text-gray-500 font-semibold mb-1.5">
+                  <div className="mt-1 text-sm font-medium text-gray-500">
                     {event.organizer}
                   </div>
                 )}
 
                 {event.description && (
-                  <div className="text-sm text-gray-400 mb-1.5 break-words leading-snug">
-                    {event.description.substring(0, 100)}
-                    {event.description.length > 100 ? "..." : ""}
-                  </div>
+                  <p className="mt-3 max-w-2xl break-words text-sm leading-6 text-gray-600">
+                    {event.description.substring(0, 140)}
+                    {event.description.length > 140 ? "..." : ""}
+                  </p>
                 )}
 
                 {event.location && (
-                  <div className="text-sm text-gray-500">{event.location}</div>
+                  <div className="mt-3 text-sm text-gray-500">{event.location}</div>
                 )}
 
+                <div className="mt-3 inline-flex items-center rounded-full bg-amber-50 px-3 py-1 text-sm font-medium text-amber-700 ring-1 ring-amber-100">
+                  {reviewSummary.reviewCount > 0
+                    ? `★ ${reviewSummary.averageRating}/5 (${reviewSummary.reviewCount})`
+                    : noRatingsText}
+                </div>
+
                 {isUpcoming && (
-                  <div className="text-xs text-emerald-500 font-semibold mt-1.5">
+                  <div className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-600">
                     {upcomingText}
                   </div>
                 )}
               </Link>
 
-              <div className="flex min-w-[100px] flex-col items-center gap-2.5">
+              <div className="flex min-w-[112px] flex-col items-center gap-3">
                 {startDate && (
                   <div
-                    className="text-center rounded-md px-3 py-2 min-w-[100px]"
+                    className="min-w-[112px] rounded-2xl px-3 py-3 text-center ring-1 ring-black/5"
                     style={{
-                      backgroundColor: isUpcoming ? "#fef3c7" : "#f3f4f6",
+                      backgroundColor: isUpcoming ? "#fff6db" : "#f8fafc",
                     }}
                   >
-                    <div className="text-xs text-gray-500 mb-0.5">
+                    <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-400">
                       {dateLabel}
                     </div>
                     <div className="text-sm font-semibold text-gray-700">
@@ -188,7 +206,7 @@ export default async function EventsList({ filter }: { filter?: string }) {
                 <form action={toggleFavorite.bind(null, event.id, isFavorited)}>
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center leading-none transition-transform duration-150 hover:scale-125 hover:-translate-y-0.5 active:scale-75 active:-translate-y-1"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 leading-none shadow-sm ring-1 ring-black/5 transition-transform duration-150 hover:-translate-y-0.5 hover:scale-105 active:scale-95"
                     aria-label={
                       isFavorited ? "Remove from favorites" : "Add to favorites"
                     }
@@ -206,7 +224,7 @@ export default async function EventsList({ filter }: { filter?: string }) {
                 </form>
               </div>
             </div>
-          </div>
+          </ListCard>
         );
       })}
     </div>

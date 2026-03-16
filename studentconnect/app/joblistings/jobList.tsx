@@ -7,6 +7,7 @@ import { getLocale, t } from "@/lib/i18n/server";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { Heart } from "lucide-react";
+import ListCard from "@/components/ui/list-card";
 
 type JobFavoriteRow = {
   job_id: string;
@@ -118,7 +119,7 @@ export default async function JobListingsPage({
     : (jobListings ?? []);
 
   return (
-    <div style={{ display: "grid", justifyItems: "center" }}>
+    <div className="grid justify-items-center gap-1">
       {filteredListings.map((jobListing) => {
         if (!jobListing?.id) return null;
 
@@ -148,22 +149,9 @@ export default async function JobListingsPage({
           : "";
 
         return (
-          <div
+          <ListCard
             key={jobListing.id}
-            className="transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-pink-300"
-            style={{
-              display: "block",
-              width: "100%",
-              maxWidth: 560,
-              padding: "16px 20px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              margin: "12px 0",
-              fontSize: "20px",
-              color: "#000",
-              backgroundColor: "#fff",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-            }}
+            className="border-white/50 bg-white/70 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-sm"
           >
             <div
               style={{
@@ -185,9 +173,9 @@ export default async function JobListingsPage({
               >
                 <div
                   style={{
-                    fontSize: "24px",
-                    fontWeight: "bold",
-                    marginBottom: "8px",
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    color: "#111827",
                   }}
                 >
                   {jobListing.title}
@@ -196,10 +184,10 @@ export default async function JobListingsPage({
                 {jobListing.company && (
                   <div
                     style={{
-                      fontSize: "16px",
+                      fontSize: "14px",
                       color: "#6b7280",
-                      fontWeight: "600",
-                      marginBottom: "6px",
+                      fontWeight: "500",
+                      marginTop: "4px",
                     }}
                   >
                     {jobListing.company}
@@ -210,14 +198,15 @@ export default async function JobListingsPage({
                   <div
                     style={{
                       fontSize: "14px",
-                      color: "#9ca3af",
-                      marginBottom: "6px",
-                      lineHeight: "1.4",
+                      color: "#4b5563",
+                      marginTop: "12px",
+                      lineHeight: "1.6",
                       wordBreak: "break-word",
+                      maxWidth: "42rem",
                     }}
                   >
-                    {jobListing.description.substring(0, 100)}
-                    {jobListing.description.length > 100 ? "..." : ""}
+                    {jobListing.description.substring(0, 140)}
+                    {jobListing.description.length > 140 ? "..." : ""}
                   </div>
                 )}
 
@@ -226,9 +215,29 @@ export default async function JobListingsPage({
                     style={{
                       fontSize: "14px",
                       color: "#6b7280",
+                      marginTop: "12px",
                     }}
                   >
                     {jobListing.location}
+                  </div>
+                )}
+
+                {jobListing.employment_type && (
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      marginTop: "12px",
+                      padding: "4px 12px",
+                      borderRadius: "9999px",
+                      backgroundColor: "#eff6ff",
+                      color: "#1d4ed8",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      boxShadow: "inset 0 0 0 1px rgba(191, 219, 254, 1)",
+                    }}
+                  >
+                    {jobListing.employment_type}
                   </div>
                 )}
               </Link>
@@ -238,25 +247,29 @@ export default async function JobListingsPage({
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  gap: "10px",
-                  minWidth: "100px",
+                  gap: "12px",
+                  minWidth: "112px",
                 }}
               >
                 {applicationDeadline && (
                   <div
                     style={{
                       textAlign: "center",
-                      backgroundColor: isUpcomingDeadline ? "#fef3c7" : "#f3f4f6",
-                      padding: "8px 12px",
-                      borderRadius: "6px",
-                      minWidth: "100px",
+                      backgroundColor: isUpcomingDeadline ? "#fff6db" : "#f8fafc",
+                      padding: "12px",
+                      borderRadius: "16px",
+                      minWidth: "112px",
+                      boxShadow: "inset 0 0 0 1px rgba(17, 24, 39, 0.05)",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: "12px",
-                        color: "#6b7280",
-                        marginBottom: "2px",
+                        fontSize: "11px",
+                        color: "#9ca3af",
+                        marginBottom: "4px",
+                        fontWeight: "600",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.14em",
                       }}
                     >
                       {deadlineLabel}
@@ -278,7 +291,7 @@ export default async function JobListingsPage({
                 >
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center transition-transform duration-150 hover:scale-125 hover:-translate-y-0.5 active:scale-75 active:-translate-y-1"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 shadow-sm ring-1 ring-black/5 transition-transform duration-150 hover:-translate-y-0.5 hover:scale-105 active:scale-95"
                     aria-label={
                       isFavorited ? "Remove from favorites" : "Add to favorites"
                     }
@@ -296,7 +309,7 @@ export default async function JobListingsPage({
                 </form>
               </div>
             </div>
-          </div>
+          </ListCard>
         );
       })}
     </div>

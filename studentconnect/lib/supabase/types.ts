@@ -37,6 +37,22 @@ export interface event_registration {
   user_id: string;
 }
 
+export interface event_review {
+  id: string;
+  event_id: string;
+  user_id: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface event_review_with_profile extends event_review {
+  profiles?: {
+    email: string;
+  } | null;
+}
+
 export interface event_favorite {
   id: string;
   user_id: string;
@@ -110,6 +126,13 @@ export type FavoriteJob = Pick<
   job_postings,
   "id" | "title" | "description" | "company"
 >;
+
+export interface create_event_review_input {
+  event_id: string;
+  user_id: string;
+  rating: number;
+  comment: string;
+}
 
 export interface EventFavoriteRow {
   events: FavoriteEvent | FavoriteEvent[] | null;
