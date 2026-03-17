@@ -6,7 +6,7 @@
 import Link from "next/link";
 import type { FavoriteEvent, FavoriteJob } from "@/lib/supabase/types";
 import ListCard from "@/components/ui/list-card";
-import { t } from "@/lib/i18n/client";
+import { t, getLocale } from "@/lib/i18n/client";
 
 type FavoritesListProps = {
   favoriteEvents: FavoriteEvent[];
@@ -45,7 +45,7 @@ export default function FavoritesList({
                   </h3>
                   {event.start_time && (
                     <div className="mt-3 inline-flex rounded-full bg-amber-50 px-3 py-1 text-sm font-medium text-amber-700 ring-1 ring-amber-100">
-                      {new Date(event.start_time).toLocaleDateString("en-GB", {
+                      {new Date(event.start_time).toLocaleDateString(getLocale() === "it" ? "it-IT" : "en-GB", {
                         day: "numeric",
                         month: "long",
                       })}
