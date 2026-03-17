@@ -13,8 +13,10 @@ jest.mock("@/lib/i18n/client", () => ({
 
 // Mock the database layer used for creating job listings
 const mockCreateJobListings = jest.fn();
+const mockGetCompanies = jest.fn();
 jest.mock("@/lib/supabase/database", () => ({
   createJobListings: (...args: unknown[]) => mockCreateJobListings(...args),
+  getCompanies: (...args: unknown[]) => mockGetCompanies(...args),
 }));
 
 import JobAdForm from "@/app/admin/jobs/JobAdForm";
@@ -22,6 +24,10 @@ import JobAdForm from "@/app/admin/jobs/JobAdForm";
 beforeEach(() => {
   jest.clearAllMocks();
   mockCreateJobListings.mockReset();
+  mockGetCompanies.mockResolvedValue([
+    { id: "1", name: "Acme", description: "", website_url: "" },
+    { id: "2", name: "Globex", description: "", website_url: "" },
+  ]);
 });
 
 test("renders the form with heading", () => {
@@ -37,8 +43,12 @@ test("submit button is disabled when required fields are empty", () => {
   expect(submit).toBeDisabled();
 });
 
-test("submit button enables when title, company, and deadline are filled", () => {
+test("submit button enables when title, company, and deadline are filled", async () => {
   render(<JobAdForm />);
+  // Wait for companies to load into the dropdown
+  await waitFor(() => {
+    expect(screen.getByRole("option", { name: "Acme" })).toBeInTheDocument();
+  });
   fireEvent.change(screen.getByLabelText(/jobAdForm.fields.title/), {
     target: { value: "Dev" },
   });
@@ -58,6 +68,9 @@ test("shows error on failed submission", async () => {
   mockCreateJobListings.mockRejectedValue(new Error("Insert failed"));
 
   render(<JobAdForm />);
+  await waitFor(() => {
+    expect(screen.getByRole("option", { name: "Acme" })).toBeInTheDocument();
+  });
   fireEvent.change(screen.getByLabelText(/jobAdForm.fields.title/), {
     target: { value: "Dev" },
   });
@@ -80,6 +93,9 @@ test("shows success modal on successful submission", async () => {
   mockCreateJobListings.mockResolvedValue({});
 
   render(<JobAdForm />);
+  await waitFor(() => {
+    expect(screen.getByRole("option", { name: "Acme" })).toBeInTheDocument();
+  });
   fireEvent.change(screen.getByLabelText(/jobAdForm.fields.title/), {
     target: { value: "Dev" },
   });

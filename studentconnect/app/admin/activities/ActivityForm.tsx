@@ -5,8 +5,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client"; // Supabase client factory¨
-import { createEvent } from "@/lib/supabase/database";
+import { createEvent, getCompanies } from "@/lib/supabase/database";
 import { t } from "@/lib/i18n/client";
+
+import type { companies } from "@/lib/supabase/types";
 
 /**
  * TypeScript type describing the activity form fields
@@ -18,6 +20,7 @@ type ActivityDraft = {
   location: string;
   capacity: string; // kept as string because HTML inputs return strings
   category: string;
+  company: string;
 };
 
 /**
@@ -30,11 +33,15 @@ const initial: ActivityDraft = {
   location: "",
   capacity: "",
   category: "general",
+  company: "",
 };
 
 export default function ActivityForm() {
   // Create Supabase client instance for database operations
   const supabase = createClient();
+
+  // List of companies fetched from the database
+  const [companiesList, setCompaniesList] = useState<companies[]>([]);
 
   // Form state (all input values)
   const [draft, setDraft] = useState<ActivityDraft>(initial);
@@ -58,6 +65,15 @@ export default function ActivityForm() {
   const isValid = useMemo(() => {
     return draft.title.trim().length > 0 && draft.startsAt.trim().length > 0;
   }, [draft.title, draft.startsAt]);
+
+  /**
+   * Fetch companies on mount so they can be shown in the dropdown
+   */
+  useEffect(() => {
+    getCompanies()
+      .then((list) => setCompaniesList(list.sort((a, b) => a.name.localeCompare(b.name))))
+      .catch((err) => console.error("Failed to load companies:", err));
+  }, []);
 
   /**
    * Runs fade/scale-in animation when the modal is mounted.
@@ -123,6 +139,7 @@ export default function ActivityForm() {
         start_time: startTimeIso,
         end_time: null,
         event_type: draft.category,
+        company: draft.company || null,
       });
 
       // Clear the form so a new activity can be created without refreshing
@@ -182,6 +199,27 @@ export default function ActivityForm() {
             placeholder={t("activityForm.placeholders.description")}
             disabled={isSubmitting}
           />
+        </div>
+
+        {/* Company (dropdown) */}
+        <div className="space-y-1">
+          <label className="text-sm font-medium" htmlFor="company">
+            {t("activityForm.fields.company")}
+          </label>
+          <select
+            id="company"
+            className="w-full rounded border px-3 py-2"
+            value={draft.company}
+            onChange={(e) => onChange("company", e.target.value)}
+            disabled={isSubmitting}
+          >
+            <option value="">{t("activityForm.placeholders.company")}</option>
+            {companiesList.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Date/time (required) + location */}

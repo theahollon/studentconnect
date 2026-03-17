@@ -12,11 +12,13 @@
   "activityForm.fields.location": "Location",
   "activityForm.fields.spots": "Capacity",
   "activityForm.fields.category": "Category",
+  "activityForm.fields.company": "Company",
 
   "activityForm.placeholders.title": "e.g. Board game night",
   "activityForm.placeholders.description": "Add a short description (optional)",
   "activityForm.placeholders.location": "e.g. Room A2, Main building",
   "activityForm.placeholders.spots": "e.g. 30",
+  "activityForm.placeholders.company": "-- Select a company (optional) --",
 
   "activityForm.categories.general": "General",
   "activityForm.categories.social": "Social",
@@ -45,7 +47,7 @@
   "jobAdForm.fields.description": "Description",
 
   "jobAdForm.placeholders.title": "e.g. Junior developer",
-  "jobAdForm.placeholders.company": "e.g. Acme AS",
+  "jobAdForm.placeholders.company": "-- Select a company --",
   "jobAdForm.placeholders.location": "e.g. Trondheim / Hybrid",
 
   "jobAdForm.employmentTypes.fulltime": "Full-time",
@@ -84,6 +86,43 @@
   "jobListingsPage.loading": "Loading job listings…",
   "jobListingsPage.createButton": "Create new job listing",
 
+  "companiesPage.heading": "Companies",
+  "companiesPage.createButton": "Create new company",
+  "companiesPage.loading": "Loading companies…",
+
+  "companiesList.errorLoading": "Error loading companies",
+  "companiesList.upcoming": "Upcoming",
+  "companiesList.dateLabel": "Date",
+
+  "deleteCompanyProfileButton.label": "Delete company profile",
+  "companyContent.register": "Register",
+  "companyContent.withdraw": "Withdraw registration",
+
+  "companyForm.heading": "Create company",
+  "companyForm.validationRequired": "Please enter at least a company name.",
+  "companyForm.saveError": "Something went wrong while saving. Please try again.",
+  "companyForm.fields.name": "Company name",
+  "companyForm.fields.description": "Description",
+  "companyForm.fields.websiteUrl": "Website URL",
+  "companyForm.placeholders.name": "e.g. Google",
+  "companyForm.placeholders.description": "Short description of the company (optional)",
+  "companyForm.placeholders.websiteUrl": "e.g. https://google.com",
+  "companyForm.buttons.saving": "Saving…",
+  "companyForm.buttons.create": "Create",
+  "companyForm.buttons.reset": "Reset",
+  "companyForm.modal.title": "Company created",
+  "companyForm.modal.body": "The company profile has been saved successfully.",
+  "companyForm.modal.ok": "OK",
+
+  "companyDetail.description": "Description",
+  "companyDetail.website": "Website",
+  "companyDetail.visitWebsite": "Visit website",
+  "companyDetail.events": "Events",
+  "companyDetail.jobListings": "Job Listings",
+  "companyDetail.noEvents": "No events from this company yet.",
+  "companyDetail.noJobListings": "No job listings from this company yet.",
+
+
   "protectedLayout.brand": "Next.js Supabase Starter",
   "protectedLayout.poweredBy": "Powered by",
 
@@ -93,6 +132,7 @@
 
   "rootNav.events": "Events",
   "rootNav.jobs": "Jobs",
+  "rootNav.favorites": "Favorites",
   "rootNav.manageAdmins": "Manage Admins",
 
   "home.title": "Welcome to StudentConnect",
@@ -103,6 +143,9 @@
 
   "home.cards.jobs.title": "Job Opportunities",
   "home.cards.jobs.body": "Find internships and job opportunities",
+
+  "home.cards.companies.title": "Explore Companies",
+  "home.cards.companies.body": "View company profiles",
 
   "deleteJoblistingButton.label": "Delete job listing",
 

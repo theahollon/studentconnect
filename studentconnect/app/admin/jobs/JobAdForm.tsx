@@ -7,10 +7,12 @@
 import { useMemo, useState, useEffect } from "react";
 
 // Supabase client factory
-import { createJobListings } from "@/lib/supabase/database";
+import { createJobListings, getCompanies } from "@/lib/supabase/database";
 
 // i18n (client)
 import { t } from "@/lib/i18n/client";
+
+import type { companies } from "@/lib/supabase/types";
 
 /**
  * Type describing the job posting form data
@@ -41,8 +43,8 @@ const initial: JobAdDraft = {
 };
 
 export default function JobAdForm() {
-  // Create Supabase client instance
-
+  // List of companies fetched from the database
+  const [companies, setCompanies] = useState<companies[]>([]);
 
   // Form state
   const [draft, setDraft] = useState<JobAdDraft>(initial);
@@ -58,6 +60,15 @@ export default function JobAdForm() {
 
   // Controls animation state (opacity / scale)
   const [alertVisible, setAlertVisible] = useState(false);
+
+  /**
+   * Fetch companies on mount so they can be shown in the dropdown
+   */
+  useEffect(() => {
+    getCompanies()
+      .then((list) => setCompanies(list.sort((a, b) => a.name.localeCompare(b.name))))
+      .catch((err) => console.error("Failed to load companies:", err));
+  }, []);
 
   /**
    * Handles modal animation when showAlert changes
@@ -184,20 +195,26 @@ export default function JobAdForm() {
           />
         </div>
 
-        {/* Company */}
+        {/* Company (dropdown) */}
         <div className="space-y-1">
           <label className="text-sm font-medium" htmlFor="company">
             {t("jobAdForm.fields.company")}{" "}
             <span className="text-red-600">*</span>
           </label>
-          <input
+          <select
             id="company"
             className="w-full rounded border px-3 py-2"
             value={draft.company}
             onChange={(e) => onChange("company", e.target.value)}
-            placeholder={t("jobAdForm.placeholders.company")}
             disabled={loading}
-          />
+          >
+            <option value="">{t("jobAdForm.placeholders.company")}</option>
+            {companies.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Location + deadline */}

@@ -1,4 +1,5 @@
 // Database types for Student Connect application
+// Developed with assistance from AI tools.
 
 import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
 
@@ -22,6 +23,7 @@ export interface job_postings {
   id: string;
   title: string;
   description: string;
+  /** Foreign key referencing companies.name — links a job posting to a company */
   company: string;
   application_url: string;
   created_by: string;
@@ -35,6 +37,20 @@ export interface event_registration {
   user_id: string;
 }
 
+export interface event_favorite {
+  id: string;
+  user_id: string;
+  event_id: string;
+  created_at: string;
+}
+
+export interface job_favorite {
+  id: string;
+  user_id: string;
+  job_id: string;
+  created_at: string;
+}
+
 export interface events {
   id: string;
   title: string;
@@ -43,7 +59,15 @@ export interface events {
   start_time: string;
   end_time: string;
   created_by: string;
-  event_type: string;
+  /** Foreign key referencing companies.name — links an event to a company */
+  company: string;
+}
+
+export interface companies {
+  id: string;
+  name: string;
+  description: string;
+  website_url: string;
 }
 
 
@@ -56,6 +80,7 @@ export interface create_event_input {
   end_time: string | null;
   //Here we need created_by and created_at. If we want to use this!
   event_type: string | null;
+  company?: string | null;
 }
 
 export interface create_job_input {
@@ -63,8 +88,34 @@ export interface create_job_input {
   description: string | null;
   company: string;
   application_url: string;
-  location: string | null;
-  application_deadline: string | null, 
-  employment_type: string | null,
-  contact_email: string  | null,
+  
+    location: string | null;
+  application_deadline: string | null;
+  employment_type: string | null;
+  contact_email: string | null;
 }
+
+export interface create_company_input {
+  name: string;
+  description: string;
+  website_url: string;
+}
+
+export type FavoriteEvent = Pick<
+  events,
+  "id" | "title" | "description" | "location" | "start_time"
+>;
+
+export type FavoriteJob = Pick<
+  job_postings,
+  "id" | "title" | "description" | "company"
+>;
+
+export interface EventFavoriteRow {
+  events: FavoriteEvent | FavoriteEvent[] | null;
+}
+
+export interface JobFavoriteRow {
+  job_postings: FavoriteJob | FavoriteJob[] | null;
+}
+
