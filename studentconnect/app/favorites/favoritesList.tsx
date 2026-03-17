@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Acknowledgement: Implemented with assistance from AI.
  */
@@ -9,18 +11,11 @@ import { t } from "@/lib/i18n/client";
 type FavoritesListProps = {
   favoriteEvents: FavoriteEvent[];
   favoriteJobs: FavoriteJob[];
-  labels: {
-    eventsHeading: string;
-    noEvents: string;
-    jobsHeading: string;
-    noJobs: string;
-  };
 };
 
 export default function FavoritesList({
   favoriteEvents,
   favoriteJobs,
-  labels,
 }: FavoritesListProps) {
   return (
     <>
