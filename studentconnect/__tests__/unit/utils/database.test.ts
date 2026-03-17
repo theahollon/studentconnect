@@ -24,7 +24,9 @@ const {
   getEvents,
   createJobListings,
   getJobListings,
+  getEventReviews,
   getUserProfile,
+  getUserEventReview,
   updateUserProfile,
   getUserEventRegistrations,
   deleteEvent,
@@ -174,6 +176,40 @@ describe("Database functions – uncovered paths", () => {
     });
   });
 
+  describe("getEventReviews", () => {
+    it("returns event reviews on success", async () => {
+      const mockReviews = [
+        { id: "r1", rating: 5, comment: "Great" },
+      ];
+      mockFrom.mockReturnValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            order: jest.fn().mockResolvedValue({ data: mockReviews, error: null }),
+          })),
+        })),
+      });
+
+      const result = await getEventReviews("e1");
+
+      expect(result).toEqual(mockReviews);
+      expect(mockFrom).toHaveBeenCalledWith("event_reviews");
+    });
+
+    it("throws on review query error", async () => {
+      mockFrom.mockReturnValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            order: jest
+              .fn()
+              .mockResolvedValue({ data: null, error: new Error("Review query failed") }),
+          })),
+        })),
+      });
+
+      await expect(getEventReviews("e1")).rejects.toThrow("Review query failed");
+    });
+  });
+
   // ---- getUserProfile ----
   describe("getUserProfile", () => {
     it("returns profile when found", async () => {
@@ -222,6 +258,44 @@ describe("Database functions – uncovered paths", () => {
       });
 
       await expect(getUserProfile("u1")).rejects.toThrow("DB error");
+    });
+  });
+
+  describe("getUserEventReview", () => {
+    it("returns review when found", async () => {
+      const mockReview = { id: "r1", event_id: "e1", user_id: "u1", rating: 5 };
+      mockFrom.mockReturnValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              maybeSingle: jest
+                .fn()
+                .mockResolvedValue({ data: mockReview, error: null }),
+            })),
+          })),
+        })),
+      });
+
+      const result = await getUserEventReview("e1", "u1");
+
+      expect(result).toEqual(mockReview);
+      expect(mockFrom).toHaveBeenCalledWith("event_reviews");
+    });
+
+    it("returns null when no review exists", async () => {
+      mockFrom.mockReturnValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              maybeSingle: jest
+                .fn()
+                .mockResolvedValue({ data: null, error: { code: "PGRST116" } }),
+            })),
+          })),
+        })),
+      });
+
+      await expect(getUserEventReview("e1", "u1")).resolves.toBeNull();
     });
   });
 

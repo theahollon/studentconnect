@@ -14,7 +14,19 @@ jest.mock("next/headers", () => ({
 jest.mock("@/lib/i18n/server", () => ({
   __esModule: true,
   getLocale: jest.fn().mockResolvedValue("en"),
-  t: jest.fn((key: string) => Promise.resolve(key)),
+  t: jest.fn((key: string) =>
+    Promise.resolve(
+      (
+        {
+          "eventContent.reviewSectionTitle": "Ratings and comments",
+          "eventContent.noReviews": "No reviews yet.",
+          "eventContent.reviewLoginPrompt":
+            "Log in and register for the event to leave a review.",
+          "activityForm.categories.social": "social",
+        } as Record<string, string>
+      )[key] ?? key,
+    ),
+  ),
 }));
 jest.mock("next/navigation", () => ({
   notFound: jest.fn(() => {
@@ -30,12 +42,16 @@ jest.mock("@/lib/i18n/client", () => ({
 }));
 
 const mockGetEventById = jest.fn();
+const mockGetEventReviews = jest.fn();
+const mockGetUserEventReview = jest.fn();
 const mockGetUser = jest.fn();
 const mockSelect = jest.fn();
 
 jest.mock("@/lib/supabase/database", () => ({
   __esModule: true,
   getEventById: (...args: unknown[]) => mockGetEventById(...args),
+  getEventReviews: (...args: unknown[]) => mockGetEventReviews(...args),
+  getUserEventReview: (...args: unknown[]) => mockGetUserEventReview(...args),
 }));
 
 // Build a flexible chainable mock that supports all Supabase query patterns
@@ -68,6 +84,8 @@ const EventContent = require("@/app/events/[id]/EventContent").default;
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockGetEventReviews.mockResolvedValue([]);
+  mockGetUserEventReview.mockResolvedValue(null);
 });
 
 test("renders event details", async () => {
@@ -84,6 +102,7 @@ test("renders event details", async () => {
 
   expect(screen.getByText("Test Event")).toBeInTheDocument();
   expect(screen.getByText("A great event")).toBeInTheDocument();
+  expect(screen.getByText("Ratings and comments")).toBeInTheDocument();
 });
 
 test("shows register button for logged-in user", async () => {
@@ -164,4 +183,33 @@ test("does not render event_type badge when event_type is absent", async () => {
 
   expect(screen.queryByText("social")).not.toBeInTheDocument();
   expect(screen.queryByText("general")).not.toBeInTheDocument();
+});
+
+test("renders existing reviews and summary", async () => {
+  mockGetEventById.mockResolvedValue({
+    id: "e1",
+    title: "Reviewed Event",
+    description: "Desc",
+    start_time: "2026-06-15T10:00:00Z",
+    location: "Campus",
+  });
+  mockGetUser.mockResolvedValue({ data: { user: null } });
+  mockGetEventReviews.mockResolvedValue([
+    {
+      id: "r1",
+      event_id: "e1",
+      user_id: "u1",
+      rating: 4,
+      comment: "Very useful session",
+      created_at: "2026-06-15T12:00:00Z",
+      updated_at: "2026-06-15T12:00:00Z",
+      profiles: { email: "alice@example.com" },
+    },
+  ]);
+
+  render(await EventContent({ params: Promise.resolve({ id: "e1" }) }));
+
+  expect(screen.getByText("4/5 based on 1 review")).toBeInTheDocument();
+  expect(screen.getByText("Very useful session")).toBeInTheDocument();
+  expect(screen.getByText("alice")).toBeInTheDocument();
 });

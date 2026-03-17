@@ -79,16 +79,44 @@ export default async function JoblistingContent(props: {
   const admin = await isAdmin();
 
   return (
-    <div className="p-8 space-y-8">
-      <header className="space-y-2">
-        <h1 className="text-5xl font-bold text-gray-900">{joblisting.title}</h1>
-        {(joblisting as any).company && (
-          <p className="text-lg text-gray-600">{(joblisting as any).company}</p>
+    <div className="space-y-8 p-8 md:p-10">
+      <header className="rounded-[28px] border border-white/50 bg-white/55 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.05)]">
+        {employment_type && (
+          <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500 ring-1 ring-black/5">
+            {employmentTypeText ?? employment_type}
+          </span>
         )}
+
+        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-gray-950 md:text-5xl">
+          {joblisting.title}
+        </h1>
+        {(joblisting as any).company && (
+          <p className="mt-3 text-base font-medium text-gray-500">
+            {(joblisting as any).company}
+          </p>
+        )}
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          {location && (
+            <span className="inline-flex rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600 ring-1 ring-black/5">
+              {location}
+            </span>
+          )}
+          {application_deadline && (
+            <span className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-sm font-medium text-amber-700 ring-1 ring-amber-100">
+              {formatDate(application_deadline, dateLocale)}
+            </span>
+          )}
+          {contact_email && (
+            <span className="inline-flex rounded-full bg-white px-3 py-1 text-sm font-medium text-gray-700 ring-1 ring-black/5">
+              {contact_email}
+            </span>
+          )}
+        </div>
       </header>
 
       {hasMeta && (
-        <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+        <section className="rounded-[28px] border border-white/50 bg-white/55 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.05)]">
           <h2 className="text-lg font-semibold text-gray-900">{keyInfoTitle}</h2>
 
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -133,7 +161,7 @@ export default async function JoblistingContent(props: {
             <div className="mt-6">
               {isDeadlinePassed ? (
                 <span
-                  className="inline-flex items-center justify-center rounded-xl bg-gray-300 px-4 py-2 font-medium text-gray-700"
+                  className="inline-flex items-center justify-center rounded-full bg-gray-300 px-4 py-2 font-medium text-gray-700"
                   aria-disabled="true"
                 >
                   {deadlinePassedText}
@@ -143,7 +171,7 @@ export default async function JoblistingContent(props: {
                   href={application_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl bg-green-600 px-4 py-2 font-medium text-white hover:bg-green-700"
+                  className="inline-flex items-center justify-center rounded-full bg-gray-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-black"
                 >
                   {applyNowText}
                 </a>
@@ -154,9 +182,9 @@ export default async function JoblistingContent(props: {
       )}
 
       {joblisting.description && (
-        <section className="space-y-2">
+        <section className="rounded-[28px] border border-white/50 bg-white/55 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.05)]">
           <h2 className="text-lg font-semibold text-gray-900">{descriptionTitle}</h2>
-          <p className="text-gray-700 break-words whitespace-pre-wrap">
+          <p className="mt-3 break-words whitespace-pre-wrap text-gray-700 leading-7">
             {joblisting.description}
           </p>
         </section>

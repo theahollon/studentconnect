@@ -26,34 +26,46 @@ async function JobListingsShell({
   const title = await t("jobListings");
 
   const loadingText = await t("jobListingsPage.loading");
+  const badge = await t("jobListingsPage.badge");
+  const subtitle = await t("jobListingsPage.subtitle");
   const createBtn = await t("jobListingsPage.createButton");
   const admin = await isAdmin();
   const { type } = await searchParams;
 
   return (
-    <div className="mx-auto max-w-4xl px-6 text-center">
-      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
-        {title}
-      </h1>
-      <p className="mt-2 text-base text-gray-500">
-        Find internships and job opportunities for students
-      </p>
-      {admin && (
-        <div className="mt-10">
-          <a
-            href="/admin/jobs"
-            className="inline-block rounded-lg bg-pink-500 px-6 py-3 text-white font-semibold hover:bg-pink-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition transform"
-          >
-            {createBtn}
-          </a>
-        </div>
-      )}
+    <div className="mx-auto mt-4 max-w-4xl px-6 text-center">
+      <div className="mx-auto max-w-3xl rounded-[28px] border border-white/40 bg-white/20 px-6 py-8 backdrop-blur-[2px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+          {badge}
+        </p>
 
-      <Suspense>
-        <JobListingsFilter />
-      </Suspense>
+        <h1 className="mt-3 text-5xl font-semibold tracking-tight text-black md:text-6xl">
+          {title}
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">
+          {subtitle}
+        </p>
+        {admin && (
+          <div className="mt-8">
+            <a
+              href="/admin/jobs"
+              className="inline-flex items-center rounded-full bg-gray-950 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-black"
+            >
+              {createBtn}
+            </a>
+          </div>
+        )}
+
+        <div className="mt-8">
+          <Suspense>
+            <JobListingsFilter />
+          </Suspense>
+        </div>
+      </div>
       <Suspense fallback={<p>{loadingText}</p>}>
-        <JobList filter={type} />
+        <div className="mt-8">
+          <JobList filter={type} />
+        </div>
       </Suspense>
     </div>
   );

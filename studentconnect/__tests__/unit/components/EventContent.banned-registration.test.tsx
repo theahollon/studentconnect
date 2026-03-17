@@ -25,8 +25,12 @@ jest.mock("@/lib/auth", () => ({
 }));
 
 const mockGetEventById = jest.fn();
+const mockGetEventReviews = jest.fn();
+const mockGetUserEventReview = jest.fn();
 jest.mock("@/lib/supabase/database", () => ({
   getEventById: (...args: unknown[]) => mockGetEventById(...args),
+  getEventReviews: (...args: unknown[]) => mockGetEventReviews(...args),
+  getUserEventReview: (...args: unknown[]) => mockGetUserEventReview(...args),
 }));
 
 jest.mock("@/app/events/[id]/DeleteEventButton", () => {
@@ -91,6 +95,8 @@ beforeEach(() => {
     start_time: "2026-03-20T12:00:00.000Z",
     event_type: "social",
   });
+  mockGetEventReviews.mockResolvedValue([]);
+  mockGetUserEventReview.mockResolvedValue(null);
 });
 
 describe("EventContent — banned registration behavior", () => {

@@ -89,7 +89,7 @@ test("renders key info when location and deadline are present", async () => {
   const params = Promise.resolve({ id: "j1" });
   render(await JoblistingContent({ params }));
 
-  expect(screen.getByText("Oslo")).toBeInTheDocument();
+  expect(screen.getAllByText("Oslo")).toHaveLength(2);
   expect(
     screen.getByText("joblistingContent.keyInformation"),
   ).toBeInTheDocument();
