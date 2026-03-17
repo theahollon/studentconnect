@@ -135,6 +135,13 @@
   "rootNav.favorites": "Favorites",
   "rootNav.manageAdmins": "Manage Admins",
 
+  "favoritesPage.heading": "Favorites",
+  "favoritesPage.subtitle": "Keep track of saved events and job listings",
+  "favoritesPage.eventsHeading": "Events",
+  "favoritesPage.noEvents": "No favorite events yet.",
+  "favoritesPage.jobsHeading": "Job listings",
+  "favoritesPage.noJobs": "No favorite job listings yet.",
+
   "home.title": "Welcome to StudentConnect",
   "home.subtitle": "Connect with opportunities and events for students",
 

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { t } from "@/lib/i18n/server";
 import type {
   EventFavoriteRow,
   FavoriteEvent,
@@ -67,17 +68,25 @@ export default async function FavoritesPage() {
     )
     .filter((job): job is FavoriteJob => !!job);
 
+  const heading = await t("favoritesPage.heading");
+  const subtitle = await t("favoritesPage.subtitle");
+  const eventsHeading = await t("favoritesPage.eventsHeading");
+  const noEvents = await t("favoritesPage.noEvents");
+  const jobsHeading = await t("favoritesPage.jobsHeading");
+  const noJobs = await t("favoritesPage.noJobs");
+
   return (
     <div className="mx-auto max-w-4xl px-6 text-center text-black">
       <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
-        Favorites
+        {heading}
       </h1>
       <p className="mt-2 text-base text-gray-500">
-        Keep track of saved events and job listings
+        {subtitle}
       </p>
       <FavoritesList
         favoriteEvents={favoriteEvents}
         favoriteJobs={favoriteJobs}
+        labels={{ eventsHeading, noEvents, jobsHeading, noJobs }}
       />
     </div>
   );

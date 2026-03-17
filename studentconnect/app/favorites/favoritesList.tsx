@@ -7,19 +7,26 @@ import type { FavoriteEvent, FavoriteJob } from "@/lib/supabase/types";
 type FavoritesListProps = {
   favoriteEvents: FavoriteEvent[];
   favoriteJobs: FavoriteJob[];
+  labels: {
+    eventsHeading: string;
+    noEvents: string;
+    jobsHeading: string;
+    noJobs: string;
+  };
 };
 
 export default function FavoritesList({
   favoriteEvents,
   favoriteJobs,
+  labels,
 }: FavoritesListProps) {
 
   return (
     <>
       <section className="mt-10">
-        <h2 className="text-2xl font-semibold">Events</h2>
+        <h2 className="text-2xl font-semibold">{labels.eventsHeading}</h2>
         {favoriteEvents.length === 0 ? (
-          <p className="mt-3 text-gray-600">No favorite events yet.</p>
+          <p className="mt-3 text-gray-600">{labels.noEvents}</p>
         ) : (
           <div className="mt-4 grid gap-4">
             {favoriteEvents.map((event) => (
@@ -50,9 +57,9 @@ export default function FavoritesList({
       </section>
 
       <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Job listings</h2>
+        <h2 className="text-2xl font-semibold">{labels.jobsHeading}</h2>
         {favoriteJobs.length === 0 ? (
-          <p className="mt-3 text-gray-600">No favorite job listings yet.</p>
+          <p className="mt-3 text-gray-600">{labels.noJobs}</p>
         ) : (
           <div className="mt-4 grid gap-4">
             {favoriteJobs.map((job) => (

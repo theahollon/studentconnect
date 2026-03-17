@@ -133,6 +133,13 @@
     "rootNav.jobs": "Lavori",
     "rootNav.favorites": "Preferiti",
     "rootNav.manageAdmins": "Gestisci Amministratori",
+
+    "favoritesPage.heading": "Preferiti",
+    "favoritesPage.subtitle": "Tieni traccia degli eventi e delle offerte di lavoro salvati",
+    "favoritesPage.eventsHeading": "Eventi",
+    "favoritesPage.noEvents": "Nessun evento preferito ancora.",
+    "favoritesPage.jobsHeading": "Offerte di lavoro",
+    "favoritesPage.noJobs": "Nessuna offerta di lavoro preferita ancora.",
   
     "home.title": "Benvenuto su StudentConnect",
     "home.subtitle": "Connettiti con opportunità ed eventi per studenti",
